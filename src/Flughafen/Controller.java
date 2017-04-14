@@ -1,4 +1,4 @@
-package sample;
+package Flughafen;
 
 public class Controller {
     int test;
