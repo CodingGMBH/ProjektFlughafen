@@ -18,7 +18,7 @@ public class BuchungsprofilAnwender extends Buchungsprofil {        //Klassendia
         super(flugNummer, gepaeckGewicht);
         this.anwenderPID = anwenderPID;
         this.mitfliegerListe = mitfliegerListe;
-        FluegeSpeicher.getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + mitfliegerListe.size());
+        FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + mitfliegerListe.size());
     }
 
     //Es kann aber auch eine Buchung erstellt werden, bei der keine "mitfligerListe" übergeben wird. Mitflieger können später hinzugefügt werden.
@@ -41,17 +41,17 @@ public class BuchungsprofilAnwender extends Buchungsprofil {        //Klassendia
 
     public void setMitfliegerListe(List<Mitflieger> mitfliegerListe) {
         this.mitfliegerListe = mitfliegerListe;
-        FluegeSpeicher.getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + mitfliegerListe.size());
+        FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + mitfliegerListe.size());
     }
 
     @Override
     public double calculatePreis() {
-        return (FluegeSpeicher.getFlug(this.getFlugNummer()).getPreisSitzplatz() + this.getGepaeckGewicht() * this.mitfliegerListe.size()) + 50;
+        return (FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getPreisSitzplatz() + this.getGepaeckGewicht() * this.mitfliegerListe.size()) + 50;
     }
 
     public void addMitflieger(Mitflieger mitflieger){
         this.mitfliegerListe.add(mitflieger);
-        FluegeSpeicher.getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + 1);
+        FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + 1);
     }
 
     @Override
