@@ -18,7 +18,7 @@ public abstract class Buchungsprofil {      //Klassendiagramm konform.
         this.buchungsID = BuchungsprofilSpeicher.getBuchungsCounter();          //Die Buchung erhält eine eindeutige BuchungsID von der Klasse BuchugsprofilSpeicher.
         BuchungsprofilSpeicher.getInstance().setBuchungsCounter(BuchungsprofilSpeicher.getBuchungsCounter() + 1);     //Hier wird der buchungsCounter der Klasse BuchungsprofilSpeicher um 1 inkrementiert, damit die BuchungID für jede Buchung eindeutig bleibt.
         this.gepaeckGewicht = gepaeckGewicht;
-        FluegeSpeicher.getFlug(this.getFlugNummer()).setZaehlerGepaeckGewicht(FluegeSpeicher.getFlug(this.getFlugNummer()).getZaehlerGepaeckGewicht() + gepaeckGewicht);            //Hier wird das neue Gepäckgewicht des Fluges gesetzt.
+        FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGepaeckGewicht(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGepaeckGewicht() + gepaeckGewicht);            //Hier wird das neue Gepäckgewicht des Fluges gesetzt.
     }
 
     //Im Folgenden können die Attribute ausgelesen oder neu gesetzt werden.
@@ -41,7 +41,7 @@ public abstract class Buchungsprofil {      //Klassendiagramm konform.
 
     public void setGepaeckGewicht(double gepaeckGewicht) {
         this.gepaeckGewicht = gepaeckGewicht;
-        FluegeSpeicher.getFlug(this.getFlugNummer()).setZaehlerGepaeckGewicht(FluegeSpeicher.getFlug(this.getFlugNummer()).getZaehlerGepaeckGewicht() + gepaeckGewicht);            //Hier wird das neue Gepäckgewicht des Fluges gesetzt.
+        FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGepaeckGewicht(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGepaeckGewicht() + gepaeckGewicht);            //Hier wird das neue Gepäckgewicht des Fluges gesetzt.
     }
 
     public abstract double calculatePreis();
