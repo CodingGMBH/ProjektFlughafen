@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Flughafen</OriginalElement>
+  <nodes>
+    <node x="0.0" y="424.5">Flughafen.Controller.AnmeldenRegistrierenController</node>
+    <node x="263.0" y="402.0">Flughafen.Controller.StartSceneController</node>
+    <node x="537.0" y="213.0">Flughafen.Utility.MainApp</node>
+    <node x="400.0" y="0.0">Flughafen.AppController</node>
+    <node x="321.0" y="257.0">Flughafen.Controller.AbstractController</node>
+    <node x="595.0" y="424.5">Flughafen.Controller.AngemeldetController</node>
+    <node x="0.0" y="521.0">Flughafen.Utility.ViewNavigation</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Flughafen.Controller.AnmeldenRegistrierenController" target="Flughafen.Controller.AbstractController">
+      <point x="0.0" y="-14.5" />
+      <point x="121.5" y="377.0" />
+      <point x="353.66666666666663" y="377.0" />
+      <point x="-65.33333333333331" y="25.5" />
+    </edge>
+    <edge source="Flughafen.Controller.StartSceneController" target="Flughafen.Controller.AbstractController">
+      <point x="0.0" y="-37.0" />
+      <point x="0.0" y="25.5" />
+    </edge>
+    <edge source="Flughafen.Controller.AngemeldetController" target="Flughafen.Controller.AbstractController">
+      <point x="0.0" y="-14.5" />
+      <point x="686.0" y="377.0" />
+      <point x="484.33333333333326" y="377.0" />
+      <point x="65.33333333333331" y="25.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5067695102069864" x="397.0" y="317.0" />
+  <SelectedNodes>
+    <node>Flughafen.Controller.AngemeldetController</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
