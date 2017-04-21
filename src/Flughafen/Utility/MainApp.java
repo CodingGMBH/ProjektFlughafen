@@ -12,7 +12,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Chemical Color Lab");
+        primaryStage.setTitle("Flughafen");
         initApp(primaryStage);
     }
     

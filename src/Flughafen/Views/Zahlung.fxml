@@ -6,35 +6,25 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #0292F0, #020EAF);" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Flughafen.Controller.ZahlungController">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../Images/Background@2x.png" />
-         </image>
-      </ImageView>
       <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="373.0" prefWidth="552.0" style="-fx-background-color: white; -fx-background-radius: 20 20 20 20;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
-            <Label alignment="CENTER" layoutY="76.0" prefHeight="52.0" prefWidth="560.0" text="Zahlungsdaten" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <Label alignment="CENTER" layoutY="76.0" prefHeight="52.0" prefWidth="560.0" text="Zahlungsdaten" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
                <font>
-                  <Font name="Arial" size="30.0" />
+                  <Font name="Arial" size="45.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER" layoutX="5.0" layoutY="129.0" prefHeight="100.0" prefWidth="551.0" spacing="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <children>
-                  <Label text="Kreditkartennummer" />
-                  <TextField />
-                  <Button mnemonicParsing="false" text="Buchen" />
-               </children>
-            </HBox>
-            <ImageView fitHeight="61.0" fitWidth="486.0" layoutX="38.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="36.0">
+            <ImageView fitHeight="151.0" fitWidth="702.0" layoutX="42.0" layoutY="370.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="29.0">
                <image>
                   <Image url="@../Images/FlugAbgeflogenImg.png" />
                </image>
             </ImageView>
+            <TextField fx:id="zahlungsadetenTxtField" layoutX="288.0" layoutY="254.0" AnchorPane.bottomAnchor="267.0" AnchorPane.leftAnchor="296.0" AnchorPane.rightAnchor="296.0" AnchorPane.topAnchor="266.0" />
+            <Button fx:id="buchenButt" layoutX="525.0" layoutY="252.0" mnemonicParsing="false" onAction="#handelBuchen" prefWidth="150.0" text="Buchen" AnchorPane.bottomAnchor="267.0" AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="266.0" />
+            <Label alignment="CENTER" layoutX="101.0" layoutY="259.0" prefWidth="150.0" text="Kreditkartennummer" AnchorPane.bottomAnchor="267.0" AnchorPane.leftAnchor="73.0" AnchorPane.topAnchor="266.0" />
          </children>
       </AnchorPane>
    </children>
