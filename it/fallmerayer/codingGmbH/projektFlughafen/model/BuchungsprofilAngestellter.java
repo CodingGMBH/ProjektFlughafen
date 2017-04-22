@@ -43,9 +43,14 @@ public class BuchungsprofilAngestellter extends Buchungsprofil {
         return passagierListe;
     }
 
-    public void setPassagierListe(List<Mitflieger> passagierListe) {
-        this.passagierListe = passagierListe;
-        FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + passagierListe.size());
+    //Es können nur "passagiere" eingefügt werden, falls noch genügend Platz im Flugzeug frei ist.
+    public void setPassagierListe(List<Mitflieger> passagierListe) throws FlugNichtBuchbarException {
+        if ((FluegeSpeicher.getInstance.getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getGebuchteSitzplaetze()) >= passagierListe.size()){
+            FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + passagierListe.size());
+            this.passagierListe = passagierListe;
+        }else {
+            throw new FlugNichtBuchbarException();
+        }
     }
 
     @Override
