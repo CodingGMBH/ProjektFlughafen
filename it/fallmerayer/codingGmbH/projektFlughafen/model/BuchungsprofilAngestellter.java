@@ -1,7 +1,6 @@
 package it.fallmerayer.codingGmbH.projektFlughafen.model;
 import java.util.LinkedList;
 import java.util.List;
-
 /**
  * Created by Hannes Niederwolfsgruber on 10.04.2017.
  */
