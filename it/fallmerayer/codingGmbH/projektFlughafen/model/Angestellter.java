@@ -1,7 +1,6 @@
 package it.fallmerayer.codingGmbH.projektFlughafen.model;
 import java.time.LocalDateTime;
 import java.util.List;
-
 /**
  * Created by Hannes Niederwolfsgruber on 11.04.2017.
  */
