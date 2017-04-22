@@ -44,9 +44,14 @@ public class BuchungsprofilAnwender extends Buchungsprofil {        //Klassendia
         return mitfliegerListe;
     }
 
-    public void setMitfliegerListe(List<Mitflieger> mitfliegerListe) {
+    //Es können nur Mitflieger eingefügt werden, wenn im Flugzeug noch genügend Platz ist.
+    public void setMitfliegerListe(List<Mitflieger> mitfliegerListe) throws FlugNichtBuchbarException{
         this.mitfliegerListe = mitfliegerListe;
-        FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + mitfliegerListe.size());
+        if ((FluegeSpeicher.getInstance.getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getGebuchteSitzplaetze()) >= mitfliegerListe.size()){
+            FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + mitfliegerListe.size());
+        }else {
+            throw new FlugNichtBuchbarException();
+        }
     }
 
     @Override
