@@ -2,7 +2,7 @@ package it.fallmerayer.codingGmbH.projektFlughafen.model;
 /**
  * Created by Hannes Niederwolfsgruber on 10.04.2017.
  */
-public abstract class Buchungsprofil {      //Klassendiagramm konform.
+public abstract class Buchungsprofil {
 
     private String flugNummer;
     private int buchungsID;
