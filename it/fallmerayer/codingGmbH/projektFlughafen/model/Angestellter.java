@@ -18,11 +18,6 @@ public class Angestellter extends Benutzerprofil {
         }
     }
 
-    //Dieser Konstruktor ist für den Administrator
-    public Angestellter(String vorname, String nachname, String email, LocalDateTime geburtsDatum, String benutzerName, String passwort, int PID) {
-        super(vorname, nachname, email, geburtsDatum, benutzerName, passwort, PID);
-    }
-
     public static int getAngestellterCounter() {
         return angestellterCounter;
     }
