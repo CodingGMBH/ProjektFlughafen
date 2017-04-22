@@ -23,7 +23,6 @@ public abstract class Buchungsprofil {
             throw new FlugNichtBuchbarException();
         }
     }
-    //Im Folgenden können die Attribute ausgelesen oder neu gesetzt werden.
 
     public String getFlugNummer() {
         return flugNummer;
