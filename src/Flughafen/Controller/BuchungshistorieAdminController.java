@@ -24,7 +24,7 @@ public class BuchungshistorieAdminController extends AbstractController {
 
     @FXML
     private void handleBack(){
-        main.selectView(ViewNavigation.STARTSCENE);
+        main.selectView(ViewNavigation.ANGEMELDETSCENE);
     }
 
     @FXML

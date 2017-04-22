@@ -16,7 +16,7 @@ public class InputBoxPersonDialogController extends AbstractController {
     String person;
 
     int howOften;
-    int time;
+    int time = 1;
 
     @FXML Label personaldatenLabel;
 
@@ -33,12 +33,11 @@ public class InputBoxPersonDialogController extends AbstractController {
     @FXML
     private void initialize() {
         time = 1;
-        personaldatenLabel.setText(personaldatenLabel.getText() + " " + time + "/" + howOften);
     }
 
     public void setHowOften(int howOften) {
         this.howOften = howOften;
-        time = 0;
+        personaldatenLabel.setText("Personaldate" + " " + time + "/" + howOften);
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -51,9 +50,9 @@ public class InputBoxPersonDialogController extends AbstractController {
 
     @FXML
     private void handleFortfahren(){
-        time++;
-        if (howOften > time){
-
+        time += 1;
+        if (howOften >= time){
+            personaldatenLabel.setText("Personaldate" + " " + time + "/" + howOften);
         }else {
             dialogStage.close();
             main.selectView(ViewNavigation.ZAHLUNGSCENE);

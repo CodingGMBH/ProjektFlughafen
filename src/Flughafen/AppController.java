@@ -129,9 +129,9 @@ public class AppController {
 
             // Set the person into the controller
             InputBoxPersonDialogController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setPerson(person);
             controller.setHowOften(howMany);
+            controller.setPerson(person);
+            controller.setDialogStage(dialogStage);
             controller.setMainApp(this);
 
             // Show the dialog and wait until the user closes it
