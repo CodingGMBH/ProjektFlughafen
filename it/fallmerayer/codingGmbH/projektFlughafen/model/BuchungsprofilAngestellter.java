@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Hannes Niederwolfsgruber on 10.04.2017.
  */
-public class BuchungsprofilAngestellter extends Buchungsprofil {		//Klassendiagramm konform.
+public class BuchungsprofilAngestellter extends Buchungsprofil {
 
     private int angestellterPID;
     private List<Mitflieger> passagierListe = new LinkedList<>();
@@ -26,11 +26,11 @@ public class BuchungsprofilAngestellter extends Buchungsprofil {		//Klassendiagr
     }
 
     //Man kann ein BuchungsprofilAngestellter ohne "mitfliegerListe" erstellen.
-    public BuchungsprofilAngestellter(String flugNummer, double gepaeckGewicht, int angestellterPID) {
+    public BuchungsprofilAngestellter(String flugNummer, double gepaeckGewicht, int angestellterPID) throws FlugNichtBuchbarException {
         super(flugNummer, gepaeckGewicht);
         this.angestellterPID = angestellterPID;
     }
-
+    
     public int getAngestellterPID() {
         return angestellterPID;
     }
