@@ -42,9 +42,13 @@ public abstract class Buchungsprofil {      //Klassendiagramm konform.
         return gepaeckGewicht;
     }
 
-    public void setGepaeckGewicht(double gepaeckGewicht) {
+    public void setGepaeckGewicht(double gepaeckGewicht) throws FlugNichtBuchbarException {
         this.gepaeckGewicht = gepaeckGewicht;
-        FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGepaeckGewicht(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGepaeckGewicht() + gepaeckGewicht);            //Hier wird das neue Gepäckgewicht des Fluges gesetzt.
+        if ((FlueSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getGepaeckKapazitaet() - FluegeSpeicher.getInstance().getFlug(this.flugNummer).getZaehlerGepaeckgewicht()) >= gepaeckGewicht){
+            FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGepaeckGewicht(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGepaeckGewicht() + gepaeckGewicht);            //Hier wird das neue Gepäckgewicht des Fluges gesetzt.
+        }else {
+            throw new FlugNichtBuchbarException();
+        }
     }
 
     public abstract double calculatePreis();
