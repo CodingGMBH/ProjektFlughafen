@@ -27,7 +27,7 @@ public class BuchungsprofilAnwender extends Buchungsprofil {        //Klassendia
     }
 
     //Es kann aber auch eine Buchung erstellt werden, bei der keine "mitfligerListe" übergeben wird. Mitflieger können später hinzugefügt werden.
-    public BuchungsprofilAnwender(String flugNummer, double gepaeckGewicht, int anwenderPID) {
+    public BuchungsprofilAnwender(String flugNummer, double gepaeckGewicht, int anwenderPID) throws FlugNichtBuchbarException{
         super(flugNummer, gepaeckGewicht);
         this.anwenderPID = anwenderPID;
     }
