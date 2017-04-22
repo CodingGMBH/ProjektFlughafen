@@ -18,6 +18,7 @@ public class BuchungsprofilAnwender extends Buchungsprofil {        //Klassendia
         super(flugNummer, gepaeckGewicht);
         this.anwenderPID = anwenderPID;
         this.mitfliegerListe = mitfliegerListe;
+        if(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).!!!!!!)
         FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + mitfliegerListe.size());
     }
 
