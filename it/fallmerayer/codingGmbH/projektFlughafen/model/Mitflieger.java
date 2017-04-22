@@ -3,7 +3,7 @@ import java.time.LocalDateTime;
 /**
  * Created by Hannes Niederwolfsgruber on 10.04.2017.
  */
-public class Mitflieger extends Person{     //Klassendiagramm konform.
+public class Mitflieger extends Person{
 
     private int identitaetsNummer;
 
