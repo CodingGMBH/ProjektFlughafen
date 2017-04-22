@@ -14,11 +14,16 @@ public class BuchungsprofilAnwender extends Buchungsprofil {        //Klassendia
     public BuchungsprofilAnwender() {}
 
     //Es kann eine Buchung mit "mitfliegerListe" erstellt werden, falls die "mitfliegerListe" schon bekannt ist.
-    public BuchungsprofilAnwender(String flugNummer, double gepaeckGewicht, int anwenderPID, List<Mitflieger> mitfliegerListe) {
+    public BuchungsprofilAnwender(String flugNummer, double gepaeckGewicht, int anwenderPID, List<Mitflieger> mitfliegerListe) throws FlugNichtBuchbarException{
         super(flugNummer, gepaeckGewicht);
         this.anwenderPID = anwenderPID;
         this.mitfliegerListe = mitfliegerListe;
-        FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + mitfliegerListe.size());
+        
+        if ((FluegeSpeicher.getInstance.getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getGebuchteSitzplaetze()) >= mitfliegerListe.size()){
+            FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + mitfliegerListe.size());
+        }else {
+            throw new FlugNichtBuchbarException();
+        }
     }
 
     //Es kann aber auch eine Buchung erstellt werden, bei der keine "mitfligerListe" übergeben wird. Mitflieger können später hinzugefügt werden.
