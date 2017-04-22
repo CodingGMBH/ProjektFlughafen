@@ -16,9 +16,9 @@ public abstract class Buchungsprofil {      //Klassendiagramm konform.
         this.flugNummer = flugNummer;
         this.buchungsID = BuchungsprofilSpeicher.getBuchungsCounter();          //Die Buchung erhält eine eindeutige BuchungsID von der Klasse BuchugsprofilSpeicher.
         BuchungsprofilSpeicher.setBuchungsCounter(BuchungsprofilSpeicher.getBuchungsCounter() + 1);     //Hier wird der buchungsCounter der Klasse BuchungsprofilSpeicher um 1 inkrementiert, damit die BuchungID für jede Buchung eindeutig bleibt.
-        this.gepaeckGewicht = gepaeckGewicht;
         if ((FlueSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getGepaeckKapazitaet() - FluegeSpeicher.getInstance().getFlug(this.flugNummer).getZaehlerGepaeckgewicht()) >= gepaeckGewicht){
             FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGepaeckGewicht(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGepaeckGewicht() + gepaeckGewicht);            //Hier wird das neue Gepäckgewicht des Fluges gesetzt.
+            this.gepaeckGewicht = gepaeckGewicht;
         }else {
             throw new FlugNichtBuchbarException();
         }
@@ -41,10 +41,10 @@ public abstract class Buchungsprofil {      //Klassendiagramm konform.
         return gepaeckGewicht;
     }
 
-    public void setGepaeckGewicht(double gepaeckGewicht) throws FlugNichtBuchbarException {
-        this.gepaeckGewicht = gepaeckGewicht;
+    public void setGepaeckGewicht(double gepaeckGewicht) throws FlugNichtBuchbarException{
         if ((FlueSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getGepaeckKapazitaet() - FluegeSpeicher.getInstance().getFlug(this.flugNummer).getZaehlerGepaeckgewicht()) >= gepaeckGewicht){
             FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGepaeckGewicht(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGepaeckGewicht() + gepaeckGewicht);            //Hier wird das neue Gepäckgewicht des Fluges gesetzt.
+            this.gepaeckGewicht = gepaeckGewicht;
         }else {
             throw new FlugNichtBuchbarException();
         }
