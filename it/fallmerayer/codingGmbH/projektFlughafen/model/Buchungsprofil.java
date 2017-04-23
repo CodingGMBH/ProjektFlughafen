@@ -35,6 +35,10 @@ public abstract class Buchungsprofil {
     public int getBuchungsID() {
         return buchungsID;
     }
+    
+    public void setBuchungsID(int buchungsID) {
+        this.buchungsID = buchungsID;
+    }
 
     public double getGepaeckGewicht() {
         return gepaeckGewicht;
