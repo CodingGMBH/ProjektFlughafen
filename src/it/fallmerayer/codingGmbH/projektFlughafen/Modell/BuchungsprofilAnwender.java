@@ -9,25 +9,30 @@ public class BuchungsprofilAnwender extends Buchungsprofil {
     private int anwenderPID;
     private List<Mitflieger> mitfliegerListe = new LinkedList<>();
 
-    //Eine Buchung ohne Inhalt kann erstellt werden.
-    public BuchungsprofilAnwender() {}
-
     //Es kann eine Buchung mit "mitfliegerListe" erstellt werden, falls die "mitfliegerListe" schon bekannt ist.
     public BuchungsprofilAnwender(String flugNummer, double gepaeckGewicht, int anwenderPID, List<Mitflieger> mitfliegerListe) throws FlugNichtBuchbarException{
         super(flugNummer, gepaeckGewicht);
-        this.anwenderPID = anwenderPID;        
-        if ((FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze()) >= mitfliegerListe.size()){
-            FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + mitfliegerListe.size());
+        this.anwenderPID = anwenderPID;
+
+        //Es kann nur ein "BuchungsprofilAnwender" erstellt werden, falls alle "Mitflieger" noch Platz im "Flugzeug" haben.
+        if ((FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getGebuchteSitzplaetze()) >= (mitfliegerListe.size() + 1)){
+            FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + (mitfliegerListe.size() + 1));
             this.mitfliegerListe = mitfliegerListe;
         }else {
-            throw new FlugNichtBuchbarException();
+            throw new FlugNichtBuchbarException("Der Flug besitzt nich mehr genügend Sitzplätze, damit alle von Ihnen eingegebenen Mitflieger mitfliegen können!");
         }
     }
 
-    //Es kann aber auch eine Buchung erstellt werden, bei der keine "mitfligerListe" übergeben wird. Mitflieger können später hinzugefügt werden.
+    //Es kann aber auch eine Buchung erstellt werden, bei der keine "mitfligerListe" übergeben wird. "mitflieger" können später hinzugefügt werden.
     public BuchungsprofilAnwender(String flugNummer, double gepaeckGewicht, int anwenderPID) throws FlugNichtBuchbarException{
         super(flugNummer, gepaeckGewicht);
         this.anwenderPID = anwenderPID;
+    }
+
+    //Mit diesem privaten Konstruktor erstellt man ein abgelaufenes Buchungsprofil.
+    private BuchungsprofilAnwender(double gepaeckGewicht, List<Mitflieger> mitfliegerListe, int buchungsID){
+        super(gepaeckGewicht, buchungsID);
+        this.mitfliegerListe = mitfliegerListe;
     }
 
     public int getAnwenderPID() {
@@ -44,11 +49,11 @@ public class BuchungsprofilAnwender extends Buchungsprofil {
 
     //Es können nur Mitflieger eingefügt werden, wenn im Flugzeug noch genügend Platz ist.
     public void setMitfliegerListe(List<Mitflieger> mitfliegerListe) throws FlugNichtBuchbarException{
-        if ((FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze()) >= mitfliegerListe.size()){
-            FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + mitfliegerListe.size());
+        if ((FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getGebuchteSitzplaetze()) >= (mitfliegerListe.size() + 1)){
+            FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + (mitfliegerListe.size() + 1));
             this.mitfliegerListe = mitfliegerListe;
         }else {
-            throw new FlugNichtBuchbarException();
+            throw new FlugNichtBuchbarException("Der Flug besitzt nich mehr genügend Sitzplätze, damit alle von Ihnen eingegebenen Mitflieger mitfliegen können!");
         }
     }
 
@@ -57,13 +62,21 @@ public class BuchungsprofilAnwender extends Buchungsprofil {
         return (FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getPreisSitzplatz() + this.getGepaeckGewicht() * this.mitfliegerListe.size()) + 50;
     }
 
-     //Es kann nur ein Mitflieger geaddet werden, fall noch ein Platz im Flugzeug frei ist.
+    @Override
+    public Buchungsprofil erstelleAbgelaufeneBuchung(String flugNummer, double gepaeckGewicht, int anwenderPID, List<Mitflieger> mitfliegerListe, int buchungsID) {
+        BuchungsprofilAnwender abgelaufeneBuchung = new BuchungsprofilAnwender(gepaeckGewicht, mitfliegerListe, buchungsID);
+        abgelaufeneBuchung.setFlugNummer(flugNummer);
+        abgelaufeneBuchung.setAnwenderPID(anwenderPID);
+        return abgelaufeneBuchung;
+    }
+
+    //Es kann nur ein Mitflieger geaddet werden, falls noch ein Platz im Flugzeug frei ist.
     public void addMitflieger(Mitflieger mitflieger) throws FlugNichtBuchbarException{
-        if ((FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze()) >= 1){
+        if ((FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getGebuchteSitzplaetze()) >= 1){
             FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + 1);
             this.mitfliegerListe.add(mitflieger);
         }else {
-            throw new FlugNichtBuchbarException();
+            throw new FlugNichtBuchbarException("Es konnte kein Mitflieger mehr hinzugefügt werden, da kein Platz mehr im Flieger buchbar ist!");
         }
     }
 

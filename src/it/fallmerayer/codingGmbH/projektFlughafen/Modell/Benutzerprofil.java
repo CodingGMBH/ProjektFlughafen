@@ -10,20 +10,20 @@ public abstract class Benutzerprofil extends Person{
     private int PID;
     private boolean angemeldet;
 
-    //Bei Konstruktor wird "angemeldet" standardmäßig auf false gesetzt. Die "PID" muss übergeben werden, da man nicht weiß, ob es ein Anwender, Angestellter oder Administrator ist.
+    //"angemeldet" wird standardmäßig auf "false" gesetzt. Die "PID" der einzelnen "Benutzerprofile" werden in den jeweiligen Subklassen gesetzt und nicht dem Konstruktor übergeben.
+    public Benutzerprofil(String vorname, String nachname, String email, LocalDateTime geburtsDatum, String benutzerName, String passwort) {
+        super(vorname, nachname, email, geburtsDatum);
+        this.benutzerName = benutzerName;
+        this.passwort = passwort;
+        this.angemeldet = false;
+    }
+
+    //Wenn ein "Benutzerprofil" aus der Datei gelesen wird, muss eine "PID" übergeben werden.
     public Benutzerprofil(String vorname, String nachname, String email, LocalDateTime geburtsDatum, String benutzerName, String passwort, int PID) {
         super(vorname, nachname, email, geburtsDatum);
         this.benutzerName = benutzerName;
         this.passwort = passwort;
         this.PID = PID;
-        this.angemeldet = false;
-    }
-
-    //Dieser Konstruktor wird für den Angestellten und Administrator benötigt, da die "PID" erst nach dem "super()" Aufruf im Konstruktor gesetzt wird.
-    public Benutzerprofil(String vorname, String nachname, String email, LocalDateTime geburtsDatum, String benutzerName, String passwort) {
-        super(vorname, nachname, email, geburtsDatum);
-        this.benutzerName = benutzerName;
-        this.passwort = passwort;
         this.angemeldet = false;
     }
 
@@ -62,24 +62,25 @@ public abstract class Benutzerprofil extends Person{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Benutzerprofil)) return false;
         if (!super.equals(o)) return false;
 
         Benutzerprofil that = (Benutzerprofil) o;
 
-        if (PID != that.PID) return false;
-        if (angemeldet != that.angemeldet) return false;
-        if (benutzerName != null ? !benutzerName.equals(that.benutzerName) : that.benutzerName != null) return false;
-        return passwort != null ? passwort.equals(that.passwort) : that.passwort == null;
+        if (getPID() != that.getPID()) return false;
+        if (isAngemeldet() != that.isAngemeldet()) return false;
+        if (getBenutzerName() != null ? !getBenutzerName().equals(that.getBenutzerName()) : that.getBenutzerName() != null)
+            return false;
+        return getPasswort() != null ? getPasswort().equals(that.getPasswort()) : that.getPasswort() == null;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (benutzerName != null ? benutzerName.hashCode() : 0);
-        result = 31 * result + (passwort != null ? passwort.hashCode() : 0);
-        result = 31 * result + PID;
-        result = 31 * result + (angemeldet ? 1 : 0);
+        result = 31 * result + (getBenutzerName() != null ? getBenutzerName().hashCode() : 0);
+        result = 31 * result + (getPasswort() != null ? getPasswort().hashCode() : 0);
+        result = 31 * result + getPID();
+        result = 31 * result + (isAngemeldet() ? 1 : 0);
         return result;
     }
 }

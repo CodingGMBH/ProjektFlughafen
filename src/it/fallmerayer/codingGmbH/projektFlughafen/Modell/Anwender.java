@@ -11,9 +11,17 @@ public class Anwender extends Benutzerprofil {
     private List<WunschlistenEintrag> wunschliste;
     private static int anwenderCounter = 1001;
 
-    //Es kann ein Anwender ohne wunschliste erstellt werden. Hier wird die "PID" gesetzt. Dabei wird die statische Variable "anwenderCounter" um 1 inkrementiert.
+    //Dem Konstruktor wird keine "wunschliste" übergeben, da erst später ein "WunschlistenEintrag" der "wunschliste" hinzugefügt werden kann. Die "PID" des "Anwenders" wird anschließend gesetzt.
     public Anwender(String vorname, String nachname, String email, LocalDateTime geburtsDatum, String benutzerName, String passwort, int identitaetsNummer) {
-        super(vorname, nachname, email, geburtsDatum, benutzerName, passwort, anwenderCounter++);
+        super(vorname, nachname, email, geburtsDatum, benutzerName, passwort);
+        this.setPID(anwenderCounter++);
+        this.identitaetsNummer = identitaetsNummer;
+        this.wunschliste = new LinkedList<>();
+    }
+
+    //Falls ein "Anwender" aus der Datei gelesen wird, muss eine "PID" übergeben werden.
+    public Anwender(String vorname, String nachname, String email, LocalDateTime geburtsDatum, String benutzerName, String passwort, int PID, int identitaetsNummer) {
+        super(vorname, nachname, email, geburtsDatum, benutzerName, passwort, PID);
         this.identitaetsNummer = identitaetsNummer;
         this.wunschliste = new LinkedList<>();
     }
@@ -43,16 +51,16 @@ public class Anwender extends Benutzerprofil {
         anwenderCounter = wert;
     }
 
-    //Eine Buchung wird erstellt. "PID" wird übergeben und die Buchung erhält automatisch eine "buchungsID". Dann wird die Buchung dem BuchungsprofilSpeicher übergeben.
+    //Ein "BuchungsprofilAnwender" wird erstellt. "PID" wird übergeben und die Buchung erhält automatisch eine "buchungsID". Dann wird die Buchung dem BuchungsprofilSpeicher übergeben. Es wird eine Exception geworfen, falls der Flug nicht buchbar ist.
     public BuchungsprofilAnwender bucheFlug(String flugNummer, double gepaeckGewicht, List<Mitflieger> mitfliegerListe) throws FlugNichtBuchbarException{
         BuchungsprofilAnwender aktuellesBuchungsprofil = new BuchungsprofilAnwender(flugNummer, gepaeckGewicht, this.getPID(), mitfliegerListe);
         BuchungsprofileSpeicher.getInstance().addBuchungsprofil(aktuellesBuchungsprofil);
         return aktuellesBuchungsprofil;
     }
 
-    //Ein Flug kann in die Wunschliste gelegt werden, aber nur, falls der Flug zu diesem Zeitpunkt buchbar ist und mit den gewünschten Konfigurationen übereinstimmt. Wird der Flug hineingelegt, so wird der WunschlistenEintrag auf "true" gesetzt.
+    //Ein "Flug" kann in die "wunschliste" gelegt werden, aber nur, falls der "Flug" zu diesem Zeitpunkt "buchbar" ist und mit den gewünschten Konfigurationen übereinstimmt. Wird der "Flug" hineingelegt, so wird der WunschlistenEintrag auf "true" gesetzt.
     public boolean legeFlugInWunschliste(String flugNummer, int anzahlPassagiere, double gepaeckGewicht){
-        Flug flugFuerWunschliste = FluegeSpeicher.getInstance().getFlug(flugNummer);
+        Flug flugFuerWunschliste = FluegeSpeicher.getIncstance().getFlug(flugNummer);
 
         if (flugFuerWunschliste.isBuchbar() && (flugFuerWunschliste.getFlugzeug().getAnzahlSitzplaetze() - flugFuerWunschliste.getZaehlerGebuchteSitzplaetze()) >= anzahlPassagiere && ((flugFuerWunschliste.getFlugzeug().gepaeckKapazitaet() - flugFuerWunschliste.getZaehlerGepaeckGewicht())) >= gepaeckGewicht){
             this.wunschliste.add(new WunschlistenEintrag(flugNummer, anzahlPassagiere, gepaeckGewicht, true));
@@ -62,7 +70,7 @@ public class Anwender extends Benutzerprofil {
         }
     }
 
-    //Es wird der zur Flugnummer übergebene Flug aus der Wunschliste gegeben.
+    //Es wird der zur "flugnummer" übergebene "Flug" aus der "wunschliste" entfernt.
     public boolean entferneFlugVonWunschliste(String flugNummer){
         for (WunschlistenEintrag wunschlistenEintrag:wunschliste) {
             if (wunschlistenEintrag.getFlugNummer().equals(flugNummer)){
@@ -72,14 +80,14 @@ public class Anwender extends Benutzerprofil {
         return false;
     }
 
-    //Der Flug muss buchbar und mit der Konfiguration übereinstimmen, damit er noch länger in der Wunschliste "buchbar" sein kann.
+    //Der "Flug" muss buchbar und mit der Konfiguration übereinstimmen, damit er noch länger in der "wunschliste" "buchbar" sein kann.
     public void aktualisiereWunschliste(){
         Flug aktuellerFlug;
 
         for (WunschlistenEintrag flugInWunschliste: this.wunschliste) {
 
-            //Das ist der Flug, dessen WunschlistenEintrag in der Wunschliste ist. Die dazugehörige Flugnummer wird vom FluegeSpeicher geholt, um zu überprüfen, ob der Flug in der Wunschliste noch "buchbar" ist.
-            aktuellerFlug = FluegeSpeicher.getInstance().getFlug(flugInWunschliste.getFlugNummer());
+            //Das ist der "Flug", dessen "WunschlistenEintrag" in der "wunschliste" ist. Die dazugehörige "flugnummer" wird vom "FluegeSpeicher" geholt, um zu überprüfen, ob der "Flug" in der "wunschliste" noch "buchbar" ist.
+            aktuellerFlug = FluegeSpeicher.getIncstance().getFlug(flugInWunschliste.getFlugNummer());
 
             if (aktuellerFlug.isBuchbar() && (aktuellerFlug.getFlugzeug().getAnzahlSitzplaetze() - aktuellerFlug.getZaehlerGebuchteSitzplaetze()) >= flugInWunschliste.getAnzahlPassagiere() && ((aktuellerFlug.getFlugzeug().gepaeckKapazitaet() - aktuellerFlug.getZaehlerGepaeckGewicht())) >= flugInWunschliste.getGepaeckGewicht()){
                 flugInWunschliste.setBuchbar(true);
@@ -99,7 +107,6 @@ public class Anwender extends Benutzerprofil {
 
         if (getIdentitaetsNummer() != anwender.getIdentitaetsNummer()) return false;
         return getWunschliste() != null ? getWunschliste().equals(anwender.getWunschliste()) : anwender.getWunschliste() == null;
-
     }
 
     @Override

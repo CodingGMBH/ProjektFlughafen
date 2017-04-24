@@ -1,7 +1,9 @@
 package it.fallmerayer.codingGmbH.projektFlughafen.Modell;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,7 +32,7 @@ public class BenutzerprofilSpeicher {
         return instance;
     }
 
-    //TODO: Passt Exception?
+
     /*
     * Abhaengig vom ubergebenenen Benutzerprofil, wird das Benutzerprofil zum entsprechenden gecasted
     * und in die entsrpechende Liste aufgenommen.
@@ -53,7 +55,7 @@ public class BenutzerprofilSpeicher {
         throw new IllegalArgumentException("Benutzer faehlt durch das Raster");
     }
 
-    //TODO
+
     /*
     * Es wird geschaut, ob das uebergebene Benutzerprofil in einer, abhaengig von der Instanz, entsprechenden
     * Liste gespeichert ist
@@ -69,6 +71,7 @@ public class BenutzerprofilSpeicher {
             return false;
         }
     }
+
 
     /*
     * Ueberprueft, ob ein Benutzername schon vergeben ist oder nicht
@@ -95,7 +98,7 @@ public class BenutzerprofilSpeicher {
         return false;
     }
 
-    //TODO
+
     /*
     * Es wird jenes Benutzerprofil zurueckgegeben, welches auf die den Uebergabeparamtern entsprechenden
     * Benutzernamen und Passwort entspricht.
@@ -138,54 +141,74 @@ public class BenutzerprofilSpeicher {
         throw new NichtImSystemRegistriertException(benutzerName);
     }
 
-    //TODO: Counter Aktualiesieren
+
     /*
     * Mehode um aus Datei zu lesen
     * */
     public void ausDateiLesen() throws IOException, NumberFormatException, TooMuchAngestellteException {
         File input = new File(".\\files\\Benutzerprofile.csv");
-        int maxAnwender = 0;
-        int maxAngestellter = 0;
+        int maxAnwender = 1000;
+        int maxAngestellter = 100;
         int maxAdmin = 0;
 
-        try(BufferedReader br = new BufferedReader(new FileReader(input))){
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(input),"UTF-8"))){
             String s = br.readLine();
             s = br.readLine();
             String [] benutzerproperties;
             String [] gebdateHilfe;
+            String [] wunschlisteHilfe;
+            String [] wunschlistenproperties;
+            Anwender anwender;
 
 
             LocalDateTime geb;
 
             while (s!=null){
-                benutzerproperties = s.split(";");
+                if (!s.equals("")){
+                    benutzerproperties = s.split(";");
+                    gebdateHilfe = benutzerproperties[4].split("\\.");
+                    geb = LocalDateTime.of(Integer.parseInt(gebdateHilfe[2]),Integer.parseInt(gebdateHilfe[1]),Integer.parseInt(gebdateHilfe[0]),0,0);
 
-                gebdateHilfe = benutzerproperties[4].split("\\.");
-                geb = LocalDateTime.of(Integer.parseInt(gebdateHilfe[2]),Integer.parseInt(gebdateHilfe[1]),Integer.parseInt(gebdateHilfe[0]),0,0);
+                    try {
+                        if (Integer.parseInt(benutzerproperties[0]) < 101) {
+                            if (Integer.parseInt(benutzerproperties[0]) > maxAdmin) {
+                                maxAdmin = Integer.parseInt(benutzerproperties[0]);
+                            }
+                            //TODO: PID setzen
+                            administratorenListe.add(new Administrator(benutzerproperties[1], benutzerproperties[2], benutzerproperties[3], geb, benutzerproperties[5], benutzerproperties[6]));
+                        } else if (Integer.parseInt(benutzerproperties[0]) < 1001) {
+                            if (Integer.parseInt(benutzerproperties[0]) > maxAngestellter) {
+                                maxAngestellter = Integer.parseInt(benutzerproperties[0]);
+                            }
+                            //TODO: PID setzn
+                            angestelltenListe.add(new Angestellter(benutzerproperties[1], benutzerproperties[2], benutzerproperties[3], geb, benutzerproperties[5], benutzerproperties[6]));
+                        } else {
+                            if (Integer.parseInt(benutzerproperties[0]) > maxAnwender) {
+                                maxAnwender = Integer.parseInt(benutzerproperties[0]);
+                            }
 
-                try {
-                    if (Integer.parseInt(benutzerproperties[0]) < 101) {
-                        if (Integer.parseInt(benutzerproperties[0]) > maxAdmin) {
-                            maxAdmin = Integer.parseInt(benutzerproperties[0]);
+                            //TODO: PID setzen
+                            anwender = new Anwender(benutzerproperties[1], benutzerproperties[2], benutzerproperties[3], geb, benutzerproperties[5], benutzerproperties[6],Integer.parseInt(benutzerproperties[7]));
+                            if (!benutzerproperties[8].equals("-1") | benutzerproperties.length<7){
+                                wunschlisteHilfe = benutzerproperties[8].split("&&");
+                                for (String j: wunschlisteHilfe){
+                                    wunschlistenproperties = j.split("##");
+                                    anwender.legeFlugInWunschliste(wunschlistenproperties[0],Integer.parseInt(wunschlistenproperties[1]),Double.parseDouble(wunschlistenproperties[2]));
+                                }
+                            }
+                            anwenderListe.add(anwender);
                         }
-                        administratorenListe.add(new Administrator(benutzerproperties[1], benutzerproperties[2], benutzerproperties[3], geb, benutzerproperties[5], benutzerproperties[6]));
-                    } else if (Integer.parseInt(benutzerproperties[0]) < 1001) {
-                        if (Integer.parseInt(benutzerproperties[0]) > maxAngestellter) {
-                            maxAngestellter = Integer.parseInt(benutzerproperties[0]);
-                        }
-                        angestelltenListe.add(new Angestellter(benutzerproperties[1], benutzerproperties[2], benutzerproperties[3], geb, benutzerproperties[5], benutzerproperties[6]));
-                    } else {
-                        if (Integer.parseInt(benutzerproperties[0]) > maxAnwender) {
-                            maxAnwender = Integer.parseInt(benutzerproperties[0]);
-                        }
-                        anwenderListe.add(new Anwender(benutzerproperties[1], benutzerproperties[2], benutzerproperties[3], geb, benutzerproperties[5], benutzerproperties[6],Integer.parseInt(benutzerproperties[7])));
+                    } catch (TooMuchAngestellteException e) {
+                        throw new TooMuchAngestellteException("Fehler in der Datenbank");
+                    } catch (NumberFormatException e){
+                        throw new NumberFormatException("Fehler in der Datenbank");
                     }
-                } catch (TooMuchAngestellteException e) {
-                    throw new TooMuchAngestellteException("Fehler in der Datenbank");
                 }
+
 
                 s=br.readLine();
             }
+
             Anwender.aktualisiereAnwenderCounter(++maxAnwender);
             Angestellter.aktualisiereAngestellterCounter(++maxAngestellter);
             Administrator.aktualisiereAdministratorCounter(++maxAdmin);
@@ -196,18 +219,19 @@ public class BenutzerprofilSpeicher {
         }
     }
 
-    //TODO
+
     /*
-    * MEthode um in die *.csv-Datei zu schreiben
+    * Methode um in die *.csv-Datei zu schreiben
     * */
     public void inDateiSchreiben() throws IOException{
         File output = new File(".\\files\\Benutzerprofile.csv");
 
         int maxBP = 0;
 
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(output))){
-            bw.write("ID;Vorname;Nachname;E-Mail;Geb.;Benutzername;Passwort;ID.Nr.");
+        try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(output),"UTF-8"))){
+            bw.write("ID;Vorname;Nachname;E-Mail;Geb.;Benutzername;Passwort;ID.Nr.;Wunschliste" + System.lineSeparator());
             StringBuilder toWrite = new StringBuilder();
+            StringBuilder wunschliste = new StringBuilder();
             for (Administrator i : administratorenListe){
                 toWrite.append(i.getPID() + ";");
                 toWrite.append(i.getVorname() + ";");
@@ -219,6 +243,8 @@ public class BenutzerprofilSpeicher {
                 toWrite.append(i.getBenutzerName() + ";");
                 toWrite.append(i.getPasswort() + ";");
                 toWrite.append("-1");
+                toWrite.append("-1");
+                toWrite.append(System.lineSeparator());
                 bw.write(toWrite.toString());
                 toWrite.setLength(0);
 
@@ -236,10 +262,9 @@ public class BenutzerprofilSpeicher {
                 toWrite.append(i.getGeburtsDatum().getYear() + ";");
                 toWrite.append(i.getBenutzerName() + ";");
                 toWrite.append(i.getPasswort() + ";");
+                toWrite.append("-1;");
                 toWrite.append("-1");
-                bw.write(toWrite.toString());
-                toWrite.setLength(0);
-
+                toWrite.append(System.lineSeparator());
                 bw.write(toWrite.toString());
                 toWrite.setLength(0);
             }
@@ -255,13 +280,27 @@ public class BenutzerprofilSpeicher {
                 toWrite.append(i.getGeburtsDatum().getYear() + ";");
                 toWrite.append(i.getBenutzerName() + ";");
                 toWrite.append(i.getPasswort() + ";");
-                toWrite.append(i.getPasswort() + ";");
-                toWrite.append(i.getIdentitaetsNummer());
+                toWrite.append(i.getIdentitaetsNummer() + ";");
+
+                if (i.getWunschliste().isEmpty()){
+                    toWrite.append("-1");
+                }else {
+                    for (WunschlistenEintrag j: i.getWunschliste()){
+                        wunschliste.append(j.getFlugNummer() + "##");
+                        wunschliste.append(j.getAnzahlPassagiere() + "##");
+                        wunschliste.append(j.getGepaeckGewicht() + "&&");
+                    }
+                    wunschliste.setLength(wunschliste.length()-2);
+                    toWrite.append(wunschliste.toString());
+                }
+
+
+
+
+                toWrite.append(System.lineSeparator());
                 bw.write(toWrite.toString());
                 toWrite.setLength(0);
 
-                bw.write(toWrite.toString());
-                toWrite.setLength(0);
             }
         }
 
@@ -279,6 +318,95 @@ public class BenutzerprofilSpeicher {
 
     public List<Administrator> getAdministratorenListe() {
         return administratorenListe;
+    }
+
+
+    public static void main(String[] args) {
+        BenutzerprofilSpeicher bps = BenutzerprofilSpeicher.getInstance();
+        Anwender a = new Anwender("Gibs","mi","hoi.du@gmailcom",LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0)),"HoiDU","hoooo",12345678);
+
+
+        try {
+            FluegeSpeicher.getInstance().ausDateiLesen();
+
+
+
+            bps.ausDateiLesen();
+            //bps.addBenutzerprofil(a);
+            a.legeFlugInWunschliste("KL",0,0);
+            a.legeFlugInWunschliste("EJ1222",1,0);
+
+            try {
+                Administrator admin = ((Administrator) bps.anmelden("cooloAdmin", "tadaa"));
+                if (admin.isAngemeldet()){
+                    System.out.println(admin.getVorname() + " " + admin.getNachname() + " ist angemeldet.");
+                }
+            } catch (NichtImSystemRegistriertException e) {
+                e.printStackTrace();
+            }
+            /*bps.addBenutzerprofil(new Administrator("admin","test","admmin@larcherairline.com",LocalDateTime.of(1999,3,3,0,0),"cooloAdmin","tadaa"));
+            bps.addBenutzerprofil(new Angestellter("angestellter","test","angestellter@larcherairline.com",LocalDateTime.of(1999,3,5,0,0),"cooloAngestellter","ha"));
+            bps.addBenutzerprofil(new Angestellter("angestellter2","test2","angestellter2@larcherairline.com",LocalDateTime.of(1996,3,5,0,0),"cooloAngestellter2","ha"));
+            bps.addBenutzerprofil(new Angestellter("angestellter3","test3","angestellter3@larcherairline.com",LocalDateTime.of(1997,3,5,0,0),"cooloAngestellter3","ha"));
+            bps.addBenutzerprofil(new Angestellter("angestellter4","test4","angestellter4@larcherairline.com",LocalDateTime.of(1998,3,5,0,0),"cooloAngestellter4","ha"));*/
+            //bps.inDateiSchreiben();
+
+            //System.out.println(bps.containsBenutzerprofil(a));
+            //System.out.println(bps.containsBenutzerprofil((new Angestellter("angestellter","test","angestellter@larcherairline.com",LocalDateTime.of(1999,3,5,0,0),"cooloAngestellter01","ha"))));
+            System.out.println("---Administratoren---");
+            for (Administrator i : bps.administratorenListe){
+                System.out.println(i.getPID());
+                System.out.println(i.getVorname());
+                System.out.println(i.getNachname());
+                System.out.println(i.getEmail());
+                System.out.println(i.getGeburtsDatum());
+                System.out.println(i.getBenutzerName());
+                System.out.println(i.getPasswort());
+                System.out.println("-1");
+                System.out.println("-1");
+            }
+
+            System.out.println("---Angestelltern---");
+            for (Angestellter i : bps.angestelltenListe){
+                System.out.println(i.getPID());
+                System.out.println(i.getVorname());
+                System.out.println(i.getNachname());
+                System.out.println(i.getEmail());
+                System.out.println(i.getGeburtsDatum());
+                System.out.println(i.getBenutzerName());
+                System.out.println(i.getPasswort());
+                System.out.println("-1");
+                System.out.println("-1");
+            }
+
+            System.out.println("---Anwender---");
+            for (Anwender i : bps.anwenderListe){
+                System.out.println(i.getPID());
+                System.out.println(i.getVorname());
+                System.out.println(i.getNachname());
+                System.out.println(i.getEmail());
+                System.out.println(i.getGeburtsDatum());
+                System.out.println(i.getBenutzerName());
+                System.out.println(i.getPasswort());
+                System.out.println(i.getIdentitaetsNummer());
+                System.out.println("-Wunschliste-");
+                for (WunschlistenEintrag j: i.getWunschliste()){
+                    System.out.println(j.getFlugNummer());
+                    System.out.println(j.getAnzahlPassagiere());
+                    System.out.println(j.getGepaeckGewicht());
+                    System.out.println("---");
+                }
+                System.out.println("++++");
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (TooMuchAngestellteException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 
