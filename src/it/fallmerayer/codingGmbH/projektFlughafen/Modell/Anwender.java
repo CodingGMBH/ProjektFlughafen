@@ -8,14 +8,14 @@ import java.util.List;
 public class Anwender extends Benutzerprofil {
 
     private int identitaetsNummer;
-    //private List<WunschlistenEintrag> wunschliste;
+    private List<WunschlistenEintrag> wunschliste;
     private static int anwenderCounter = 1001;
 
     //Es kann ein Anwender ohne wunschliste erstellt werden. Hier wird die "PID" gesetzt. Dabei wird die statische Variable "anwenderCounter" um 1 inkrementiert.
     public Anwender(String vorname, String nachname, String email, LocalDateTime geburtsDatum, String benutzerName, String passwort, int identitaetsNummer) {
         super(vorname, nachname, email, geburtsDatum, benutzerName, passwort, anwenderCounter++);
         this.identitaetsNummer = identitaetsNummer;
-        //this.wunschliste = new LinkedList<>();
+        this.wunschliste = new LinkedList<>();
     }
 
     public int getIdentitaetsNummer() {
@@ -26,13 +26,13 @@ public class Anwender extends Benutzerprofil {
         this.identitaetsNummer = identitaetsNummer;
     }
 
-   /* public List<WunschlistenEintrag> getWunschliste() {
+    public List<WunschlistenEintrag> getWunschliste() {
         return wunschliste;
-    }*/
+    }
 
-    /*public void setWunschliste(List<WunschlistenEintrag> wunschliste) {
+    public void setWunschliste(List<WunschlistenEintrag> wunschliste) {
         this.wunschliste = wunschliste;
-    }*/
+    }
 
     public static int getAnwenderCounter() {
         return anwenderCounter;
@@ -49,10 +49,10 @@ public class Anwender extends Benutzerprofil {
         BuchungsprofileSpeicher.getInstance().addBuchungsprofil(aktuellesBuchungsprofil);
         return aktuellesBuchungsprofil;
     }
-/*
+
     //Ein Flug kann in die Wunschliste gelegt werden, aber nur, falls der Flug zu diesem Zeitpunkt buchbar ist und mit den gewünschten Konfigurationen übereinstimmt. Wird der Flug hineingelegt, so wird der WunschlistenEintrag auf "true" gesetzt.
     public boolean legeFlugInWunschliste(String flugNummer, int anzahlPassagiere, double gepaeckGewicht){
-        Flug flugFuerWunschliste = FluegeSpeicher.getIncstance().getFlug(flugNummer);
+        Flug flugFuerWunschliste = FluegeSpeicher.getInstance().getFlug(flugNummer);
 
         if (flugFuerWunschliste.isBuchbar() && (flugFuerWunschliste.getFlugzeug().getAnzahlSitzplaetze() - flugFuerWunschliste.getZaehlerGebuchteSitzplaetze()) >= anzahlPassagiere && ((flugFuerWunschliste.getFlugzeug().gepaeckKapazitaet() - flugFuerWunschliste.getZaehlerGepaeckGewicht())) >= gepaeckGewicht){
             this.wunschliste.add(new WunschlistenEintrag(flugNummer, anzahlPassagiere, gepaeckGewicht, true));
@@ -60,8 +60,8 @@ public class Anwender extends Benutzerprofil {
         }else{
             return false;
         }
-    }*/
-/*
+    }
+
     //Es wird der zur Flugnummer übergebene Flug aus der Wunschliste gegeben.
     public boolean entferneFlugVonWunschliste(String flugNummer){
         for (WunschlistenEintrag wunschlistenEintrag:wunschliste) {
@@ -71,8 +71,7 @@ public class Anwender extends Benutzerprofil {
         }
         return false;
     }
-*/
-/*
+
     //Der Flug muss buchbar und mit der Konfiguration übereinstimmen, damit er noch länger in der Wunschliste "buchbar" sein kann.
     public void aktualisiereWunschliste(){
         Flug aktuellerFlug;
@@ -80,7 +79,7 @@ public class Anwender extends Benutzerprofil {
         for (WunschlistenEintrag flugInWunschliste: this.wunschliste) {
 
             //Das ist der Flug, dessen WunschlistenEintrag in der Wunschliste ist. Die dazugehörige Flugnummer wird vom FluegeSpeicher geholt, um zu überprüfen, ob der Flug in der Wunschliste noch "buchbar" ist.
-            aktuellerFlug = FluegeSpeicher.getIncstance().getFlug(flugInWunschliste.getFlugNummer());
+            aktuellerFlug = FluegeSpeicher.getInstance().getFlug(flugInWunschliste.getFlugNummer());
 
             if (aktuellerFlug.isBuchbar() && (aktuellerFlug.getFlugzeug().getAnzahlSitzplaetze() - aktuellerFlug.getZaehlerGebuchteSitzplaetze()) >= flugInWunschliste.getAnzahlPassagiere() && ((aktuellerFlug.getFlugzeug().gepaeckKapazitaet() - aktuellerFlug.getZaehlerGepaeckGewicht())) >= flugInWunschliste.getGepaeckGewicht()){
                 flugInWunschliste.setBuchbar(true);
@@ -89,10 +88,7 @@ public class Anwender extends Benutzerprofil {
             }
         }
     }
-*/
 
-
-/*
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -106,8 +102,6 @@ public class Anwender extends Benutzerprofil {
 
     }
 
-    */
-/*
     @Override
     public int hashCode() {
         int result = super.hashCode();
@@ -115,5 +109,4 @@ public class Anwender extends Benutzerprofil {
         result = 31 * result + (getWunschliste() != null ? getWunschliste().hashCode() : 0);
         return result;
     }
-    */
 }

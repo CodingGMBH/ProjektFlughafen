@@ -35,9 +35,7 @@ public class Angestellter extends Benutzerprofil {
 
     private BuchungsprofilAngestellter bucheFlugFuerKunde(String flugNummer, double gepaeckGewicht, List<Mitflieger> passagierListe) throws FlugNichtBuchbarException{
         BuchungsprofilAngestellter aktuellesBuchungsprofil = new BuchungsprofilAngestellter(flugNummer, gepaeckGewicht, this.getPID(), passagierListe);
-
-        //TODO
-        //BuchungsprofileSpeicher.addBuchungsprofil(aktuellesBuchungsprofil);
+        BuchungsprofileSpeicher.addBuchungsprofil(aktuellesBuchungsprofil);
         return aktuellesBuchungsprofil;
     }
 }
