@@ -1,0 +1,53 @@
+package it.fallmerayer.codingGmbH.projektFlughafen.Controller;
+
+import it.fallmerayer.codingGmbH.projektFlughafen.Utility.CheckValidations;
+import it.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Created by gabriel on 17.04.17.
+ */
+public class NeuerMittarbeiterController extends AbstractController {
+    @FXML TextField vornameTxtField;
+    @FXML TextField nachnameTxtField;
+    @FXML TextField benutzernameTxtField;
+    @FXML TextField passwordTxtField;
+    @FXML TextField emailTxtField;
+
+    @FXML Label angemeldetAlsLabel;
+
+    @FXML DatePicker geburtsdatumDatePicker;
+
+    @FXML RadioButton adminRadioButton;
+    @FXML RadioButton angestellterRadioButton;
+
+    @FXML Button backButt;
+    @FXML Button hinzufuegenButt;
+
+    @FXML
+    private void handleBack(){
+        main.selectView(ViewNavigation.ANGEMELDETSCENE);
+    }
+
+    @FXML
+    private void handleHinzufuegen(){
+        if (everythingCorrectInput()){
+            main.selectView(ViewNavigation.ANGEMELDETSCENE);
+        }else{
+            System.out.println("Something is wrong");
+        }
+    }
+
+    private boolean everythingCorrectInput(){
+        //CheckValidations.isNameString(vornameTxtField.getText()) && CheckValidations.isNameString(nachnameTxtField.getText()) && CheckValidations.isValidString(benutzernameTxtField.getText()) && CheckValidations.isValidPassword(passwordTxtField.getText()) &&
+        //CheckValidations.isEmail(emailTxtField.getText()) &&
+        return CheckValidations.isDate(geburtsdatumDatePicker.getValue().toString());
+    }
+}
