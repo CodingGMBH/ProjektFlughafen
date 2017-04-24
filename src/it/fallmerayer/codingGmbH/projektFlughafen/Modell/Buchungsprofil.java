@@ -18,7 +18,7 @@ public abstract class Buchungsprofil {
         BuchungsprofileSpeicher.setBuchungsCounter(BuchungsprofileSpeicher.getBuchungsCounter() + 1);     //Hier wird der "buchungsCounter" der Klasse "BuchungsprofileSpeicher" um 1 inkrementiert, damit die "buchungID" für jedes "Buchungsprofil" immer eindeutig bleibt.
 
         //Falls das "Flugzeug" buchbar ist noch genügend "gepäck" aufnehmen kann, wird das übergebene "gepäck" dem "zaehlerGepaeckGewicht" des "Fluges" hinzugefügt. Ansonsten kann der "Flug" nicht bebucht werden. Es wird eine "FlugNichtBucharExcepion" geworfen.
-        if ((FluegeSpeicher.getInstance().getFlug(this.flugNummer).getFlugzeug().getGepaeckKapazitaet() - FluegeSpeicher.getInstance().getFlug(this.flugNummer).getZaehlerGepaeckgewicht()) >= gepaeckGewicht && FluegeSpeicher.getInstance().getFlug(this.flugNummer).isBuchbar()){
+        if ((FluegeSpeicher.getInstance().getFlug(this.flugNummer).getFlugzeug().getGepaeckKapazitaet() - FluegeSpeicher.getInstance().getFlug(this.flugNummer).getZaehlerGepaeckGewicht()) >= gepaeckGewicht && FluegeSpeicher.getInstance().getFlug(this.flugNummer).isBuchbar()){
             FluegeSpeicher.getInstance().getFlug(this.flugNummer).setZaehlerGepaeckGewicht(FluegeSpeicher.getInstance().getFlug(this.flugNummer).getZaehlerGepaeckGewicht() + gepaeckGewicht);            //Hier wird das neue Gepäckgewicht des Fluges gesetzt.
             this.gepaeckGewicht = gepaeckGewicht;
         }else {
@@ -52,7 +52,7 @@ public abstract class Buchungsprofil {
     }
 
     public void setGepaeckGewicht(double gepaeckGewicht) throws FlugNichtBuchbarException{
-        if ((FluegeSpeicher.getInstance().getFlug(this.flugNummer).getFlugzeug().getGepaeckKapazitaet() - FluegeSpeicher.getInstance().getFlug(this.flugNummer).getZaehlerGepaeckgewicht()) >= gepaeckGewicht && FluegeSpeicher.getInstance().getFlug(this.flugNummer).isBuchbar()){
+        if ((FluegeSpeicher.getInstance().getFlug(this.flugNummer).getFlugzeug().getGepaeckKapazitaet() - FluegeSpeicher.getInstance().getFlug(this.flugNummer).getZaehlerGepaeckGewicht()) >= gepaeckGewicht && FluegeSpeicher.getInstance().getFlug(this.flugNummer).isBuchbar()){
             FluegeSpeicher.getInstance().getFlug(this.flugNummer).setZaehlerGepaeckGewicht(FluegeSpeicher.getInstance().getFlug(this.flugNummer).getZaehlerGepaeckGewicht() + gepaeckGewicht);            //Hier wird das neue Gepäckgewicht des Fluges gesetzt.
             this.gepaeckGewicht = gepaeckGewicht;
         }else {

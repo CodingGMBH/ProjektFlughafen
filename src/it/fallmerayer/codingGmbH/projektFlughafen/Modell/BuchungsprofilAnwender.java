@@ -15,7 +15,7 @@ public class BuchungsprofilAnwender extends Buchungsprofil {
         this.anwenderPID = anwenderPID;
 
         //Es kann nur ein "BuchungsprofilAnwender" erstellt werden, falls alle "Mitflieger" noch Platz im "Flugzeug" haben.
-        if ((FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getGebuchteSitzplaetze()) >= (mitfliegerListe.size() + 1)){
+        if ((FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze()) >= (mitfliegerListe.size() + 1)){
             FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + (mitfliegerListe.size() + 1));
             this.mitfliegerListe = mitfliegerListe;
         }else {
@@ -49,7 +49,7 @@ public class BuchungsprofilAnwender extends Buchungsprofil {
 
     //Es können nur Mitflieger eingefügt werden, wenn im Flugzeug noch genügend Platz ist.
     public void setMitfliegerListe(List<Mitflieger> mitfliegerListe) throws FlugNichtBuchbarException{
-        if ((FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getGebuchteSitzplaetze()) >= (mitfliegerListe.size() + 1)){
+        if ((FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze()) >= (mitfliegerListe.size() + 1)){
             FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + (mitfliegerListe.size() + 1));
             this.mitfliegerListe = mitfliegerListe;
         }else {
@@ -72,7 +72,7 @@ public class BuchungsprofilAnwender extends Buchungsprofil {
 
     //Es kann nur ein Mitflieger geaddet werden, falls noch ein Platz im Flugzeug frei ist.
     public void addMitflieger(Mitflieger mitflieger) throws FlugNichtBuchbarException{
-        if ((FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getGebuchteSitzplaetze()) >= 1){
+        if ((FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze()) >= 1){
             FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + 1);
             this.mitfliegerListe.add(mitflieger);
         }else {

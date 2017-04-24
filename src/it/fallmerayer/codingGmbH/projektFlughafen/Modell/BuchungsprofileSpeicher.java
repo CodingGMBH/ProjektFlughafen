@@ -478,7 +478,7 @@ public class BuchungsprofileSpeicher {
             }
 
             //bps.addBuchungsprofil(new BuchungsprofilAngestellter("EJ1222",0,105,mitfliegerList));
-            bps.addBuchungsprofil(angestellter.bucheFlugFuerKunde("EJ1222",0,mitfliegerList));
+            //bps.addBuchungsprofil(angestellter.bucheFlugFuerKunde("EJ1222",0,mitfliegerList));
 
 /*
             System.out.println("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");

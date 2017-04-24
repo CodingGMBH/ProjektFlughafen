@@ -60,7 +60,7 @@ public class Anwender extends Benutzerprofil {
 
     //Ein "Flug" kann in die "wunschliste" gelegt werden, aber nur, falls der "Flug" zu diesem Zeitpunkt "buchbar" ist und mit den gewünschten Konfigurationen übereinstimmt. Wird der "Flug" hineingelegt, so wird der WunschlistenEintrag auf "true" gesetzt.
     public boolean legeFlugInWunschliste(String flugNummer, int anzahlPassagiere, double gepaeckGewicht){
-        Flug flugFuerWunschliste = FluegeSpeicher.getIncstance().getFlug(flugNummer);
+        Flug flugFuerWunschliste = FluegeSpeicher.getInstance().getFlug(flugNummer);
 
         if (flugFuerWunschliste.isBuchbar() && (flugFuerWunschliste.getFlugzeug().getAnzahlSitzplaetze() - flugFuerWunschliste.getZaehlerGebuchteSitzplaetze()) >= anzahlPassagiere && ((flugFuerWunschliste.getFlugzeug().gepaeckKapazitaet() - flugFuerWunschliste.getZaehlerGepaeckGewicht())) >= gepaeckGewicht){
             this.wunschliste.add(new WunschlistenEintrag(flugNummer, anzahlPassagiere, gepaeckGewicht, true));
@@ -87,7 +87,7 @@ public class Anwender extends Benutzerprofil {
         for (WunschlistenEintrag flugInWunschliste: this.wunschliste) {
 
             //Das ist der "Flug", dessen "WunschlistenEintrag" in der "wunschliste" ist. Die dazugehörige "flugnummer" wird vom "FluegeSpeicher" geholt, um zu überprüfen, ob der "Flug" in der "wunschliste" noch "buchbar" ist.
-            aktuellerFlug = FluegeSpeicher.getIncstance().getFlug(flugInWunschliste.getFlugNummer());
+            aktuellerFlug = FluegeSpeicher.getInstance().getFlug(flugInWunschliste.getFlugNummer());
 
             if (aktuellerFlug.isBuchbar() && (aktuellerFlug.getFlugzeug().getAnzahlSitzplaetze() - aktuellerFlug.getZaehlerGebuchteSitzplaetze()) >= flugInWunschliste.getAnzahlPassagiere() && ((aktuellerFlug.getFlugzeug().gepaeckKapazitaet() - aktuellerFlug.getZaehlerGepaeckGewicht())) >= flugInWunschliste.getGepaeckGewicht()){
                 flugInWunschliste.setBuchbar(true);
