@@ -62,7 +62,7 @@ public class Anwender extends Benutzerprofil {
     public boolean legeFlugInWunschliste(String flugNummer, int anzahlPassagiere, double gepaeckGewicht){
         Flug flugFuerWunschliste = FluegeSpeicher.getInstance().getFlug(flugNummer);
 
-        if (flugFuerWunschliste.isBuchbar() && (flugFuerWunschliste.getFlugzeug().getAnzahlSitzplaetze() - flugFuerWunschliste.getZaehlerGebuchteSitzplaetze()) >= anzahlPassagiere && ((flugFuerWunschliste.getFlugzeug().gepaeckKapazitaet() - flugFuerWunschliste.getZaehlerGepaeckGewicht())) >= gepaeckGewicht){
+        if (flugFuerWunschliste.isBuchbar() && (flugFuerWunschliste.getFlugzeug().getAnzahlSitzplaetze() - flugFuerWunschliste.getZaehlerGebuchteSitzplaetze()) >= anzahlPassagiere && ((flugFuerWunschliste.getFlugzeug().getGepaeckKapazitaet() - flugFuerWunschliste.getZaehlerGepaeckGewicht())) >= gepaeckGewicht){
             this.wunschliste.add(new WunschlistenEintrag(flugNummer, anzahlPassagiere, gepaeckGewicht, true));
             return true;
         }else{
@@ -89,7 +89,7 @@ public class Anwender extends Benutzerprofil {
             //Das ist der "Flug", dessen "WunschlistenEintrag" in der "wunschliste" ist. Die dazugehörige "flugnummer" wird vom "FluegeSpeicher" geholt, um zu überprüfen, ob der "Flug" in der "wunschliste" noch "buchbar" ist.
             aktuellerFlug = FluegeSpeicher.getInstance().getFlug(flugInWunschliste.getFlugNummer());
 
-            if (aktuellerFlug.isBuchbar() && (aktuellerFlug.getFlugzeug().getAnzahlSitzplaetze() - aktuellerFlug.getZaehlerGebuchteSitzplaetze()) >= flugInWunschliste.getAnzahlPassagiere() && ((aktuellerFlug.getFlugzeug().gepaeckKapazitaet() - aktuellerFlug.getZaehlerGepaeckGewicht())) >= flugInWunschliste.getGepaeckGewicht()){
+            if (aktuellerFlug.isBuchbar() && (aktuellerFlug.getFlugzeug().getAnzahlSitzplaetze() - aktuellerFlug.getZaehlerGebuchteSitzplaetze()) >= flugInWunschliste.getAnzahlPassagiere() && ((aktuellerFlug.getFlugzeug().getGepaeckKapazitaet() - aktuellerFlug.getZaehlerGepaeckGewicht())) >= flugInWunschliste.getGepaeckGewicht()){
                 flugInWunschliste.setBuchbar(true);
             }else {
                 flugInWunschliste.setBuchbar(false);
