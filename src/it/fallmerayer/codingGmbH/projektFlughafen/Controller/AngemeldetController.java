@@ -38,6 +38,7 @@ public class AngemeldetController extends AbstractController {
     @FXML
     private void handleImageViewClicked(){
         System.out.println("pressed");
+        main.selectView(ViewNavigation.NEUERMITARBEITERSCENE);
     }
 
     @FXML
