@@ -24,6 +24,7 @@ public class Flugzeug {
 		this.anzahlSitzplaetze = anzahlSitzplaetze;
 		this.flugGesellschaft = flugGesellschaft;
 		this.gepaeckKapazitaet = gepaeckKapazitaet;
+
 	}
 
 
