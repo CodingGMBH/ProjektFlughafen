@@ -16,17 +16,10 @@ public abstract class Buchungsprofil {
         this.flugNummer = flugNummer;
         this.buchungsID = BuchungsprofileSpeicher.getBuchungsCounter();          //Das "Buchungsprofil" erhält eine eindeutige "buchungsID" von der Klasse "BuchugsprofilSpeicher".
         BuchungsprofileSpeicher.setBuchungsCounter(BuchungsprofileSpeicher.getBuchungsCounter() + 1);     //Hier wird der "buchungsCounter" der Klasse "BuchungsprofileSpeicher" um 1 inkrementiert, damit die "buchungID" für jedes "Buchungsprofil" immer eindeutig bleibt.
-
-        //Falls das "Flugzeug" buchbar ist noch genügend "gepäck" aufnehmen kann, wird das übergebene "gepäck" dem "zaehlerGepaeckGewicht" des "Fluges" hinzugefügt. Ansonsten kann der "Flug" nicht bebucht werden. Es wird eine "FlugNichtBucharExcepion" geworfen.
-        if ((FluegeSpeicher.getInstance().getFlug(this.flugNummer).getFlugzeug().getGepaeckKapazitaet() - FluegeSpeicher.getInstance().getFlug(this.flugNummer).getZaehlerGepaeckGewicht()) >= gepaeckGewicht && FluegeSpeicher.getInstance().getFlug(this.flugNummer).isBuchbar()){
-            FluegeSpeicher.getInstance().getFlug(this.flugNummer).setZaehlerGepaeckGewicht(FluegeSpeicher.getInstance().getFlug(this.flugNummer).getZaehlerGepaeckGewicht() + gepaeckGewicht);            //Hier wird das neue Gepäckgewicht des Fluges gesetzt.
-            this.gepaeckGewicht = gepaeckGewicht;
-        }else {
-            throw new FlugNichtBuchbarException("Der Flug ist entweder nicht mehr buchbar oder das von Ihnen eingegebene Gepäck hat im Flugzeug nicht mehr Platz!");
-        }
+        setGepaeckGewicht(gepaeckGewicht);
     }
 
-    Buchungsprofil(double gepaeckGewicht, String flugNummer, int buchungsID){
+    Buchungsprofil(String flugNummer, double gepaeckGewicht, int buchungsID){
         this.gepaeckGewicht = gepaeckGewicht;
         this.flugNummer = flugNummer;
         this.buchungsID = buchungsID;

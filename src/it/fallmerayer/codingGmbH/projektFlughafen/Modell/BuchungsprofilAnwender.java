@@ -13,14 +13,7 @@ public class BuchungsprofilAnwender extends Buchungsprofil {
     public BuchungsprofilAnwender(String flugNummer, double gepaeckGewicht, int anwenderPID, List<Mitflieger> mitfliegerListe) throws FlugNichtBuchbarException{
         super(flugNummer, gepaeckGewicht);
         this.anwenderPID = anwenderPID;
-
-        //Es kann nur ein "BuchungsprofilAnwender" erstellt werden, falls alle "Mitflieger" noch Platz im "Flugzeug" haben.
-        if ((FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze()) >= (mitfliegerListe.size() + 1)){
-            FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + (mitfliegerListe.size() + 1));
-            this.mitfliegerListe = mitfliegerListe;
-        }else {
-            throw new FlugNichtBuchbarException("Der Flug besitzt nich mehr genügend Sitzplätze, damit alle von Ihnen eingegebenen Mitflieger mitfliegen können!");
-        }
+        setMitfliegerListe(mitfliegerListe);
     }
 
     //Es kann aber auch eine Buchung erstellt werden, bei der keine "mitfligerListe" übergeben wird. "mitflieger" können später hinzugefügt werden.
@@ -30,7 +23,7 @@ public class BuchungsprofilAnwender extends Buchungsprofil {
     }
 
     //Mit diesem package private Konstruktor erstellt man ein abgelaufenes Buchungsprofil.
-    BuchungsprofilAnwender(String flugNummer, double gepaeckGewicht, int anwenderPID, List<Mitflieger> mitfliegerListe, int buchungsID){
+    BuchungsprofilAnwender(String flugNummer, double gepaeckGewicht, int buchungsID, List<Mitflieger> mitfliegerListe, int anwenderPID){
         super(flugNummer, gepaeckGewicht, buchungsID);
         this.anwenderPID = anwenderPID;
         this.mitfliegerListe = mitfliegerListe;

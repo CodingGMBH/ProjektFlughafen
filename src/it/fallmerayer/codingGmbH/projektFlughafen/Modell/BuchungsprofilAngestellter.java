@@ -13,14 +13,7 @@ public class BuchungsprofilAngestellter extends Buchungsprofil {
     public BuchungsprofilAngestellter(String flugNummer, double gepaeckGewicht, int angestellterPID, List<Mitflieger> passagierListe) throws FlugNichtBuchbarException {
         super(flugNummer, gepaeckGewicht);
         this.angestellterPID = angestellterPID;
-
-        //Es kann nur ein "BuchungsprofilAngestellter" erstellt werden, falls alle "passagiere" noch Platz im "Flugzeug" haben.
-        if ((FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze()) >= passagierListe.size()){
-            FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).setZaehlerGebuchteSitzplaetze(FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze() + passagierListe.size());
-            this.passagierListe = passagierListe;
-        }else {
-            throw new FlugNichtBuchbarException("Der Flug besitzt nich mehr genügend Sitzplätze, damit alle von Ihnen eingegebenen Passagiere mitfliegen können!");
-        }
+        setPassagierListe(passagierListe);
     }
 
     //Man kann ein BuchungsprofilAngestellter ohne "mitfliegerListe" erstellen.
@@ -30,7 +23,7 @@ public class BuchungsprofilAngestellter extends Buchungsprofil {
     }
 
     //Mit diesem package private Konstruktor erstellt man ein abgelaufenes Buchungsprofil.
-    BuchungsprofilAngestellter(String flugNummer, double gepaeckGewicht, int angestellterPID, List<Mitflieger> passagierListe, int buchungsID){
+    BuchungsprofilAngestellter(String flugNummer, double gepaeckGewicht, int buchungsID, List<Mitflieger> passagierListe, int angestellterPID){
         super(flugNummer, gepaeckGewicht, buchungsID);
         this.angestellterPID = angestellterPID;
         this.passagierListe = passagierListe;
@@ -62,15 +55,7 @@ public class BuchungsprofilAngestellter extends Buchungsprofil {
     public double calculatePreis() {
         return (FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getPreisSitzplatz() + this.getGepaeckGewicht() * this.passagierListe.size()) + 50;
     }
-
-    @Override
-    public BuchungsprofilAngestellter erstelleAbgelaufeneBuchung(String flugNummer, double gepaeckGewicht, int angestellterPID, List<Mitflieger> passagierListe, int buchungsID) {
-        BuchungsprofilAngestellter abgelaufeneBuchung = new BuchungsprofilAngestellter(gepaeckGewicht, passagierListe, buchungsID);
-        abgelaufeneBuchung.setFlugNummer(flugNummer);
-        abgelaufeneBuchung.setAngestellterPID(angestellterPID);
-        return abgelaufeneBuchung;
-    }
-
+    
     //Es kann nur ein "passagier" hinzugefügt werden, falls noch genügend Platz im Flugzeug frei ist.
     public void addPassagier(Mitflieger passagier) throws FlugNichtBuchbarException{
         if ((FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze()) >= 1){
