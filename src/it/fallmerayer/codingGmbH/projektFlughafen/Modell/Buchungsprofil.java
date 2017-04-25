@@ -60,8 +60,6 @@ public abstract class Buchungsprofil {
             throw new FlugNichtBuchbarException("Der Flug ist entweder nicht mehr buchbar oder das von Ihnen eingegebene Gepäck hat im Flugzeug nicht mehr Platz!");
         }
     }
-
-    public abstract Buchungsprofil erstelleAbgelaufeneBuchung(String flugNummer, double gepaeckGewicht, int PID, List<Mitflieger> personen, int buchungsID);
-
+    
     public abstract double calculatePreis();
 }
