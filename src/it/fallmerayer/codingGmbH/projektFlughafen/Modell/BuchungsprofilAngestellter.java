@@ -28,7 +28,7 @@ public class BuchungsprofilAngestellter extends Buchungsprofil {
         this.angestellterPID = angestellterPID;
         this.passagierListe = passagierListe;
     }
-
+    
     public int getAngestellterPID() {
         return angestellterPID;
     }
@@ -56,7 +56,7 @@ public class BuchungsprofilAngestellter extends Buchungsprofil {
     public double calculatePreis() {
         return (FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getPreisSitzplatz() + this.getGepaeckGewicht() * this.passagierListe.size()) + 50;
     }
-
+    
     //Es kann nur ein "passagier" hinzugefügt werden, falls noch genügend Platz im Flugzeug frei ist.
     public void addPassagier(Mitflieger passagier) throws FlugNichtBuchbarException{
         if ((FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze()) >= 1){

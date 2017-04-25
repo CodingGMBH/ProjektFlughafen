@@ -55,6 +55,6 @@ public abstract class Buchungsprofil {
         }
         FluegeSpeicher.getInstance().aktualiesereBuchbar();
     }
-
+    
     public abstract double calculatePreis();
 }
