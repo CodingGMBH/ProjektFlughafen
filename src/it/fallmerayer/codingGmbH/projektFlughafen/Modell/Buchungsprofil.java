@@ -13,11 +13,11 @@ public abstract class Buchungsprofil {
 
     //Dem Konstruktor müssen alle Attribute übergeben werden außer die "buchungsID", da diese von der Methode "BuchungsprofileSpeicher.getBuchungCounter()" übernommen werden muss.
     public Buchungsprofil(String flugNummer, double gepaeckGewicht) throws FlugNichtBuchbarException {
-        FluegeSpeicher.getInstance().aktualisiereBuchbar();
         this.flugNummer = flugNummer;
         this.buchungsID = BuchungsprofileSpeicher.getBuchungsCounter();          //Das "Buchungsprofil" erhält eine eindeutige "buchungsID" von der Klasse "BuchugsprofilSpeicher".
         BuchungsprofileSpeicher.setBuchungsCounter(BuchungsprofileSpeicher.getBuchungsCounter() + 1);     //Hier wird der "buchungsCounter" der Klasse "BuchungsprofileSpeicher" um 1 inkrementiert, damit die "buchungID" für jedes "Buchungsprofil" immer eindeutig bleibt.
         setGepaeckGewicht(gepaeckGewicht);
+        FluegeSpeicher.getInstance().aktualisiereBuchbar();
     }
 
     Buchungsprofil(String flugNummer, double gepaeckGewicht, int buchungsID){
@@ -53,6 +53,7 @@ public abstract class Buchungsprofil {
         }else {
             throw new FlugNichtBuchbarException("Der Flug ist entweder nicht mehr buchbar oder das von Ihnen eingegebene Gepäck hat im Flugzeug nicht mehr Platz!");
         }
+        FluegeSpeicher.getInstance().aktualisiereBuchbar();
     }
     
     public abstract double calculatePreis();
