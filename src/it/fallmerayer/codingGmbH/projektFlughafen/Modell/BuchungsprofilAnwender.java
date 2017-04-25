@@ -49,6 +49,7 @@ public class BuchungsprofilAnwender extends Buchungsprofil {
         }else {
             throw new FlugNichtBuchbarException("Der Flug besitzt nich mehr genügend Sitzplätze, damit alle von Ihnen eingegebenen Mitflieger mitfliegen können!");
         }
+        FluegeSpeicher.getInstance().aktualisiereBuchbar();
     }
 
     @Override
@@ -64,6 +65,7 @@ public class BuchungsprofilAnwender extends Buchungsprofil {
         }else {
             throw new FlugNichtBuchbarException("Es konnte kein Mitflieger mehr hinzugefügt werden, da kein Platz mehr im Flieger buchbar ist!");
         }
+        FluegeSpeicher.getInstance().aktualisiereBuchbar();
     }
 
     @Override
