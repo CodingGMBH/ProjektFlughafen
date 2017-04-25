@@ -26,8 +26,9 @@ public abstract class Buchungsprofil {
         }
     }
 
-    public Buchungsprofil(double gepaeckGewicht, int buchungsID){
+    Buchungsprofil(double gepaeckGewicht, String flugNummer, int buchungsID){
         this.gepaeckGewicht = gepaeckGewicht;
+        this.flugNummer = flugNummer;
         this.buchungsID = buchungsID;
     }
 
