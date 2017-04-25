@@ -36,19 +36,42 @@ public class CheckValidations {
     }
 
     public static void isValidPassword(String password) throws KeinPasswordException {
-        final Pattern VALID_PASSWORD_REGEX = Pattern.compile("^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$");
+        final Pattern VALID_PASSWORD_REGEX = Pattern.compile("^(?=.*[A-Z].*[A-Z])(?=.*[!@$+*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$");
         Matcher matcher = VALID_PASSWORD_REGEX.matcher(password);
         if (!matcher.find()){
-            throw new KeinPasswordException("Das Password ist zu schwach.\n 2 Großbuchstaben 1 Sonderzeichen 2 Zahlen 3 Kleinbuchstaben müssen enthalten sein.");
+            throw new KeinPasswordException("Das Password ist zu schwach.\n2 Großbuchstaben\n1 Sonderzeichen (!@$+*)\n2 Zahlen\n3 Kleinbuchstaben\nmüssen enthalten sein.");
         }
     }
 
     public static void isDate(LocalDate dateString) throws KeinDatumException {
-        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
         try {
             dateString.toString();
         }catch (NullPointerException e){
             throw new KeinDatumException("Ungültiges Datumformat");
+        }
+    }
+
+    public static void isCity(String city) throws KeineStadtException {
+        final Pattern VALID_PASSWORD_REGEX = Pattern.compile("^([a-zA-Z\\u0080-\\u024F]+(?:. |-| |'))*[a-zA-Z\\u0080-\\u024F]*$");
+        Matcher matcher = VALID_PASSWORD_REGEX.matcher(city);
+        if (!matcher.find()){
+            throw new KeineStadtException("Ungültiges Stadtformat");
+        }
+    }
+
+    public static void isKommaNumber(String number) throws KeineNummerException {
+        final Pattern VALID_PASSWORD_REGEX = Pattern.compile("[0-9]*.[0-9]*");
+        Matcher matcher = VALID_PASSWORD_REGEX.matcher(number);
+        if (!matcher.find()){
+            throw new KeineNummerException("Ungültiges Nummernformat");
+        }
+    }
+
+    public static void isNumber(String number) throws KeineNummerException {
+        final Pattern VALID_PASSWORD_REGEX = Pattern.compile("[0-9]+");
+        Matcher matcher = VALID_PASSWORD_REGEX.matcher(number);
+        if (!matcher.find()){
+            throw new KeineNummerException("Ungültiges Nummernformat");
         }
     }
 }

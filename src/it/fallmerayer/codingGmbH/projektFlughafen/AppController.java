@@ -5,7 +5,7 @@ package it.fallmerayer.codingGmbH.projektFlughafen;
  */
 
 import it.fallmerayer.codingGmbH.projektFlughafen.Controller.*;
-import it.fallmerayer.codingGmbH.projektFlughafen.Modell.Benutzerprofil;
+import it.fallmerayer.codingGmbH.projektFlughafen.Modell.*;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.MainApp;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class AppController {
 
@@ -24,15 +25,26 @@ public class AppController {
     protected BorderPane rootLayout;
     public String lastController;
     public String currentController;
+    public FluegeSpeicher fluegeSpeicher;
+    public BenutzerprofilSpeicher benutzerprofilSpeicher;
+    public BuchungsprofileSpeicher buchungsprofileSpeicher;
 
     public Benutzerprofil benutzerprofil;
+    public List<Flug> flugList;
+    public List<Flug> rueckflugList;
 
-    public AppController(Stage primaryStage) {
+    public AppController(Stage primaryStage, boolean stardet) {
         super();
         this.primaryStage = primaryStage;
+        if (!stardet){
+            openMessageDialog("The System didn't start properly");
+        }
     }
 
-    public void startController() {
+    public void startController(FluegeSpeicher fluegeSpeicher, BuchungsprofileSpeicher buchungsprofileSpeicher, BenutzerprofilSpeicher benutzerprofilSpeicher) {
+        this.fluegeSpeicher = fluegeSpeicher;
+        this.benutzerprofilSpeicher = benutzerprofilSpeicher;
+        this.buchungsprofileSpeicher = buchungsprofileSpeicher;
         initLoginView();
     }
 
@@ -51,6 +63,7 @@ public class AppController {
             // Give the controller access to the main app.
             StartSceneController controller = loader.getController();
             controller.setMainApp(this);
+            controller.startController();
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(loginView);
@@ -74,16 +87,12 @@ public class AppController {
             // Give the controller access to the main app.
             AbstractController controller = loader.getController();
             controller.setMainApp(this);
+            controller.startController();
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(view);
             primaryStage.setScene(scene);
             primaryStage.show();
-
-            if (viewPath.matches(ViewNavigation.ZWISCHENSCENE)){
-                ZwischenSceneController contr = (ZwischenSceneController) controller;
-                contr.goOn();
-            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -108,6 +117,7 @@ public class AppController {
             controller.setDialogStage(dialogStage);
             controller.setFlug(flug);
             controller.setMainApp(this);
+            controller.startController();
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -135,6 +145,7 @@ public class AppController {
             controller.setPerson(person);
             controller.setDialogStage(dialogStage);
             controller.setMainApp(this);
+            controller.startController();
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -143,7 +154,7 @@ public class AppController {
         }
     }
 
-    public void openMessageDialog(String person, int howMany) {
+    public void openMessageDialog(String message) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource(ViewNavigation.MESSAGEDIALOG));
@@ -158,6 +169,8 @@ public class AppController {
 
             // Set the person into the controller
             MessageDialogController controller = loader.getController();
+            controller.setMessage(message);
+            controller.setDialogStage(dialogStage);
             controller.startController();
             controller.setMainApp(this);
 

@@ -1,9 +1,11 @@
 package it.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
+import it.fallmerayer.codingGmbH.projektFlughafen.Utility.HelpfullStrings;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
@@ -15,11 +17,21 @@ public class BuchungshistorieNormController extends AbstractController {
 
     @FXML TableView buchungTabelView;
 
+    @FXML TableColumn vonCollumn;
+    @FXML TableColumn nachCollumn;
+    @FXML TableColumn startCollumn;
+    @FXML TableColumn ankunftCollumn;
+    @FXML TableColumn datumCollumn;
+    @FXML TableColumn preisCollumn;
+    @FXML TableColumn gepaeckCollumn;
+    @FXML TableColumn personenCollumn;
+
     @FXML Label angemeldetLabel;
 
-    @FXML
-    private void initialize() {
-
+    //TODO add Tabelle
+    @Override
+    public void startController() {
+        angemeldetLabel.setText(HelpfullStrings.angemeldetAlsString + main.benutzerprofil.getBenutzerName());
     }
 
     @FXML

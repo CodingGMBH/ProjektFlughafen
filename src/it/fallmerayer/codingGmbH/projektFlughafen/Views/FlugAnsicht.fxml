@@ -14,25 +14,31 @@
             <Button fx:id="zurueckButt" layoutX="13.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" prefWidth="100.0" text="Zurück" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
             <Button fx:id="weiterButt" layoutX="487.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleWeiter" prefWidth="150.0" text="Weiter" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
             <TableView fx:id="rueckflugTabelView" layoutX="17.0" layoutY="245.0" prefHeight="180.0" prefWidth="450.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="366.0">
+               <placeholder>
+                  <Label text="Keinen Rückflug gefunden" />
+               </placeholder>
                <columns>
-                  <TableColumn prefWidth="100.0" text="Von" />
-                  <TableColumn prefWidth="100.0" text="Nach" />
-                  <TableColumn prefWidth="100.0" text="Start" />
-                  <TableColumn prefWidth="100.0" text="Ankunft" />
-                  <TableColumn prefWidth="85.0" text="Datum" />
-                  <TableColumn text="Preis" />
+                  <TableColumn fx:id="vonRueckCollumn" prefWidth="100.0" text="Von" />
+                  <TableColumn fx:id="nachRueckCollumn" prefWidth="100.0" text="Nach" />
+                  <TableColumn fx:id="startRueckCollumn" prefWidth="100.0" text="Start" />
+                  <TableColumn fx:id="ankunftRueckCollumn" prefWidth="100.0" text="Ankunft" />
+                  <TableColumn fx:id="datumRueckCollumn" prefWidth="85.0" text="Datum" />
+                  <TableColumn fx:id="preisRueckCollumn" text="Preis" />
                </columns>
             </TableView>
             <Label layoutX="19.0" layoutY="75.0" text="Hinflug" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="100.0" />
             <Label layoutX="14.0" layoutY="220.0" text="Rückflug" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="341.0" />
             <TableView fx:id="hinflugTabelView" layoutX="14.0" layoutY="100.0" prefHeight="180.0" prefWidth="450.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="125.0">
+               <placeholder>
+                  <Label text="Keinen Flug gefunden" />
+               </placeholder>
                <columns>
-                  <TableColumn prefWidth="100.0" text="Von" />
-                  <TableColumn prefWidth="100.0" text="Nach" />
-                  <TableColumn prefWidth="100.0" text="Start" />
-                  <TableColumn prefWidth="100.0" text="Ankunft" />
-                  <TableColumn prefWidth="85.0" text="Datum" />
-                  <TableColumn text="Preis" />
+                  <TableColumn fx:id="vonHinCollumn" prefWidth="100.0" text="Von" />
+                  <TableColumn fx:id="nachHinCollumn" prefWidth="100.0" text="Nach" />
+                  <TableColumn fx:id="startHinCollumn" prefWidth="100.0" text="Start" />
+                  <TableColumn fx:id="ankunftHinCollumn" prefWidth="100.0" text="Ankunft" />
+                  <TableColumn fx:id="datumHinCollumn" prefWidth="85.0" text="Datum" />
+                  <TableColumn fx:id="preisHinCollumn" text="Preis" />
                </columns>
             </TableView>
             <Label fx:id="flugLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="70.0" layoutY="42.0" prefHeight="37.0" prefWidth="414.0" text="Flug von ... nach ..." AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="45.0">

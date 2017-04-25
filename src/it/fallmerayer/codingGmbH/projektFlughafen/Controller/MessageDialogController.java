@@ -11,6 +11,10 @@ public class MessageDialogController extends AbstractController {
     Stage dialogStage;
     String message;
 
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
+
     public void setMessage(String message) {
         this.message = message;
     }

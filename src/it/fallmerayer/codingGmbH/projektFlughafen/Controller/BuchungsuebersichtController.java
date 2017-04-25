@@ -28,6 +28,9 @@ public class BuchungsuebersichtController extends AbstractController {
     @FXML Button gepaeckBearbeitenButt;
     @FXML Button fertigstellenButt;
 
+
+    //TODO add ausgewählter FLug
+
     @FXML
     private void handelBack(){
         main.selectView(main.lastController);

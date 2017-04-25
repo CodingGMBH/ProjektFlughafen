@@ -14,13 +14,16 @@
             <Button fx:id="zurueckButt" layoutX="13.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="27.0" prefWidth="100.0" text="Zurück" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
             <Button fx:id="weiterButt" layoutX="487.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleWeiter" prefHeight="27.0" prefWidth="150.0" text="Weiter" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
             <TableView fx:id="hinflugTabelView" layoutX="17.0" layoutY="100.0" prefHeight="243.0" prefWidth="450.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="125.0">
+               <placeholder>
+                  <Label text="Keinen Flug gefunden" />
+               </placeholder>
                <columns>
-                  <TableColumn prefWidth="100.0" text="Von" />
-                  <TableColumn prefWidth="100.0" text="Nach" />
-                  <TableColumn prefWidth="100.0" text="Start" />
-                  <TableColumn prefWidth="100.0" text="Ankunft" />
-                  <TableColumn prefWidth="85.0" text="Datum" />
-                  <TableColumn text="Preis" />
+                  <TableColumn fx:id="vonCollumn" prefWidth="100.0" text="Von" />
+                  <TableColumn fx:id="nachCollumn" prefWidth="100.0" text="Nach" />
+                  <TableColumn fx:id="startCollumn" prefWidth="100.0" text="Start" />
+                  <TableColumn fx:id="ankunftCollumn" prefWidth="100.0" text="Ankunft" />
+                  <TableColumn fx:id="datumCollumn" prefWidth="85.0" text="Datum" />
+                  <TableColumn fx:id="preisCollumn" text="Preis" />
                </columns>
             </TableView>
             <Label fx:id="flugLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="70.0" layoutY="42.0" prefHeight="37.0" prefWidth="414.0" text="Flug von ... nach ..." AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="45.0">

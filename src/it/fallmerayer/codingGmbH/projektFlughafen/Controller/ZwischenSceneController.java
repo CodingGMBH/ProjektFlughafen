@@ -18,7 +18,8 @@ public class ZwischenSceneController extends AbstractController {
 
     }
 
-    public void goOn(){
+    @Override
+    public void startController(){
         if (main.lastController.matches(ViewNavigation.ZAHLUNGSCENE)){
             erfolgreichLabel.setText("Zahlung erfolgreich");
         } else if (main.lastController.matches(ViewNavigation.ANMELDENREGISTRIRENSCENE)){

@@ -1,5 +1,8 @@
 package it.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
+import com.sun.tools.javac.comp.Todo;
+import it.fallmerayer.codingGmbH.projektFlughafen.Utility.CheckValidations;
+import it.fallmerayer.codingGmbH.projektFlughafen.Utility.Exceptions.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -28,11 +31,27 @@ public class InputBoxGepaeckDialogController extends AbstractController {
 
     @FXML
     private void handleFortfahren(){
-        dialogStage.close();
+        if (everythingCorrectInputReg()){
+            //TODO gewicht zurückgeben
+            dialogStage.close();
+        }
     }
 
     @FXML
     private void handleAbbrechen(){
         dialogStage.close();
+    }
+
+    private boolean everythingCorrectInputReg(){
+        try {
+            CheckValidations.isValidString(gewichtAendern.getText());
+
+            CheckValidations.isKommaNumber(gewichtAendern.getText());
+
+        }catch (NichtsEingegebenException | KeineNummerException e){
+            main.openMessageDialog(e.getMessage());
+            return false;
+        }
+        return true;
     }
 }

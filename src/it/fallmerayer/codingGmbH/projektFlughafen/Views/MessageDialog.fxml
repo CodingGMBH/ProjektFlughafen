@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" style="-fx-background-color: white;" stylesheets="@../Utility/Style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="it.fallmerayer.codingGmbH.projektFlughafen.Controller.MessageDialogController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" style="-fx-background-color: white;" stylesheets="@../Utility/Style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.fallmerayer.codingGmbH.projektFlughafen.Controller.MessageDialogController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -24,7 +24,7 @@
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <Button layoutX="36.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleSchliesen" prefWidth="150.0" text="Schliesen" />
+            <Button layoutX="36.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleSchliesen" prefWidth="150.0" text="Schließen" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
          </children>
       </AnchorPane>
    </children>

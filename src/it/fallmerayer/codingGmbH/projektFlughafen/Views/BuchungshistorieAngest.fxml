@@ -14,16 +14,19 @@
             <Button fx:id="backButt" layoutX="13.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="27.0" prefWidth="100.0" text="Zurück" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
             <Button fx:id="goButt" layoutX="478.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleGo" prefHeight="27.0" prefWidth="150.0" text="Einsehen" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
             <TableView fx:id="buchungTabelView" layoutX="17.0" layoutY="100.0" prefHeight="196.0" prefWidth="529.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="120.0">
+               <placeholder>
+                  <Label text="Noch keine Buchungen vorgenommen" />
+               </placeholder>
                <columns>
-                  <TableColumn prefWidth="90.0" text="Von" />
-                  <TableColumn prefWidth="90.0" text="Nach" />
-                  <TableColumn prefWidth="70.0" text="Start" />
-                  <TableColumn prefWidth="70.0" text="Ankunft" />
-                  <TableColumn prefWidth="90.0" text="Datum" />
-                  <TableColumn prefWidth="70.0" text="Preis" />
-                  <TableColumn prefWidth="70.0" text="Gepäck" />
-                  <TableColumn text="Personen" />
-                  <TableColumn prefWidth="100.0" text="Gebucht für" />
+                  <TableColumn fx:id="vonCollumn" prefWidth="90.0" text="Von" />
+                  <TableColumn fx:id="nachCollumn" prefWidth="90.0" text="Nach" />
+                  <TableColumn fx:id="startCollumn" prefWidth="70.0" text="Start" />
+                  <TableColumn fx:id="ankunftCollumn" prefWidth="70.0" text="Ankunft" />
+                  <TableColumn fx:id="datumCollumn" prefWidth="90.0" text="Datum" />
+                  <TableColumn fx:id="preisCollumn" prefWidth="70.0" text="Preis" />
+                  <TableColumn fx:id="gepaeckCollumn" prefWidth="70.0" text="Gepäck" />
+                  <TableColumn fx:id="personenCollumn" text="Personen" />
+                  <TableColumn fx:id="gebuchtFuerCollumn" prefWidth="100.0" text="Gebucht für" />
                </columns>
             </TableView>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="70.0" layoutY="42.0" prefHeight="37.0" prefWidth="414.0" text="Buchungshistorie" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="45.0">

@@ -1,7 +1,11 @@
 package it.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
+import it.fallmerayer.codingGmbH.projektFlughafen.Modell.Administrator;
+import it.fallmerayer.codingGmbH.projektFlughafen.Modell.Angestellter;
+import it.fallmerayer.codingGmbH.projektFlughafen.Modell.TooMuchAngestellteException;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.CheckValidations;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.Exceptions.*;
+import it.fallmerayer.codingGmbH.projektFlughafen.Utility.HelpfullStrings;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -32,6 +36,11 @@ public class NeuerMittarbeiterController extends AbstractController {
     @FXML Button backButt;
     @FXML Button hinzufuegenButt;
 
+    @Override
+    public void startController() {
+        angemeldetAlsLabel.setText(HelpfullStrings.angemeldetAlsString + main.benutzerprofil.getBenutzerName());
+    }
+
     @FXML
     private void handleBack(){
         main.selectView(ViewNavigation.ANGEMELDETSCENE);
@@ -40,6 +49,19 @@ public class NeuerMittarbeiterController extends AbstractController {
     @FXML
     private void handleHinzufuegen(){
         if (everythingCorrectInput()){
+            if (adminRadioButton.isSelected()){
+                try {
+                    ((Administrator)main.benutzerprofil).erstelleAdministratorKonto(vornameTxtField.getText(), nachnameTxtField.getText(), emailTxtField.getText(), geburtsdatumDatePicker.getValue().atStartOfDay(), benutzernameTxtField.getText(), passwordTxtField.getText());
+                } catch (TooMuchAngestellteException e) {
+                    main.openMessageDialog(e.getMessage());
+                }
+            }else{
+                try {
+                    ((Administrator)main.benutzerprofil).erstelleAngestelltenKonto(vornameTxtField.getText(), nachnameTxtField.getText(), emailTxtField.getText(), geburtsdatumDatePicker.getValue().atStartOfDay(), benutzernameTxtField.getText(), passwordTxtField.getText());
+                } catch (TooMuchAngestellteException e) {
+                    main.openMessageDialog(e.getMessage());
+                }
+            }
             main.selectView(ViewNavigation.ANGEMELDETSCENE);
         }else{
             System.out.println("Something is wrong");
@@ -48,25 +70,20 @@ public class NeuerMittarbeiterController extends AbstractController {
 
     private boolean everythingCorrectInput(){
         try {
-            CheckValidations.isDate(geburtsdatumDatePicker.getValue());
+            CheckValidations.isValidString(vornameTxtField.getText());
+            CheckValidations.isValidString(nachnameTxtField.getText());
+            CheckValidations.isValidString(benutzernameTxtField.getText());
+            CheckValidations.isValidString(passwordTxtField.getText());
+            CheckValidations.isValidString(emailTxtField.getText());
+
             CheckValidations.isNameString(vornameTxtField.getText());
             CheckValidations.isNameString(nachnameTxtField.getText());
-            CheckValidations.isValidString(benutzernameTxtField.getText());
-            CheckValidations.isValidPassword(passwordTxtField.getText());
             CheckValidations.isEmail(emailTxtField.getText());
-        }catch (NichtsEingegebenException e){
-            return false;
-        }
-        catch (KeinNameException e){
-            return false;
-        }
-        catch (KeineEmailException e){
-            return false;
-        }
-        catch (KeinPasswordException e){
-            return false;
-        }
-        catch (KeinDatumException e){
+            CheckValidations.isValidPassword(passwordTxtField.getText());
+            CheckValidations.isDate(geburtsdatumDatePicker.getValue());
+
+        }catch (NichtsEingegebenException | KeinPasswordException | KeinNameException | KeineEmailException | KeinDatumException e){
+            main.openMessageDialog(e.getMessage());
             return false;
         }
         return true;

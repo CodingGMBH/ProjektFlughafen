@@ -14,15 +14,18 @@
             <Button fx:id="backButt" layoutX="13.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" prefWidth="100.0" text="Zurück" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
             <Button fx:id="goButt" layoutX="478.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleGo" prefWidth="150.0" text="Buchen" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
             <TableView fx:id="buchungTabelView" layoutX="17.0" layoutY="100.0" prefHeight="243.0" prefWidth="450.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="125.0">
+               <placeholder>
+                  <Label text="Keine Flüge in Wunschliste" />
+               </placeholder>
                <columns>
-                  <TableColumn text="Von" />
-                  <TableColumn text="Nach" />
-                  <TableColumn prefWidth="70.0" text="Start" />
-                  <TableColumn prefWidth="70.0" text="Ankunft" />
-                  <TableColumn prefWidth="70.0" text="Datum" />
-                  <TableColumn prefWidth="60.0" text="Preis" />
-                  <TableColumn prefWidth="65.0" text="Gepäck" />
-                  <TableColumn prefWidth="70.0" text="Personen" />
+                  <TableColumn fx:id="vonCollumn" text="Von" />
+                  <TableColumn fx:id="nachCollumn" text="Nach" />
+                  <TableColumn fx:id="startCollumn" prefWidth="70.0" text="Start" />
+                  <TableColumn fx:id="ankunftCollumn" prefWidth="70.0" text="Ankunft" />
+                  <TableColumn fx:id="datumCollumn" prefWidth="70.0" text="Datum" />
+                  <TableColumn fx:id="preisCollumn" prefWidth="60.0" text="Preis" />
+                  <TableColumn fx:id="gepaeckCollumn" prefWidth="65.0" text="Gepäck" />
+                  <TableColumn fx:id="personenCollumn" prefWidth="70.0" text="Personen" />
                </columns>
             </TableView>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="70.0" layoutY="42.0" prefHeight="37.0" prefWidth="414.0" text="Wunschliste" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="45.0">
