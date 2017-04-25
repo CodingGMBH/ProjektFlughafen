@@ -39,7 +39,7 @@ public class Angestellter extends Benutzerprofil {
     }
 
     //Es wird ein "BuchungsprofilAngestellter" erstellt und in die Liste des "BuchungsprofilSpeichers" eingefügt. Dabei muss der "Flug" "buchbar" sein und mit den gewählten Konfiguationen übereinstimmen. Andernfalls wird im "Buchungsprofil" eine "FlugNichtBuchbarException" geworfen.
-    private BuchungsprofilAngestellter bucheFlugFuerKunde(String flugNummer, double gepaeckGewicht, List<Mitflieger> passagierListe) throws FlugNichtBuchbarException{
+    public BuchungsprofilAngestellter bucheFlugFuerKunde(String flugNummer, double gepaeckGewicht, List<Mitflieger> passagierListe) throws FlugNichtBuchbarException{
         BuchungsprofilAngestellter aktuellesBuchungsprofil = new BuchungsprofilAngestellter(flugNummer, gepaeckGewicht, this.getPID(), passagierListe);
         BuchungsprofileSpeicher.getInstance().addBuchungsprofil(aktuellesBuchungsprofil);
         return aktuellesBuchungsprofil;
