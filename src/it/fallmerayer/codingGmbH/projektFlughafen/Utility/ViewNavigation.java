@@ -16,6 +16,7 @@ public class ViewNavigation {
     public static final String FLUGEINSEHENSCENE = VIEWSPATH + "FlugEinsehen.fxml";
     public static final String INPUTBOXGEPAECKDIALOG = VIEWSPATH + "InputBoxGepaeck.fxml";
     public static final String INPUTBOXPERSONDIALOG = VIEWSPATH + "InputBoxPerson.fxml";
+    public static final String MESSAGEDIALOG = VIEWSPATH + "MessageDialog.fxml";
     public static final String NEUERMITARBEITERSCENE = VIEWSPATH + "NeuerMittarbeiter.fxml";
     public static final String STARTSCENE = VIEWSPATH + "StartScene.fxml";
     public static final String WUNSCHLISTESCENE = VIEWSPATH + "Wunschliste.fxml";

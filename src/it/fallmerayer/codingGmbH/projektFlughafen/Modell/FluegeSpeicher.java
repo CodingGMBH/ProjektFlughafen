@@ -2,13 +2,11 @@ package it.fallmerayer.codingGmbH.projektFlughafen.Modell;
 
 
 
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import java.io.*;
-import java.nio.charset.Charset;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -76,8 +74,17 @@ public class FluegeSpeicher {
 
 
     //Flug hinzufuegen
+    //Wenn die Flugnummer schon existiert wird der Flug nich hinzugefuegt
     public void addFlug(Flug flug){
-        fluegeListe.add(flug);
+        boolean containsID = false;
+        for (Flug i : fluegeListe){
+            if (i.getFlugNummer().equals(flug.getFlugNummer())){
+                containsID=true;
+            }
+        }
+        if (!containsID){
+            fluegeListe.add(flug);
+        }
     }
 
 
@@ -90,7 +97,6 @@ public class FluegeSpeicher {
         }
     }
 
-    //TODO:
     //Methode um aus Datei zu lesen
     public void ausDateiLesen() throws IOException, NumberFormatException{
         File input = new File(".\\files\\Fluege.csv");
@@ -178,7 +184,7 @@ public class FluegeSpeicher {
             throw new IOException("Datei Fluege.csv konnte nicht gelesen werden");
         }
     }
-    //TODO:
+
     //In Datei schreiben
     public void inDateiSchreiben()throws IOException{
         File output = new File(".\\files\\Fluege.csv");
@@ -229,14 +235,14 @@ public class FluegeSpeicher {
             throw new IOException("In Datei Fluege.csv konnte nicht geschrieben werden");
         }
     }
-    //TODO:
+
     //Neue Fluege werden ins System aufgenommen
     //Funktion --> Siehe ausDateiLesen()
     public void fluegeInSystemEingliedern() throws IOException, NumberFormatException{
         boolean containsID = false;
         List<Flug> eingliedern = new LinkedList<>();
         File newFluege = new File(".\\..\\Flugliste\\Update_Flugliste.csv");
-        //TODO: Ausafinden wetta kodierung a file hot
+
         InputStreamReader input = new InputStreamReader(new FileInputStream(newFluege), "UTF-8");
 
         try(BufferedReader br = new BufferedReader(input)){
@@ -273,18 +279,19 @@ public class FluegeSpeicher {
                             {
                                 int i = 1;
 
-                                while (abflugHilfe[i].equals(" ")){
+                                while (abflugHilfe[i].equals("")){
                                     i++;
                                 }
 
                                 time = abflugHilfe[i].split(":");
                             }
+
                             abflug = LocalDateTime.of(Integer.parseInt(date[2]),Integer.parseInt(date[1]), Integer.parseInt(date[0]),Integer.parseInt(time[0]),Integer.parseInt(time[1]),0);
                             date = ankunftHilfe[0].split("\\.");
                             {
                                 int i = 1;
 
-                                while (abflugHilfe[i].equals(" ")){
+                                while (abflugHilfe[i].equals("")){
                                     i++;
                                 }
 
@@ -297,7 +304,7 @@ public class FluegeSpeicher {
                             flug = new Flug(flugzeug, flugProperties[0],start,ende,0,abflug,ankunft);
                             flug.setPreisSitzplatz(Math.round(flug.getDauerFlug()*50*100)/100);
                         }catch (NumberFormatException f){
-                            throw new NumberFormatException("Fehler in Datei Fluege.csv");
+                            throw new NumberFormatException("Fehler in Datei Update_Flugliste.csv");
                         }
                         eingliedern.add(flug);
                     }
@@ -342,7 +349,9 @@ public class FluegeSpeicher {
 
 
 
-            fs.fluegeInSystemEingliedern();
+            //fs.fluegeInSystemEingliedern();
+
+            fs.addFlug(new Flug(new Flugzeug(34,"Lufthansa",3),"LH32145",new Flughafen("Bozen"),new Flughafen("München"),0,LocalDateTime.of(LocalDate.now(), LocalTime.of(14,00)),LocalDateTime.of(LocalDate.now(),LocalTime.of(16,00))));
             fs.inDateiSchreiben();
 
 
@@ -366,7 +375,41 @@ public class FluegeSpeicher {
                 System.out.println(i.getPreisSitzplatz());
 
             }
-        } catch (IOException e) {
+
+            System.out.println("-+-+-Davon buchbar:-+-+-");
+            for(Flug i:fs.getBuchbareFluege()){
+                System.out.println("---");
+                System.out.println(i.getFlugNummer());
+                System.out.println(i.getFlugzeug().getFlugGesellschaft());
+                System.out.println(i.getStartFlughafen().getStadt());
+                System.out.println(i.getZielFlughafen().getStadt());
+                System.out.println(i.getAbflugZeit().toString());
+                System.out.println(i.getAnkunftZeit().toString());
+                System.out.println(i.getFlugzeug().getAnzahlSitzplaetze());
+                System.out.println(i.getFlugzeug().getGepaeckKapazitaet());
+                System.out.println(i.getZaehlerGebuchteSitzplaetze());
+                System.out.println(i.getZaehlerGepaeckGewicht());
+                System.out.println(i.getPreisSitzplatz());
+
+            }
+
+            {
+                System.out.println("LH3458:");
+                Flug i = fs.getFlug("LH3458");
+                System.out.println("---");
+                System.out.println(i.getFlugNummer());
+                System.out.println(i.getFlugzeug().getFlugGesellschaft());
+                System.out.println(i.getStartFlughafen().getStadt());
+                System.out.println(i.getZielFlughafen().getStadt());
+                System.out.println(i.getAbflugZeit().toString());
+                System.out.println(i.getAnkunftZeit().toString());
+                System.out.println(i.getFlugzeug().getAnzahlSitzplaetze());
+                System.out.println(i.getFlugzeug().getGepaeckKapazitaet());
+                System.out.println(i.getZaehlerGebuchteSitzplaetze());
+                System.out.println(i.getZaehlerGepaeckGewicht());
+                System.out.println(i.getPreisSitzplatz());
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

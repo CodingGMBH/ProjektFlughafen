@@ -143,6 +143,31 @@ public class AppController {
         }
     }
 
+    public void openMessageDialog(String person, int howMany) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource(ViewNavigation.MESSAGEDIALOG));
+            GridPane view = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Achtung!");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(view);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller
+            MessageDialogController controller = loader.getController();
+            controller.startController();
+            controller.setMainApp(this);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     private void setControllerPath(String viewPath){
         if (lastController.matches(currentController)){
             currentController = viewPath;

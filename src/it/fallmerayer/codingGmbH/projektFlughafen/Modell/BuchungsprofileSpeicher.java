@@ -1,12 +1,11 @@
 package it.fallmerayer.codingGmbH.projektFlughafen.Modell;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
 
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -60,9 +59,9 @@ public class BuchungsprofileSpeicher {
         return toReturn;
     }
 
-    //TODO:
+
     //Buchung wird hinzugefuegt
-    public void addBuchungsprofil(Buchungsprofil buchungsprofil) throws NoSuchElementException {
+    public void addBuchungsprofil(Buchungsprofil buchungsprofil) throws NoSuchElementException, IOException {
         buchungsprofilListe.add(buchungsprofil);
         BenutzerprofilSpeicher bps = BenutzerprofilSpeicher.getInstance();
         FluegeSpeicher fs = FluegeSpeicher.getInstance();
@@ -140,9 +139,8 @@ public class BuchungsprofileSpeicher {
         try{
             Runtime.getRuntime().exec(command.toString());
         }catch(IOException e){
-            //throw new IOException("PowerShell-Skript konnte nicht gestartet werden");
+            throw new IOException("PowerShell-Skript konnte nicht gestartet werden");
         }
-        //TODO: Skript starten
     }
 
 
@@ -165,9 +163,9 @@ public class BuchungsprofileSpeicher {
         }
     }
 
-    //Todo
+
     //Buchung wird geandert
-    public boolean aendereBuchungsprofil(int buchungsID, double gepaeckGewicht) throws FlugNichtBuchbarException {
+    public boolean aendereBuchungsprofil(int buchungsID, double gepaeckGewicht) throws FlugNichtBuchbarException, IOException {
         for(Buchungsprofil i: buchungsprofilListe){
             //Entsprechende Buchung wird gesucht
             if (i.getBuchungsID()==buchungsID){
@@ -229,7 +227,7 @@ public class BuchungsprofileSpeicher {
                         try{
                             Runtime.getRuntime().exec(command.toString());
                         }catch(IOException e){
-                            //throw new IOException("PowerShell-Skript konnte nicht gestartet werden");
+                            throw new IOException("PowerShell-Skript konnte nicht gestartet werden");
                         }
 
                         i.setGepaeckGewicht(gepaeckGewicht);
@@ -255,7 +253,7 @@ public class BuchungsprofileSpeicher {
         int maxBP = 0;
 
         try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(input),"UTF-8"))){
-            //TODO: Erste Zeile ueberspringen?
+
             //Erste Zeile (Titel) wird uebersprungen
             String s = br.readLine();
             s = br.readLine();
@@ -283,19 +281,7 @@ public class BuchungsprofileSpeicher {
                             for (String i : mitflieger){
                                 mitfliegerProperties = i.split("##");
 
-                                //TODO: löschen
-                        /*System.out.println("\tVorname: " + mitfliegerProperties[0]);
-                        System.out.println("\tNachname: " + mitfliegerProperties[1]);
-                        System.out.println("\tE-Mail: " + mitfliegerProperties[2]);*/
                                 String[] dateProperties = mitfliegerProperties[3].split("\\.");
-
-                                //geb = LocalDate.of(Integer.parseInt(dateProperties[2]),Integer.parseInt(dateProperties[1]),Integer.parseInt(dateProperties[0]));
-                        /*System.out.println("\tGeburtsdatum: " + geb.toString());
-                        System.out.println("\tNummer: " + mitfliegerProperties[4]);*/
-
-                                //TODO: LocalDateTime fi an Gebutstog??? --> Besser LocalDate
-
-
 
                                 mitfliegerList.add(new Mitflieger(mitfliegerProperties[0],mitfliegerProperties[1], mitfliegerProperties[2], LocalDateTime.of(Integer.parseInt(dateProperties[2]),Integer.parseInt(dateProperties[1]),Integer.parseInt(dateProperties[0]),0,0),Integer.parseInt(mitfliegerProperties[4])));
 
@@ -303,13 +289,13 @@ public class BuchungsprofileSpeicher {
                         }
                     }
 
+
                     //Wenn gebuchtVon-Zelle in der *.csv-Datei < 1001 wurde der Flug von einem Angestellten gebucht, sonst von einem Anwender
                     if (Integer.parseInt(buchungsproperties[3])<1001){
-                        buchungsprofil=new BuchungsprofilAngestellter(buchungsproperties[1],Double.parseDouble(buchungsproperties[2]),Integer.parseInt(buchungsproperties[3]),mitfliegerList);
+                        buchungsprofil=new BuchungsprofilAngestellter(buchungsproperties[1],Double.parseDouble(buchungsproperties[2]),Integer.parseInt(buchungsproperties[0]),mitfliegerList,Integer.parseInt(buchungsproperties[3]));
                     }else {
-                        buchungsprofil=new BuchungsprofilAnwender(buchungsproperties[1],Double.parseDouble(buchungsproperties[2]),Integer.parseInt(buchungsproperties[3]),mitfliegerList);
+                        buchungsprofil=new BuchungsprofilAnwender(buchungsproperties[1],Double.parseDouble(buchungsproperties[2]),Integer.parseInt(buchungsproperties[0]),mitfliegerList,Integer.parseInt(buchungsproperties[3]));
                     }
-                    //TODO: Konstruktor aufgobe
                     buchungsprofil.setBuchungsID(Integer.parseInt(buchungsproperties[0]));
                     buchungsprofilListe.add(buchungsprofil);
 
@@ -321,8 +307,6 @@ public class BuchungsprofileSpeicher {
             throw new IOException("Datei Buchungsprofile.csv konnte nicht gelesen werden");
         }catch (NumberFormatException f){
             throw new NumberFormatException("Formatierungsfehler in Buchungsprofile.csv");
-        } catch (FlugNichtBuchbarException e) {
-            throw new FlugNichtBuchbarException("Fehler in der Datei. Buchungen koennen nicht ins System geladen werden");
         }
         BuchungsprofileSpeicher.aktualiesiereBuchungsCounter(++maxBP);
     }
@@ -381,51 +365,6 @@ public class BuchungsprofileSpeicher {
                 toWrite.setLength(0);
 
             }
-
-
-            //TODO: Oltn müll löschen
-/*
-
-            String s = br.readLine();
-            s = br.readLine();
-            String [] buchungsproperties;
-            Buchungsprofil buchungsprofil = null;
-            List<Mitflieger> mitfliegerList = new LinkedList<>();
-            while (s!=null){
-                buchungsproperties = s.split(";");
-                if (Integer.parseInt(buchungsproperties[0])>maxBP){
-                    maxBP=Integer.parseInt(buchungsproperties[0]);
-                }
-
-                {
-                    String[] mitflieger = buchungsproperties[4].split("&&");
-                    String[] mitfliegerProperties = null;
-                    LocalDate geb;
-                    for (String i : mitflieger){
-                        mitfliegerProperties = i.split("##");
-
-                        System.out.println("\tVorname: " + mitfliegerProperties[0]);
-                        System.out.println("\tNachname: " + mitfliegerProperties[1]);
-                        System.out.println("\tE-Mail: " + mitfliegerProperties[2]);
-                        String[] dateProperties = mitfliegerProperties[3].split("\\.");
-                        geb = LocalDate.of(Integer.parseInt(dateProperties[2]),Integer.parseInt(dateProperties[1]),Integer.parseInt(dateProperties[0]));
-                        System.out.println("\tGeburtsdatum: " + geb.toString());
-                        System.out.println("\tNummer: " + mitfliegerProperties[4]);
-
-                        //TODO: Attribute setzten
-                        mitfliegerList.add(new Mitflieger());
-
-                    }
-                }
-                if (Integer.parseInt(buchungsproperties[3])<1001){
-                    buchungsprofil=new BuchungsprofilAngestellter(buchungsproperties[1],Double.parseDouble(buchungsproperties[2]),Integer.parseInt(buchungsproperties[3]),mitfliegerList);
-                }else {
-                    buchungsprofil=new BuchungsprofilAnwender(buchungsproperties[1],Double.parseDouble(buchungsproperties[2]),Integer.parseInt(buchungsproperties[3]),mitfliegerList);
-                }
-                buchungsprofilListe.add(buchungsprofil);
-                mitfliegerList.clear();
-                s = br.readLine();
-            }*/
         }catch (IOException e){
             throw new IOException("Datei Buchungsprofile.csv konnte nicht gelesen werden");
         }
@@ -476,11 +415,14 @@ public class BuchungsprofileSpeicher {
                     angestellter=i;
                 }
             }
+            //bps.getBuchungsprofilListe().add(new BuchungsprofilAngestellter("EJ1222",0,105,mitfliegerList));
 
             //bps.addBuchungsprofil(new BuchungsprofilAngestellter("EJ1222",0,105,mitfliegerList));
-            //bps.addBuchungsprofil(angestellter.bucheFlugFuerKunde("EJ1222",0,mitfliegerList));
+            /*BuchungsprofilAngestellter buchungsprofilAngestellter = angestellter.bucheFlugFuerKunde("EJ1222",0,mitfliegerList);
+            bps.aendereBuchungsprofil(buchungsprofilAngestellter.getBuchungsID(),10);*/
 
-/*
+            System.out.println(bps.loescheBuchungsprofil(14));
+
             System.out.println("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
             for (Buchungsprofil i: bps.getBuchungsprofilListe()){
                 System.out.println("///////");
@@ -513,15 +455,13 @@ public class BuchungsprofileSpeicher {
                         System.out.println(j.getIdentitaetsNummer());
                     }
                 }
-            }*/
+            }
 
-          // bps.inDateiSchreiebn();
+          //bps.inDateiSchreiebn();
 
         } catch (IOException e) {
             e.printStackTrace();
         } catch (FlugNichtBuchbarException e) {
-            e.printStackTrace();
-        } catch (TooMuchAngestellteException e) {
             e.printStackTrace();
         }
 

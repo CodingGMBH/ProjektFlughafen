@@ -11,4 +11,6 @@ public class AbstractController {
 		this.main = main;
 	}
 
+	public void startController(){}
+
 }

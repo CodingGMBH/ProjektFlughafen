@@ -4,7 +4,6 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -145,7 +144,7 @@ public class BenutzerprofilSpeicher {
     /*
     * Mehode um aus Datei zu lesen
     * */
-    public void ausDateiLesen() throws IOException, NumberFormatException, TooMuchAngestellteException {
+    public void ausDateiLesen() throws IOException, NumberFormatException {
         File input = new File(".\\files\\Benutzerprofile.csv");
         int maxAnwender = 1000;
         int maxAngestellter = 100;
@@ -169,39 +168,33 @@ public class BenutzerprofilSpeicher {
                     gebdateHilfe = benutzerproperties[4].split("\\.");
                     geb = LocalDateTime.of(Integer.parseInt(gebdateHilfe[2]),Integer.parseInt(gebdateHilfe[1]),Integer.parseInt(gebdateHilfe[0]),0,0);
 
-                    try {
-                        if (Integer.parseInt(benutzerproperties[0]) < 101) {
-                            if (Integer.parseInt(benutzerproperties[0]) > maxAdmin) {
-                                maxAdmin = Integer.parseInt(benutzerproperties[0]);
-                            }
-                            //TODO: PID setzen
-                            administratorenListe.add(new Administrator(benutzerproperties[1], benutzerproperties[2], benutzerproperties[3], geb, benutzerproperties[5], benutzerproperties[6]));
-                        } else if (Integer.parseInt(benutzerproperties[0]) < 1001) {
-                            if (Integer.parseInt(benutzerproperties[0]) > maxAngestellter) {
-                                maxAngestellter = Integer.parseInt(benutzerproperties[0]);
-                            }
-                            //TODO: PID setzn
-                            angestelltenListe.add(new Angestellter(benutzerproperties[1], benutzerproperties[2], benutzerproperties[3], geb, benutzerproperties[5], benutzerproperties[6]));
-                        } else {
-                            if (Integer.parseInt(benutzerproperties[0]) > maxAnwender) {
-                                maxAnwender = Integer.parseInt(benutzerproperties[0]);
-                            }
 
-                            //TODO: PID setzen
-                            anwender = new Anwender(benutzerproperties[1], benutzerproperties[2], benutzerproperties[3], geb, benutzerproperties[5], benutzerproperties[6],Integer.parseInt(benutzerproperties[7]));
-                            if (!benutzerproperties[8].equals("-1") | benutzerproperties.length<7){
-                                wunschlisteHilfe = benutzerproperties[8].split("&&");
-                                for (String j: wunschlisteHilfe){
-                                    wunschlistenproperties = j.split("##");
-                                    anwender.legeFlugInWunschliste(wunschlistenproperties[0],Integer.parseInt(wunschlistenproperties[1]),Double.parseDouble(wunschlistenproperties[2]));
-                                }
-                            }
-                            anwenderListe.add(anwender);
+                    if (Integer.parseInt(benutzerproperties[0]) < 101) {
+                        if (Integer.parseInt(benutzerproperties[0]) > maxAdmin) {
+                            maxAdmin = Integer.parseInt(benutzerproperties[0]);
                         }
-                    } catch (TooMuchAngestellteException e) {
-                        throw new TooMuchAngestellteException("Fehler in der Datenbank");
-                    } catch (NumberFormatException e){
-                        throw new NumberFormatException("Fehler in der Datenbank");
+
+                        administratorenListe.add(new Administrator(benutzerproperties[1], benutzerproperties[2], benutzerproperties[3], geb, benutzerproperties[5], benutzerproperties[6],Integer.parseInt(benutzerproperties[0])));
+                    } else if (Integer.parseInt(benutzerproperties[0]) < 1001) {
+                        if (Integer.parseInt(benutzerproperties[0]) > maxAngestellter) {
+                            maxAngestellter = Integer.parseInt(benutzerproperties[0]);
+                        }
+
+                        angestelltenListe.add(new Angestellter(benutzerproperties[1], benutzerproperties[2], benutzerproperties[3], geb, benutzerproperties[5], benutzerproperties[6],Integer.parseInt(benutzerproperties[0])));
+                    } else {
+                        if (Integer.parseInt(benutzerproperties[0]) > maxAnwender) {
+                            maxAnwender = Integer.parseInt(benutzerproperties[0]);
+                        }
+
+                        anwender = new Anwender(benutzerproperties[1], benutzerproperties[2], benutzerproperties[3], geb, benutzerproperties[5], benutzerproperties[6],Integer.parseInt(benutzerproperties[0]),Integer.parseInt(benutzerproperties[7]));
+                        if (!benutzerproperties[8].equals("-1") | benutzerproperties.length<7){
+                            wunschlisteHilfe = benutzerproperties[8].split("&&");
+                            for (String j: wunschlisteHilfe){
+                                wunschlistenproperties = j.split("##");
+                                anwender.legeFlugInWunschliste(wunschlistenproperties[0],Integer.parseInt(wunschlistenproperties[1]),Double.parseDouble(wunschlistenproperties[2]));
+                            }
+                        }
+                        anwenderListe.add(anwender);
                     }
                 }
 
@@ -336,14 +329,14 @@ public class BenutzerprofilSpeicher {
             a.legeFlugInWunschliste("KL",0,0);
             a.legeFlugInWunschliste("EJ1222",1,0);
 
-            try {
+            /*try {
                 Administrator admin = ((Administrator) bps.anmelden("cooloAdmin", "tadaa"));
                 if (admin.isAngemeldet()){
                     System.out.println(admin.getVorname() + " " + admin.getNachname() + " ist angemeldet.");
                 }
             } catch (NichtImSystemRegistriertException e) {
                 e.printStackTrace();
-            }
+            }*/
             /*bps.addBenutzerprofil(new Administrator("admin","test","admmin@larcherairline.com",LocalDateTime.of(1999,3,3,0,0),"cooloAdmin","tadaa"));
             bps.addBenutzerprofil(new Angestellter("angestellter","test","angestellter@larcherairline.com",LocalDateTime.of(1999,3,5,0,0),"cooloAngestellter","ha"));
             bps.addBenutzerprofil(new Angestellter("angestellter2","test2","angestellter2@larcherairline.com",LocalDateTime.of(1996,3,5,0,0),"cooloAngestellter2","ha"));
@@ -401,8 +394,6 @@ public class BenutzerprofilSpeicher {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (TooMuchAngestellteException e) {
             e.printStackTrace();
         }
 
