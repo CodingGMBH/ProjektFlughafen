@@ -62,14 +62,6 @@ public class BuchungsprofilAnwender extends Buchungsprofil {
         return (FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getPreisSitzplatz() + this.getGepaeckGewicht() * this.mitfliegerListe.size()) + 50;
     }
 
-    @Override
-    public Buchungsprofil erstelleAbgelaufeneBuchung(String flugNummer, double gepaeckGewicht, int anwenderPID, List<Mitflieger> mitfliegerListe, int buchungsID) {
-        BuchungsprofilAnwender abgelaufeneBuchung = new BuchungsprofilAnwender(gepaeckGewicht, mitfliegerListe, buchungsID);
-        abgelaufeneBuchung.setFlugNummer(flugNummer);
-        abgelaufeneBuchung.setAnwenderPID(anwenderPID);
-        return abgelaufeneBuchung;
-    }
-
     //Es kann nur ein Mitflieger geaddet werden, falls noch ein Platz im Flugzeug frei ist.
     public void addMitflieger(Mitflieger mitflieger) throws FlugNichtBuchbarException{
         if ((FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getFlugzeug().getAnzahlSitzplaetze() - FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getZaehlerGebuchteSitzplaetze()) >= 1){
