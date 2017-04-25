@@ -24,7 +24,6 @@ public class ZwischenSceneController extends AbstractController {
             erfolgreichLabel.setText("Zahlung erfolgreich");
         } else if (main.lastController.matches(ViewNavigation.ANMELDENREGISTRIRENSCENE)){
             erfolgreichLabel.setText("Erfolgreich angemeldet/registriert");
-
         }
     }
 
