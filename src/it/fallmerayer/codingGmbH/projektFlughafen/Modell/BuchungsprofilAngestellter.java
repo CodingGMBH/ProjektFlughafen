@@ -29,9 +29,10 @@ public class BuchungsprofilAngestellter extends Buchungsprofil {
         this.angestellterPID = angestellterPID;
     }
 
-    //Mit diesem privaten Konstruktor erstellt man ein abgelaufenes Buchungsprofil.
-    private BuchungsprofilAngestellter(double gepaeckGewicht, List<Mitflieger> passagierListe, int buchungsID){
-        super(gepaeckGewicht, buchungsID);
+    //Mit diesem package private Konstruktor erstellt man ein abgelaufenes Buchungsprofil.
+    BuchungsprofilAngestellter(String flugNummer, double gepaeckGewicht, int angestellterPID, List<Mitflieger> passagierListe, int buchungsID){
+        super(flugNummer, gepaeckGewicht, buchungsID);
+        this.angestellterPID = angestellterPID;
         this.passagierListe = passagierListe;
     }
     
