@@ -1,6 +1,7 @@
 package it.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.CheckValidations;
+import it.fallmerayer.codingGmbH.projektFlughafen.Utility.Exceptions.*;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -46,8 +47,28 @@ public class NeuerMittarbeiterController extends AbstractController {
     }
 
     private boolean everythingCorrectInput(){
-        //CheckValidations.isNameString(vornameTxtField.getText()) && CheckValidations.isNameString(nachnameTxtField.getText()) && CheckValidations.isValidString(benutzernameTxtField.getText()) && CheckValidations.isValidPassword(passwordTxtField.getText()) &&
-        //CheckValidations.isEmail(emailTxtField.getText()) &&
-        return CheckValidations.isDate(geburtsdatumDatePicker.getValue().toString());
+        try {
+            CheckValidations.isDate(geburtsdatumDatePicker.getValue());
+            CheckValidations.isNameString(vornameTxtField.getText());
+            CheckValidations.isNameString(nachnameTxtField.getText());
+            CheckValidations.isValidString(benutzernameTxtField.getText());
+            CheckValidations.isValidPassword(passwordTxtField.getText());
+            CheckValidations.isEmail(emailTxtField.getText());
+        }catch (NichtsEingegebenException e){
+            return false;
+        }
+        catch (KeinNameException e){
+            return false;
+        }
+        catch (KeineEmailException e){
+            return false;
+        }
+        catch (KeinPasswordException e){
+            return false;
+        }
+        catch (KeinDatumException e){
+            return false;
+        }
+        return true;
     }
 }

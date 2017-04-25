@@ -34,4 +34,6 @@ public class AnmeldenRegistrierenController extends AbstractController {
         main.selectView(ViewNavigation.ZWISCHENSCENE);
     }
 
+
+
 }

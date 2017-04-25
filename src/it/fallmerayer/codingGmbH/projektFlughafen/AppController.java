@@ -5,6 +5,7 @@ package it.fallmerayer.codingGmbH.projektFlughafen;
  */
 
 import it.fallmerayer.codingGmbH.projektFlughafen.Controller.*;
+import it.fallmerayer.codingGmbH.projektFlughafen.Modell.Benutzerprofil;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.MainApp;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,8 @@ public class AppController {
     protected BorderPane rootLayout;
     public String lastController;
     public String currentController;
+
+    public Benutzerprofil benutzerprofil;
 
     public AppController(Stage primaryStage) {
         super();
