@@ -84,12 +84,22 @@ public class FlugAnsichtController extends AbstractController {
         if (hinflugTabelView.getSelectionModel().getSelectedItem() == null && rueckflugTabelView.getSelectionModel().getSelectedItem() == null){
             main.openMessageDialog("Keinen Flug ausgewählt");
         } else if (rueckflugTabelView.getSelectionModel().getSelectedItem() == null) {
-            BuchungsuebersichtController.setHinflug(hinflugTabelView.getSelectionModel().getSelectedItem());
+            FlugInformationClass flugInformationClass = hinflugTabelView.getSelectionModel().getSelectedItem();
+            flugInformationClass.setGepaeck(main.hinflugInformation.getGepaeck());
+            flugInformationClass.setPersonenAnzahl(main.hinflugInformation.getPersonenAnzahl());
+            BuchungsuebersichtController.setHinflug(flugInformationClass);
             BuchungsuebersichtController.setRueckflug(null);
             main.selectView(ViewNavigation.BUCHUNGSUEBERSICHTSCENE);
         } else {
-            BuchungsuebersichtController.setHinflug(hinflugTabelView.getSelectionModel().getSelectedItem());
-            BuchungsuebersichtController.setRueckflug(rueckflugTabelView.getSelectionModel().getSelectedItem());
+            FlugInformationClass hinflugInformationClass = hinflugTabelView.getSelectionModel().getSelectedItem();
+            hinflugInformationClass.setGepaeck(main.hinflugInformation.getGepaeck());
+            hinflugInformationClass.setPersonenAnzahl(main.hinflugInformation.getPersonenAnzahl());
+            BuchungsuebersichtController.setHinflug(hinflugInformationClass);
+
+            FlugInformationClass rueckflugInformationClass = rueckflugTabelView.getSelectionModel().getSelectedItem();
+            rueckflugInformationClass.setGepaeck(main.rueckflugInformation.getGepaeck());
+            rueckflugInformationClass.setPersonenAnzahl(main.rueckflugInformation.getPersonenAnzahl());
+            BuchungsuebersichtController.setRueckflug(rueckflugInformationClass);
             main.selectView(ViewNavigation.BUCHUNGSUEBERSICHTSCENE);
         }
     }

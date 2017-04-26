@@ -3,6 +3,7 @@ package it.fallmerayer.codingGmbH.projektFlughafen.Controller;
 import com.sun.tools.javac.comp.Todo;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.CheckValidations;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.Exceptions.*;
+import it.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -32,7 +33,11 @@ public class InputBoxGepaeckDialogController extends AbstractController {
     @FXML
     private void handleFortfahren(){
         if (everythingCorrectInputReg()){
-            //TODO gewicht zurückgeben
+            if (main.currentController.equals(ViewNavigation.BUCHUNGSUEBERSICHTSCENE)){
+                BuchungsuebersichtController.setGepaeckGewicht(Double.parseDouble(gewichtAendern.getText()));
+            } else if (main.currentController.equals(ViewNavigation.FLUGEINSEHENSCENE)){
+                FlugEinsehenController.setGepaeckGewicht(Double.parseDouble(gewichtAendern.getText()));
+            }
             dialogStage.close();
         }
     }

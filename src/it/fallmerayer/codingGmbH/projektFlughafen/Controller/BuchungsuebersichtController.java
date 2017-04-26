@@ -32,9 +32,9 @@ public class BuchungsuebersichtController extends AbstractController {
     @FXML Button gepaeckBearbeitenButt;
     @FXML Button fertigstellenButt;
 
-    public static FlugInformationClass hinflug;
-    public static FlugInformationClass rueckflug;
-    public static double gepaeckGewicht;
+    private static FlugInformationClass hinflug;
+    private static FlugInformationClass rueckflug;
+    private static double gepaeckGewicht;
 
     public static void setHinflug(FlugInformationClass hinflug) {
         BuchungsuebersichtController.hinflug = hinflug;
@@ -42,6 +42,10 @@ public class BuchungsuebersichtController extends AbstractController {
 
     public static void setRueckflug(FlugInformationClass rueckflug) {
         BuchungsuebersichtController.rueckflug = rueckflug;
+    }
+
+    public static void setGepaeckGewicht(double gepaeckGewicht) {
+        BuchungsuebersichtController.gepaeckGewicht = gepaeckGewicht;
     }
 
     @Override
@@ -69,7 +73,7 @@ public class BuchungsuebersichtController extends AbstractController {
             flugzeugtypRueckflugLabel.setVisible(false);
         }
 
-        if (main.benutzerprofil instanceof Administrator || main.benutzerprofil instanceof Angestellter){
+        if (main.benutzerprofil instanceof Administrator || main.benutzerprofil instanceof Angestellter || main.benutzerprofil == null){
             inWunschButt.setVisible(false);
             inWunschButt.setDisable(true);
         }
@@ -91,13 +95,15 @@ public class BuchungsuebersichtController extends AbstractController {
     private void handelGepackBearbeiten(){
         main.openGepaeckDialog("Flug");
         hinflug.setGepaeck(gepaeckGewicht);
+        gepaeckstueckeHinflugLabel.setText(HelpfullStrings.GEPAECKSTUECKSTRING + gepaeckGewicht);
         if (rueckflug != null){
             rueckflug.setGepaeck(gepaeckGewicht);
+            gepackstuckRueckflugLabel.setText(HelpfullStrings.GEPAECKSTUECKSTRING + gepaeckGewicht);
         }
     }
     @FXML
     private void handelFertigstellen(){
-        main.openPersonDialpg("Person", 4);
+        main.openPersonDialpg("Person", hinflug.getPersonenAnzahl() - 1);
     }
 
 }

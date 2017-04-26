@@ -68,7 +68,10 @@ public class FlugAnsichtNurHinflugController extends AbstractController {
         if (hinflugTabelView.getSelectionModel().getSelectedItem() == null){
             main.openMessageDialog("Keinen Flug ausgewählt");
         } else {
-            BuchungsuebersichtController.setHinflug(hinflugTabelView.getSelectionModel().getSelectedItem());
+            FlugInformationClass flugInformationClass = hinflugTabelView.getSelectionModel().getSelectedItem();
+            flugInformationClass.setGepaeck(main.hinflugInformation.getGepaeck());
+            flugInformationClass.setPersonenAnzahl(main.hinflugInformation.getPersonenAnzahl());
+            BuchungsuebersichtController.setHinflug(flugInformationClass);
             BuchungsuebersichtController.setRueckflug(null);
             main.selectView(ViewNavigation.BUCHUNGSUEBERSICHTSCENE);
         }

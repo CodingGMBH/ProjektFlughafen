@@ -55,11 +55,12 @@ public class BuchungshistorieAdminController extends AbstractController {
         main.selectView(ViewNavigation.ANGEMELDETSCENE);
     }
 
-    //TODO add handleGo
     @FXML
     private void handleGo(){
         BuchungInformationClass selectedItem = buchungTabelView.getSelectionModel().getSelectedItem();
-
-        main.selectView(ViewNavigation.FLUGEINSEHENSCENE);
+        if (selectedItem != null) {
+            FlugEinsehenController.setBuchungshistorie(selectedItem);
+            main.selectView(ViewNavigation.FLUGEINSEHENSCENE);
+        }
     }
 }

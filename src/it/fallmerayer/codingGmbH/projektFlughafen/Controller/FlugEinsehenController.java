@@ -1,6 +1,10 @@
 package it.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
+import it.fallmerayer.codingGmbH.projektFlughafen.Modell.BuchungsprofileSpeicher;
+import it.fallmerayer.codingGmbH.projektFlughafen.Modell.FluegeSpeicher;
+import it.fallmerayer.codingGmbH.projektFlughafen.Modell.FlugNichtBuchbarException;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.BuchungInformationClass;
+import it.fallmerayer.codingGmbH.projektFlughafen.Utility.HelpfullStrings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,15 +23,26 @@ public class FlugEinsehenController extends AbstractController {
     @FXML Button backButt;
     @FXML Button gepaeckBearbeitenButt;
 
-    static BuchungInformationClass buchungshistorie;
+    private static BuchungInformationClass buchungshistorie;
 
-    //Todo Add FlugEinsehen
+    private static Double gepaeckGewicht;
+
+    public static void setBuchungshistorie(BuchungInformationClass buchungshistorie) {
+        FlugEinsehenController.buchungshistorie = buchungshistorie;
+    }
+
+    public static void setGepaeckGewicht(Double gepaeckGewicht) {
+        FlugEinsehenController.gepaeckGewicht = gepaeckGewicht;
+    }
 
     @Override
     public void startController() {
-//        if (BuchungsprofileSpeicher.getInstance().getBuchungsprofil(buchungshistorie.getBuchungsID()) ){
-//
-//        }
+        flugVonNachLabel.setText(HelpfullStrings.FLUGVONSTRING + buchungshistorie.getStartOrt() + HelpfullStrings.FLUGNACHSTRING + buchungshistorie.getZielOrt() + HelpfullStrings.UMSTRING + buchungshistorie.getStartZeit() + " - " + buchungshistorie.getAnkunftsZeit() + HelpfullStrings.UHRSTRING);
+        preisFureHinflugLabel.setText(HelpfullStrings.PREISFUERFLUGSTRING + BuchungsprofileSpeicher.getInstance().getBuchungsprofil(buchungshistorie.getBuchungsID()).calculatePreis());
+        anzahlDerPersonHinflugLabel.setText(HelpfullStrings.ANZAHLDERPERSONENSTRING + buchungshistorie.getPersonenAnzahl());
+        datumHinflugLabel.setText(HelpfullStrings.DATUMSTRING + buchungshistorie.getDatum());
+        gepaeckstueckeHinflugLabel.setText(HelpfullStrings.GEPAECKSTUECKSTRING + buchungshistorie.getGepaeck());
+        flugzeugTypHinflugLabel.setText(FluegeSpeicher.getInstance().getFlug(BuchungsprofileSpeicher.getInstance().getBuchungsprofil(buchungshistorie.getBuchungsID()).getFlugNummer()).getFlugzeug().getFlugGesellschaft());
     }
 
     @FXML
@@ -35,8 +50,15 @@ public class FlugEinsehenController extends AbstractController {
         main.selectView(main.lastController);
     }
 
+
     @FXML
     private void handelGepackBearbeiten(){
         main.openGepaeckDialog("Flug");
+        try {
+            BuchungsprofileSpeicher.getInstance().getBuchungsprofil(buchungshistorie.getBuchungsID()).setGepaeckGewicht(gepaeckGewicht);
+            gepaeckstueckeHinflugLabel.setText(HelpfullStrings.GEPAECKSTUECKSTRING + gepaeckGewicht);
+        } catch (FlugNichtBuchbarException e) {
+            main.openMessageDialog(e.getMessage());
+        }
     }
 }

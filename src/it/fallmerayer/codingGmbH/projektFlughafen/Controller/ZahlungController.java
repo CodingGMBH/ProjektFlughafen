@@ -19,6 +19,7 @@ public class ZahlungController extends AbstractController {
     @FXML Button buchenButt;
 
     @FXML TextField zahlungsadetenTxtField;
+    //TODO Zahlung finishen
 
     @FXML
     private void handelBuchen() throws IOException {

@@ -51,4 +51,15 @@ public class MainApp extends Application {
 			stardet = false;
 		}
 	}
+
+	@Override
+	public void stop(){
+		try {
+			fluegeSpeicher.inDateiSchreiben();
+			buchungsprofileSpeicher.inDateiSchreiebn();
+			benutzerprofilSpeicher.inDateiSchreiben();
+		} catch (IOException e) {
+			System.out.println("Programm konnte nicht richtig geschlossen werden");
+		}
+	}
 }

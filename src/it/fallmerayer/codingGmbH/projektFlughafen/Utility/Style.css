@@ -299,6 +299,10 @@
     -fx-background-color: #24A1F2, #F3FAFE;
 }
 
+.table-view .column-header, .table-view .filler {
+    -fx-text-fill: #24A1F2, #F3FAFE;
+}
+
 .table-view .column-header-background{
     -fx-background-color: #24A1F2, #F3FAFE;
 }
