@@ -59,6 +59,11 @@ public class Flughafen {
 	// Weitere Methoden:
 
 	@Override
+	public String toString() {
+		return this.stadt;
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

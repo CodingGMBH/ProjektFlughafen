@@ -163,6 +163,15 @@ public class BuchungsprofileSpeicher {
         }
     }
 
+    public Buchungsprofil getBuchungsprofil(int buchungsID) throws NoSuchElementException{
+        for (Buchungsprofil i : buchungsprofilListe) {
+            if (i.getBuchungsID() == buchungsID){
+                return i;
+            }
+        }
+        throw new NoSuchElementException("Keine Buchung mit der ID " + buchungsID + " bekannt");
+    }
+
 
     //Buchung wird geandert
     public boolean aendereBuchungsprofil(int buchungsID, double gepaeckGewicht) throws FlugNichtBuchbarException, IOException {
@@ -176,7 +185,7 @@ public class BuchungsprofileSpeicher {
                 //Wenn der Flug noch nicht angehoben ist darf das Gepaeckgewicht geandert werden
                 if (flug.getAbflugZeit().isAfter(LocalDateTime.now())){
                     //Ist noch genug Platz? --> Wenn ja, dann aendern
-                    if (flug.getFreiesGepaeckGewicht()-i.getGepaeckGewicht()>=gepaeckGewicht){
+                    if (flug.getFreiesGepaeckGewicht()+i.getGepaeckGewicht()>=gepaeckGewicht){
                         //neues gepaeckgewicht = aktuelles gepaeckgewicht - das zuvor der Buchung korrispondierenden Gepaeckgewicht + das uebrgebene Gewicht
                         flug.setZaehlerGepaeckGewicht(flug.getZaehlerGepaeckGewicht()-i.getGepaeckGewicht()+gepaeckGewicht);
 

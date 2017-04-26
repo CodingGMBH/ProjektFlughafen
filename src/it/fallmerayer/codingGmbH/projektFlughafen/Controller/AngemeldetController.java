@@ -6,6 +6,7 @@ import it.fallmerayer.codingGmbH.projektFlughafen.Utility.Exceptions.KeinDatumEx
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.Exceptions.KeineNummerException;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.Exceptions.KeineStadtException;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.Exceptions.NichtsEingegebenException;
+import it.fallmerayer.codingGmbH.projektFlughafen.Utility.FlugInformationClass;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.HelpfullStrings;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
 import javafx.fxml.FXML;
@@ -13,9 +14,13 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * Created by gabriel on 17.04.17.
  */
+
+//Finished
 public class AngemeldetController extends AbstractController {
 
     @FXML TextField standortTxtField;
@@ -45,17 +50,17 @@ public class AngemeldetController extends AbstractController {
 
     @Override
     public void startController() {
+        System.out.println(main.benutzerprofil.getPID());
         if (main.benutzerprofil instanceof Administrator){
             Image image = new Image("files/Mitarbeiterhinzufugen.png");
             imageView.setImage(image);
         }else if (main.benutzerprofil instanceof Angestellter){
-            Image image = new Image("");
-            imageView.setImage(image);
+
         }else if (main.benutzerprofil instanceof Anwender){
             Image image = new Image("files/Warenkorb.png");
             imageView.setImage(image);
         }
-        angemeldetAlsLabel.setText(HelpfullStrings.angemeldetAlsString + main.benutzerprofil.getBenutzerName());
+        angemeldetAlsLabel.setText(HelpfullStrings.ANGEMELDETALSSTRING + main.benutzerprofil.getBenutzerName());
     }
 
     @FXML
@@ -69,15 +74,21 @@ public class AngemeldetController extends AbstractController {
 
     @FXML
     private void handleClickBuchungshistorie(){
-        main.selectView(ViewNavigation.BUCHUNGSHISTORIEADMINSCENE);
+        if (main.benutzerprofil instanceof Administrator){
+            main.selectView(ViewNavigation.BUCHUNGSHISTORIEADMINSCENE);
+        }else if (main.benutzerprofil instanceof Angestellter){
+            main.selectView(ViewNavigation.BUCHUNGSHISTORIEANGESTELLTERSCENE);
+        }else if (main.benutzerprofil instanceof Anwender){
+            main.selectView(ViewNavigation.BUCHUNGSHISTORIENORMSCENE);
+        }
     }
 
     @FXML
     private void handleClickSuchen(){
         if (everythingCorrectInput()) {
-            main.flugList = FluegeSpeicher.getInstance().getGefilterteFluege(new Flughafen(standortTxtField.getText()), new Flughafen(zielortTxtField.getText()), datumDesStartsDatePicker.getValue().atStartOfDay(), Integer.parseInt(anzahlDerPersonenTxtField.getText()), Double.parseDouble(gepaeckgewichtTxtField.getText()));
+            main.hinflugInformation = new FlugInformationClass(standortTxtField.getText(), zielortTxtField.getText(), "00:00", "00:00", datumDesStartsDatePicker.getValue().atStartOfDay().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), 0, Double.parseDouble(gepaeckgewichtTxtField.getText()), Integer.parseInt(anzahlDerPersonenTxtField.getText()));
             if (hinUndRueckflugRadioButt.isSelected()) {
-                main.rueckflugList = FluegeSpeicher.getInstance().getGefilterteFluege(new Flughafen(zielortTxtField.getText()), new Flughafen(standortTxtField.getText()), datumDerRueckkehrDatePicker.getValue().atStartOfDay(), Integer.parseInt(anzahlDerPersonenTxtField.getText()), Double.parseDouble(gepaeckgewichtTxtField.getText()));
+                main.rueckflugInformation = new FlugInformationClass(zielortTxtField.getText(), standortTxtField.getText(), "00:00", "00:00", datumDerRueckkehrDatePicker.getValue().atStartOfDay().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), 0, Double.parseDouble(gepaeckgewichtTxtField.getText()), Integer.parseInt(anzahlDerPersonenTxtField.getText()));
                 main.selectView(ViewNavigation.FLUGANSICHTSCENE);
             } else {
                 main.selectView(ViewNavigation.FLUGANSICHTNURHINFLUGSCENE);

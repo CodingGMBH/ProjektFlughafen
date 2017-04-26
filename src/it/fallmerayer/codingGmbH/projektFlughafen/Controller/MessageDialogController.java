@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 /**
  * Created by gabriel on 25.04.17.
  */
+//Finished
 public class MessageDialogController extends AbstractController {
     Stage dialogStage;
     String message;

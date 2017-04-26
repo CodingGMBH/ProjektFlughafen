@@ -15,6 +15,8 @@ import javafx.scene.control.TextField;
 /**
  * Created by gabriel on 16.04.17.
  */
+
+//Finished
 public class AnmeldenRegistrierenController extends AbstractController {
     @FXML TextField vornameTxtField;
     @FXML TextField passwordTxtField;

@@ -1,7 +1,6 @@
 package it.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
 import it.fallmerayer.codingGmbH.projektFlughafen.Modell.Administrator;
-import it.fallmerayer.codingGmbH.projektFlughafen.Modell.Angestellter;
 import it.fallmerayer.codingGmbH.projektFlughafen.Modell.TooMuchAngestellteException;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.CheckValidations;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.Exceptions.*;
@@ -10,15 +9,10 @@ import it.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Created by gabriel on 17.04.17.
  */
+//Finished
 public class NeuerMittarbeiterController extends AbstractController {
     @FXML TextField vornameTxtField;
     @FXML TextField nachnameTxtField;
@@ -38,7 +32,7 @@ public class NeuerMittarbeiterController extends AbstractController {
 
     @Override
     public void startController() {
-        angemeldetAlsLabel.setText(HelpfullStrings.angemeldetAlsString + main.benutzerprofil.getBenutzerName());
+        angemeldetAlsLabel.setText(HelpfullStrings.ANGEMELDETALSSTRING + main.benutzerprofil.getBenutzerName());
     }
 
     @FXML

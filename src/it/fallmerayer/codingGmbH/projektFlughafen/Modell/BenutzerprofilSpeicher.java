@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * ProjektFlughafen, created by Depian Thomas on 17.04.2017.
@@ -52,6 +53,29 @@ public class BenutzerprofilSpeicher {
             return;
         }
         throw new IllegalArgumentException("Benutzer faehlt durch das Raster");
+    }
+
+    public Benutzerprofil getBenutzerprofil(int PID) throws NoSuchElementException{
+        if (PID<101){
+            for (Administrator i : administratorenListe){
+                if (i.getPID()==PID){
+                    return i;
+                }
+            }
+        }else if(PID<1001){
+            for (Angestellter i : angestelltenListe){
+                if (i.getPID()==PID){
+                    return i;
+                }
+            }
+        }else {
+            for (Anwender i : anwenderListe){
+                if (i.getPID()==PID){
+                    return i;
+                }
+            }
+        }
+        throw new NoSuchElementException("Kein Benutzer mit der PID" + PID + " bekannt");
     }
 
 

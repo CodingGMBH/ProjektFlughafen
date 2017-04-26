@@ -1,6 +1,5 @@
 package it.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
-import it.fallmerayer.codingGmbH.projektFlughafen.Modell.Angestellter;
 import it.fallmerayer.codingGmbH.projektFlughafen.Modell.Anwender;
 import it.fallmerayer.codingGmbH.projektFlughafen.Modell.WunschlistenEintrag;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.HelpfullStrings;
@@ -12,8 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
-import java.util.List;
 
 /**
  * Created by gabriel on 17.04.17.
@@ -43,7 +40,7 @@ public class WunschlisteController extends AbstractController {
 
     @Override
     public void startController() {
-        angemeldetLabel.setText(HelpfullStrings.angemeldetAlsString + main.benutzerprofil.getBenutzerName());
+        angemeldetLabel.setText(HelpfullStrings.ANGEMELDETALSSTRING + main.benutzerprofil.getBenutzerName());
         wunschlistenEintragList = FXCollections.observableArrayList(((Anwender) main.benutzerprofil).getWunschliste());
     }
 

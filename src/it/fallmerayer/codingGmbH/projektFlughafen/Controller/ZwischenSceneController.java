@@ -10,13 +10,10 @@ import java.io.IOException;
 /**
  * Created by gabriel on 17.04.17.
  */
+
+//Finished
 public class ZwischenSceneController extends AbstractController {
     @FXML Label erfolgreichLabel;
-
-    @FXML
-    private void initialize() {
-
-    }
 
     @Override
     public void startController(){

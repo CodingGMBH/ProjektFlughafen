@@ -34,7 +34,7 @@ public class MainApp extends Application {
 	private void initController(Stage primaryStage) {
 		AppController controller = new AppController(primaryStage, stardet);
 		if (stardet){
-			controller.startController(fluegeSpeicher, buchungsprofileSpeicher, benutzerprofilSpeicher);
+			controller.startController();
 		}
 	}
 

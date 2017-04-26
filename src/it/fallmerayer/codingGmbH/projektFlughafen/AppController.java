@@ -6,6 +6,7 @@ package it.fallmerayer.codingGmbH.projektFlughafen;
 
 import it.fallmerayer.codingGmbH.projektFlughafen.Controller.*;
 import it.fallmerayer.codingGmbH.projektFlughafen.Modell.*;
+import it.fallmerayer.codingGmbH.projektFlughafen.Utility.FlugInformationClass;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.MainApp;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
 import javafx.fxml.FXMLLoader;
@@ -25,13 +26,10 @@ public class AppController {
     protected BorderPane rootLayout;
     public String lastController;
     public String currentController;
-    public FluegeSpeicher fluegeSpeicher;
-    public BenutzerprofilSpeicher benutzerprofilSpeicher;
-    public BuchungsprofileSpeicher buchungsprofileSpeicher;
 
     public Benutzerprofil benutzerprofil;
-    public List<Flug> flugList;
-    public List<Flug> rueckflugList;
+    public FlugInformationClass hinflugInformation;
+    public FlugInformationClass rueckflugInformation;
 
     public AppController(Stage primaryStage, boolean stardet) {
         super();
@@ -41,10 +39,7 @@ public class AppController {
         }
     }
 
-    public void startController(FluegeSpeicher fluegeSpeicher, BuchungsprofileSpeicher buchungsprofileSpeicher, BenutzerprofilSpeicher benutzerprofilSpeicher) {
-        this.fluegeSpeicher = fluegeSpeicher;
-        this.benutzerprofilSpeicher = benutzerprofilSpeicher;
-        this.buchungsprofileSpeicher = buchungsprofileSpeicher;
+    public void startController() {
         initLoginView();
     }
 

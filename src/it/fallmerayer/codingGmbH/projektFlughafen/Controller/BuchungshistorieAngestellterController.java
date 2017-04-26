@@ -1,12 +1,16 @@
 package it.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
+import it.fallmerayer.codingGmbH.projektFlughafen.Modell.BuchungsprofileSpeicher;
+import it.fallmerayer.codingGmbH.projektFlughafen.Utility.BuchungInformationClass;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.HelpfullStrings;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * Created by gabriel on 17.04.17.
@@ -15,25 +19,36 @@ public class BuchungshistorieAngestellterController extends AbstractController {
     @FXML Button backButt;
     @FXML Button goButt;
 
-    @FXML TableView buchungTabelView;
+    @FXML TableView<BuchungInformationClass> buchungTabelView;
 
     @FXML Label angemeldetLabel;
 
-    @FXML TableColumn vonCollumn;
-    @FXML TableColumn nachCollumn;
-    @FXML TableColumn startCollumn;
-    @FXML TableColumn ankunftCollumn;
-    @FXML TableColumn datumCollumn;
-    @FXML TableColumn preisCollumn;
-    @FXML TableColumn gepaeckCollumn;
-    @FXML TableColumn personenCollumn;
-    @FXML TableColumn gebuchtFuerCollumn;
+    @FXML TableColumn<BuchungInformationClass, String> vonCollumn;
+    @FXML TableColumn<BuchungInformationClass, String> nachCollumn;
+    @FXML TableColumn<BuchungInformationClass, String> startCollumn;
+    @FXML TableColumn<BuchungInformationClass, String> ankunftCollumn;
+    @FXML TableColumn<BuchungInformationClass, String> datumCollumn;
+    @FXML TableColumn<BuchungInformationClass, Double> preisCollumn;
+    @FXML TableColumn<BuchungInformationClass, Double> gepaeckCollumn;
+    @FXML TableColumn<BuchungInformationClass, Integer> personenCollumn;
+    @FXML TableColumn<BuchungInformationClass, String> gebuchtFuerCollumn;
 
+    private ObservableList<BuchungInformationClass> buchungsprofilObservableList;
 
-    //TODO add Tabelle
     @Override
     public void startController() {
-        angemeldetLabel.setText(HelpfullStrings.angemeldetAlsString + main.benutzerprofil.getBenutzerName());
+        angemeldetLabel.setText(HelpfullStrings.ANGEMELDETALSSTRING + main.benutzerprofil.getBenutzerName());
+        buchungsprofilObservableList = BuchungInformationClass.getObjektListAngestellter(BuchungsprofileSpeicher.getInstance().getBuchungsprofile(main.benutzerprofil.getPID()));
+        vonCollumn.setCellValueFactory(new PropertyValueFactory<>("startOrt"));
+        nachCollumn.setCellValueFactory(new PropertyValueFactory<>("zielOrt"));
+        startCollumn.setCellValueFactory(new PropertyValueFactory<>("startZeit"));
+        ankunftCollumn.setCellValueFactory(new PropertyValueFactory<>("ankunftsZeit"));
+        datumCollumn.setCellValueFactory(new PropertyValueFactory<>("datum"));
+        preisCollumn.setCellValueFactory(new PropertyValueFactory<>("preis"));
+        gepaeckCollumn.setCellValueFactory(new PropertyValueFactory<>("gepaeck"));
+        personenCollumn.setCellValueFactory(new PropertyValueFactory<>("personenAnzahl"));
+        gebuchtFuerCollumn.setCellValueFactory(new PropertyValueFactory<>("gebuchtVon"));
+        buchungTabelView.setItems(buchungsprofilObservableList);
     }
 
     @FXML
@@ -41,6 +56,7 @@ public class BuchungshistorieAngestellterController extends AbstractController {
         main.selectView(ViewNavigation.ANGEMELDETSCENE);
     }
 
+    //TODO add handleGo
     @FXML
     private void handleGo(){
         main.selectView(ViewNavigation.FLUGEINSEHENSCENE);

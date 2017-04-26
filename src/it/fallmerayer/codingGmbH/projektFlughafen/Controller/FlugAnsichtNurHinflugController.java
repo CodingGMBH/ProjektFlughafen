@@ -1,7 +1,10 @@
 package it.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
+import it.fallmerayer.codingGmbH.projektFlughafen.Modell.FluegeSpeicher;
 import it.fallmerayer.codingGmbH.projektFlughafen.Modell.Flug;
 import it.fallmerayer.codingGmbH.projektFlughafen.Modell.Flughafen;
+import it.fallmerayer.codingGmbH.projektFlughafen.Utility.FlugInformationClass;
+import it.fallmerayer.codingGmbH.projektFlughafen.Utility.HelpfullStrings;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,52 +13,64 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 /**
  * Created by gabriel on 17.04.17.
  */
+//Finished
 public class FlugAnsichtNurHinflugController extends AbstractController {
     @FXML Button zurueckButt;
     @FXML Button weiterButt;
 
-    @FXML TableView<Flug> hinflugTabelView;
+    @FXML TableView<FlugInformationClass> hinflugTabelView;
 
-    @FXML TableColumn<Flug, Flughafen> vonCollumn;
-    @FXML TableColumn<Flug, Flughafen> nachCollumn;
-    @FXML TableColumn startCollumn;
-    @FXML TableColumn ankunftCollumn;
-    @FXML TableColumn datumCollumn;
-    @FXML TableColumn preisCollumn;
+    @FXML TableColumn<FlugInformationClass, String> vonCollumn;
+    @FXML TableColumn<FlugInformationClass, String> nachCollumn;
+    @FXML TableColumn<FlugInformationClass, String> startCollumn;
+    @FXML TableColumn<FlugInformationClass, String> ankunftCollumn;
+    @FXML TableColumn<FlugInformationClass, String> datumCollumn;
+    @FXML TableColumn<FlugInformationClass, Double> preisCollumn;
 
     @FXML Label flugLabel;
 
-    //TODO add Tabelle
+    ObservableList<FlugInformationClass> flugInformationClassObservableList;
 
-    @FXML private void initialize() {
-        ObservableList<Flug> oListStavaka = FXCollections.observableArrayList(main.flugList);
+    @Override
+    public void startController() {
+        flugLabel.setText(HelpfullStrings.FLUGVONSTRING + main.hinflugInformation.getStartOrt() + HelpfullStrings.FLUGNACHSTRING + main.hinflugInformation.getZielOrt());
 
-
-
-//        private Flughafen startFlughafen;
-//        private Flughafen zielFlughafen;
-//        private double preisSitzplatz;
-//        private LocalDateTime abflugZeit;
-//        private LocalDateTime ankunftZeit;
-//        private int zaehlerGebuchteSitzplaetze;
-//        private double zaehlerGepaeckGewicht;
-//        private boolean buchbar;
+        flugInformationClassObservableList = FlugInformationClass.getObjektList(FluegeSpeicher.getInstance().getGefilterteFluege(new Flughafen(main.hinflugInformation.getStartOrt()), new Flughafen(main.hinflugInformation.getZielOrt()), LocalDateTime.parse(main.hinflugInformation.getDatum() + " 00:00", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")), main.hinflugInformation.getPersonenAnzahl(), main.hinflugInformation.getGepaeck()));
+        vonCollumn.setCellValueFactory(new PropertyValueFactory<>("startOrt"));
+        nachCollumn.setCellValueFactory(new PropertyValueFactory<>("zielOrt"));
+        startCollumn.setCellValueFactory(new PropertyValueFactory<>("startZeit"));
+        ankunftCollumn.setCellValueFactory(new PropertyValueFactory<>("ankunftsZeit"));
+        datumCollumn.setCellValueFactory(new PropertyValueFactory<>("datum"));
+        preisCollumn.setCellValueFactory(new PropertyValueFactory<>("preis"));
+        hinflugTabelView.setItems(flugInformationClassObservableList);
     }
 
     @FXML
     private void handleBack(){
-        main.selectView(main.lastController);
+        if (main.benutzerprofil == null) {
+            main.selectView(ViewNavigation.STARTSCENE);
+        } else {
+            main.selectView(ViewNavigation.ANGEMELDETSCENE);
+        }
     }
 
     @FXML
     private void handleWeiter(){
-        main.selectView(ViewNavigation.BUCHUNGSUEBERSICHTSCENE);
+        if (hinflugTabelView.getSelectionModel().getSelectedItem() == null){
+            main.openMessageDialog("Keinen Flug ausgewählt");
+        } else {
+            BuchungsuebersichtController.setHinflug(hinflugTabelView.getSelectionModel().getSelectedItem());
+            BuchungsuebersichtController.setRueckflug(null);
+            main.selectView(ViewNavigation.BUCHUNGSUEBERSICHTSCENE);
+        }
     }
 }

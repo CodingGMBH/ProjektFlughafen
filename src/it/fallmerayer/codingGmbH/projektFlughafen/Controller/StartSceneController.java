@@ -4,12 +4,15 @@ import it.fallmerayer.codingGmbH.projektFlughafen.Modell.FluegeSpeicher;
 import it.fallmerayer.codingGmbH.projektFlughafen.Modell.Flughafen;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.CheckValidations;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.Exceptions.*;
+import it.fallmerayer.codingGmbH.projektFlughafen.Utility.FlugInformationClass;
 import it.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
+//Finished
 public class StartSceneController extends AbstractController {
     @FXML TextField standortTxtField;
     @FXML TextField zielortTxtField;
@@ -31,9 +34,9 @@ public class StartSceneController extends AbstractController {
     @FXML
     private void handleClickSuchen(){
         if (everythingCorrectInput()) {
-            main.flugList = FluegeSpeicher.getInstance().getGefilterteFluege(new Flughafen(standortTxtField.getText()), new Flughafen(zielortTxtField.getText()), datumDesStartsDatePicker.getValue().atStartOfDay(), Integer.parseInt(anzahlDerPersonenTxtField.getText()), Double.parseDouble(gepaeckgewichtTxtField.getText()));
+            main.hinflugInformation = new FlugInformationClass(standortTxtField.getText(), zielortTxtField.getText(), "00:00", "00:00", datumDesStartsDatePicker.getValue().atStartOfDay().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), 0, Double.parseDouble(gepaeckgewichtTxtField.getText()), Integer.parseInt(anzahlDerPersonenTxtField.getText()));
             if (hinUndRueckflugRadioButt.isSelected()) {
-                main.rueckflugList = FluegeSpeicher.getInstance().getGefilterteFluege(new Flughafen(zielortTxtField.getText()), new Flughafen(standortTxtField.getText()), datumDerRueckkehrDatePicker.getValue().atStartOfDay(), Integer.parseInt(anzahlDerPersonenTxtField.getText()), Double.parseDouble(gepaeckgewichtTxtField.getText()));
+                main.rueckflugInformation = new FlugInformationClass(zielortTxtField.getText(), standortTxtField.getText(), "00:00", "00:00", datumDerRueckkehrDatePicker.getValue().atStartOfDay().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), 0, Double.parseDouble(gepaeckgewichtTxtField.getText()), Integer.parseInt(anzahlDerPersonenTxtField.getText()));
                 main.selectView(ViewNavigation.FLUGANSICHTSCENE);
             } else {
                 main.selectView(ViewNavigation.FLUGANSICHTNURHINFLUGSCENE);

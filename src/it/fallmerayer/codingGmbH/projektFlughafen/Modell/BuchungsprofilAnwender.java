@@ -54,7 +54,7 @@ public class BuchungsprofilAnwender extends Buchungsprofil {
 
     @Override
     public double calculatePreis() {
-        return (FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getPreisSitzplatz() + this.getGepaeckGewicht() * this.mitfliegerListe.size()) + 50;
+        return (FluegeSpeicher.getInstance().getFlug(this.getFlugNummer()).getPreisSitzplatz() + this.getGepaeckGewicht() * (this.mitfliegerListe.size() + 1)) + 50;
     }
 
     //Es kann nur ein Mitflieger geaddet werden, falls noch ein Platz im Flugzeug frei ist.

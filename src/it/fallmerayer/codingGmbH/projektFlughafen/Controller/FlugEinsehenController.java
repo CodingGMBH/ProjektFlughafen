@@ -1,5 +1,6 @@
 package it.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
+import it.fallmerayer.codingGmbH.projektFlughafen.Utility.BuchungInformationClass;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,7 +19,17 @@ public class FlugEinsehenController extends AbstractController {
     @FXML Button backButt;
     @FXML Button gepaeckBearbeitenButt;
 
+    static BuchungInformationClass buchungshistorie;
+
     //Todo Add FlugEinsehen
+
+    @Override
+    public void startController() {
+//        if (BuchungsprofileSpeicher.getInstance().getBuchungsprofil(buchungshistorie.getBuchungsID()) ){
+//
+//        }
+    }
+
     @FXML
     private void handelBack(){
         main.selectView(main.lastController);
