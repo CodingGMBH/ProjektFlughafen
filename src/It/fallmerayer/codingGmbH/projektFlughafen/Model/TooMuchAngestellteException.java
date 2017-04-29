@@ -1,4 +1,4 @@
-package It.fallmerayer.codingGmbH.projektFlughafen.Modell;
+package It.fallmerayer.codingGmbH.projektFlughafen.Model;
 
 /**
  * Created by Hannes Niederwolfsgruber on 20.04.2017.

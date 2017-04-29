@@ -1,9 +1,8 @@
 package It.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.Anwender;
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.Benutzerprofil;
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.BenutzerprofilSpeicher;
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.NichtImSystemRegistriertException;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.Anwender;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.BenutzerprofilSpeicher;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.NichtImSystemRegistriertException;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.CheckValidations;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.Exceptions.*;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;

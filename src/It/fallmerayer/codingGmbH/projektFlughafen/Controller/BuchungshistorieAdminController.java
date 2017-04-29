@@ -1,6 +1,6 @@
 package It.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.BuchungsprofileSpeicher;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.BuchungsprofileSpeicher;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.BuchungInformationClass;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.HelpfullStrings;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
@@ -45,8 +45,8 @@ public class BuchungshistorieAdminController extends AbstractController {
         preisCollumn.setCellValueFactory(new PropertyValueFactory<>("preis"));
         gepaeckCollumn.setCellValueFactory(new PropertyValueFactory<>("gepaeck"));
         personenCollumn.setCellValueFactory(new PropertyValueFactory<>("personenAnzahl"));
-        gebuchtFuerCollumn.setCellValueFactory(new PropertyValueFactory<>("gebuchtVon"));
-        gebuchtVonCollumn.setCellValueFactory(new PropertyValueFactory<>("gebuchtFuer"));
+        gebuchtFuerCollumn.setCellValueFactory(new PropertyValueFactory<>("gebuchtFuer"));
+        gebuchtVonCollumn.setCellValueFactory(new PropertyValueFactory<>("gebuchtVon"));
         buchungTabelView.setItems(buchungsprofilObservableList);
     }
 
@@ -61,6 +61,8 @@ public class BuchungshistorieAdminController extends AbstractController {
         if (selectedItem != null) {
             FlugEinsehenController.setBuchungshistorie(selectedItem);
             main.selectView(ViewNavigation.FLUGEINSEHENSCENE);
+        } else {
+            main.openMessageDialog("Es wurde kein Flug ausgewählt");
         }
     }
 }

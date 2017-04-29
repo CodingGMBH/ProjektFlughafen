@@ -1,10 +1,11 @@
 Flugnummer;Fluggesellschaft;Start;Ziel;Startzeit;Ankunftszeit;Sitzplaetze;Max. GepaeckGewicht;Gebuchte Plaetze;Gewicht Gepaeck; Preis p. Sitzplatz
 LH3428;Lufthansa;München;Berlin;21.3.2017  14:00;21.3.2017  15:10;150;20000.0;0;0.0;58.0
-EJ1221;EasyJet;London;Innsbruck;22.3.2017  15:55;22.3.2017  16:55;130;17000.0;0;0.0;95.0
-EJ1222;EasyJet;Innsbruck;London;22.5.2017  19:45;22.6.2017  16:45;130;17000.0;1;124.0;-112.0
+EJ1221;EasyJet;London;Innsbruck;22.3.2017  15:55;22.3.2017  16:55;130;17000.0;1;0.0;95.0
+EJ1222;EasyJet;Innsbruck;London;22.5.2017  19:45;22.6.2017  16:45;130;17000.0;13;4905.0;-112.0
 LH34892;Lufthansa;Rom;Brüssel;23.4.2017  20:00;23.4.2017  22:00;150;20000.0;0;0.0;100.0
 EJ23015;EasyJet;Rom;Brüssel;23.4.2017  23:00;24.4.2017  2:00;300;2000.0;0;0.0;150.0
 LK;Los Kapella;Äthiopien;Rom;23.4.2017  15:00;24.4.2017  0:01;10;10.0;0;0.0;450.0
 KL;Kolla Lala;Köln;Bozen;27.4.2018  15:00;20.5.2017  14:00;1;12.0;0;0.0;-410450.0
 LH3458;Lufthansa;München;Berlin;21.3.2017  14:00;21.3.2017  15:10;150;20000.0;0;0.0;58.0
-LH32145;Lufthansa;Bozen;München;25.4.2017  14:00;25.4.2017  16:00;34;3.0;0;0.0;0.0
+LH32145;Lufthansa;Bozen;München;25.5.2017  14:00;25.5.2017  16:00;34;20000.0;8;83.9;58.0
+LH32146;Lufthansa;München;Bozen;28.5.2017  14:00;28.5.2017  16:00;34;20000.0;0;0.0;58.0

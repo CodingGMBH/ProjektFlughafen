@@ -1,6 +1,6 @@
 package It.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.Mitflieger;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.Mitflieger;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.CheckValidations;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.Exceptions.*;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
@@ -11,9 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by gabriel on 17.04.17.
@@ -97,10 +95,11 @@ public class InputBoxPersonDialogController extends AbstractController {
             CheckValidations.isNameString(vornameTxtField.getText());
             CheckValidations.isNameString(nachnameTxtField.getText());
             CheckValidations.isEmail(emailTxtField.getText());
+            CheckValidations.isNumber(nummerDerIdentitaetskartenTxtField.getText());
 
             CheckValidations.isDate(geburtsdatumDatePicker.getValue());
 
-        }catch (NichtsEingegebenException | KeinNameException | KeineEmailException | KeinDatumException e){
+        }catch (NichtsEingegebenException | KeinNameException | KeineEmailException | KeineNummerException | KeinDatumException e){
             main.openMessageDialog(e.getMessage());
             return false;
         }

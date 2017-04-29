@@ -1,7 +1,7 @@
 package It.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.FluegeSpeicher;
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.Flughafen;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.FluegeSpeicher;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.Flughafen;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.FlugInformationClass;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.HelpfullStrings;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;

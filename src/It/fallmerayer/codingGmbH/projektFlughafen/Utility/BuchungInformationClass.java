@@ -1,6 +1,6 @@
 package It.fallmerayer.codingGmbH.projektFlughafen.Utility;
 
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.*;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -189,7 +189,7 @@ public class BuchungInformationClass {
 
         for (Buchungsprofil buchungsprofiel : buchungsprofilList) {
             Flug neuerFlug = FluegeSpeicher.getInstance().getFlug(buchungsprofiel.getFlugNummer());
-            buchungInformationClasseList.add(new BuchungInformationClass(buchungsprofiel.getBuchungsID(), neuerFlug.getStartFlughafen().getStadt(), neuerFlug.getZielFlughafen().getStadt(), neuerFlug.getAbflugZeit().format(DateTimeFormatter.ofPattern("HH:mm")), neuerFlug.getAnkunftZeit().format(DateTimeFormatter.ofPattern("HH:mm")), neuerFlug.getAbflugZeit().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), buchungsprofiel.calculatePreis(), buchungsprofiel.getGepaeckGewicht(), (((BuchungsprofilAngestellter) buchungsprofiel).getPassagierListe().size() + 1), (((BuchungsprofilAngestellter) buchungsprofiel).getPassagierListe().get(0).getVorname())));
+            buchungInformationClasseList.add(new BuchungInformationClass(buchungsprofiel.getBuchungsID(), neuerFlug.getStartFlughafen().getStadt(), neuerFlug.getZielFlughafen().getStadt(), neuerFlug.getAbflugZeit().format(DateTimeFormatter.ofPattern("HH:mm")), neuerFlug.getAnkunftZeit().format(DateTimeFormatter.ofPattern("HH:mm")), neuerFlug.getAbflugZeit().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), buchungsprofiel.calculatePreis(), buchungsprofiel.getGepaeckGewicht(), (((BuchungsprofilAngestellter) buchungsprofiel).getPassagierListe().size()), (((BuchungsprofilAngestellter) buchungsprofiel).getPassagierListe().get(0).getVorname())));
         }
 
         return FXCollections.observableList(buchungInformationClasseList);

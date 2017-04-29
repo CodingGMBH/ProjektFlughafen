@@ -1,7 +1,7 @@
 package It.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.Administrator;
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.TooMuchAngestellteException;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.Administrator;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.TooMuchAngestellteException;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.CheckValidations;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.Exceptions.*;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.HelpfullStrings;

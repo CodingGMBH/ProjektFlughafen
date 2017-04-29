@@ -1,4 +1,4 @@
-package It.fallmerayer.codingGmbH.projektFlughafen.Modell;
+package It.fallmerayer.codingGmbH.projektFlughafen.Model;
 import java.time.LocalDateTime;
 /**
  * Created by Hannes Niederwolfsgruber on 11.04.2017.

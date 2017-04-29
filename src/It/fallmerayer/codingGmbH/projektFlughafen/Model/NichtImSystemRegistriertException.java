@@ -1,4 +1,4 @@
-package It.fallmerayer.codingGmbH.projektFlughafen.Modell;
+package It.fallmerayer.codingGmbH.projektFlughafen.Model;
 
 public class NichtImSystemRegistriertException extends Exception {
 

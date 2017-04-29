@@ -57,9 +57,10 @@ public class CheckValidations {
     }
 
     public static void isKommaNumber(String number) throws KeineNummerException {
-        final Pattern VALID_PASSWORD_REGEX = Pattern.compile("[0-9]*.[0-9]*");
+        final Pattern VALID_PASSWORD_REGEX = Pattern.compile("(:?^|\\s)(?=.)((?:0|(?:[1-9](?:\\d*|\\d{0,2}(?:,\\d{3})*)))?(?:\\.\\d*[1-9])?)(?!\\S)");
         Matcher matcher = VALID_PASSWORD_REGEX.matcher(number);
         if (!matcher.find()){
+            System.out.println("Test");
             throw new KeineNummerException("Ungültiges Nummernformat");
         }
     }

@@ -5,7 +5,7 @@ package It.fallmerayer.codingGmbH.projektFlughafen;
  */
 
 import It.fallmerayer.codingGmbH.projektFlughafen.Controller.*;
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.*;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.*;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.FlugInformationClass;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.MainApp;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;

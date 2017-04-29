@@ -1,8 +1,8 @@
 package It.fallmerayer.codingGmbH.projektFlughafen.Utility;
 
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.FluegeSpeicher;
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.Flug;
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.WunschlistenEintrag;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.FluegeSpeicher;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.Flug;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.WunschlistenEintrag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

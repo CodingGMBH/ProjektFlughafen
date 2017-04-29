@@ -1,6 +1,6 @@
 //package It.Fallmerayer.codingGmbH.projektFlughafen.Testdateien;
 //
-//import It.fallmerayer.codingGmbH.projektFlughafen.Modell.*;
+//import It.fallmerayer.codingGmbH.projektFlughafen.Model.*;
 //import org.junit.*;
 //
 //

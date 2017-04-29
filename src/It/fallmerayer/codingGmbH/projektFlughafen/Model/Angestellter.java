@@ -1,4 +1,4 @@
-package It.fallmerayer.codingGmbH.projektFlughafen.Modell;
+package It.fallmerayer.codingGmbH.projektFlughafen.Model;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,13 +41,11 @@ public class Angestellter extends Benutzerprofil {
     }
 
     //Es wird ein "BuchungsprofilAngestellter" erstellt und in die Liste des "BuchungsprofilSpeichers" eingefügt. Dabei muss der "Flug" "buchbar" sein und mit den gewählten Konfiguationen übereinstimmen. Andernfalls wird im "Buchungsprofil" eine "FlugNichtBuchbarException" geworfen.
-    public BuchungsprofilAngestellter bucheFlugFuerKunde(String flugNummer, double gepaeckGewicht, List<Mitflieger> passagierListe) throws FlugNichtBuchbarException{
+    public BuchungsprofilAngestellter bucheFlugFuerKunde(String flugNummer, double gepaeckGewicht, List<Mitflieger> passagierListe) throws FlugNichtBuchbarException, IOException{
         BuchungsprofilAngestellter aktuellesBuchungsprofil = new BuchungsprofilAngestellter(flugNummer, gepaeckGewicht, this.getPID(), passagierListe);
-        try {
-            BuchungsprofileSpeicher.getInstance().addBuchungsprofil(aktuellesBuchungsprofil);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        BuchungsprofileSpeicher.getInstance().addBuchungsprofil(aktuellesBuchungsprofil);
+
         return aktuellesBuchungsprofil;
     }
 }

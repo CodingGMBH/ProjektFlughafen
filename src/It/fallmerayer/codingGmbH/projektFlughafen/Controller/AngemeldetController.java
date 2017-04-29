@@ -1,6 +1,6 @@
 package It.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.*;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.*;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.CheckValidations;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.Exceptions.KeinDatumException;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.Exceptions.KeineNummerException;
@@ -43,21 +43,16 @@ public class AngemeldetController extends AbstractController {
     @FXML Button suchenButt;
     @FXML Button buchungshistorieButt;
 
-    @FXML
-    private void initialize() {
-//        imageView.setImage(new Image(""));
-
-    }
 
     @Override
     public void startController() {
         if (main.benutzerprofil instanceof Administrator){
-            Image image = new Image(".." + File.separator + "files" + File.separator + "Mitarbeiterhinzufugen.png");
+            Image image = new Image("It" + File.separator + "fallmerayer" + File.separator + "codingGmbH" + File.separator + "projektFlughafen" + File.separator + "Utility" + File.separator + "Images" + File.separator + "Mitarbeiterhinzufugen.png");
             imageView.setImage(image);
         }else if (main.benutzerprofil instanceof Angestellter){
 
         }else if (main.benutzerprofil instanceof Anwender){
-            Image image = new Image(".." + File.separator + "files" + File.separator + "Warenkorb.png");
+            Image image = new Image("It" + File.separator + "fallmerayer" + File.separator + "codingGmbH" + File.separator + "projektFlughafen" + File.separator + "Utility" + File.separator + "Images" + File.separator +  "Warenkorb.png");
             imageView.setImage(image);
         }
         angemeldetAlsLabel.setText(HelpfullStrings.ANGEMELDETALSSTRING + main.benutzerprofil.getBenutzerName());

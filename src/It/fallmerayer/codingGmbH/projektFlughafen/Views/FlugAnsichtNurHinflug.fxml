@@ -28,7 +28,7 @@
             </TableView>
             <Label fx:id="flugLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="70.0" layoutY="42.0" prefHeight="37.0" prefWidth="414.0" text="Flug von ... nach ..." AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="45.0">
                <font>
-                  <Font size="45.0" />
+                  <Font size="30.0" />
                </font>
             </Label>
             <Label layoutX="17.0" layoutY="159.0" text="Hinflug" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="100.0" />

@@ -1,8 +1,6 @@
 package It.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.BuchungsprofileSpeicher;
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.FluegeSpeicher;
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.FlugNichtBuchbarException;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.*;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.BuchungInformationClass;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.HelpfullStrings;
 import javafx.fxml.FXML;
@@ -37,6 +35,7 @@ public class FlugEinsehenController extends AbstractController {
 
     @Override
     public void startController() {
+        FluegeSpeicher.getInstance().aktualiesereBuchbar();
         flugVonNachLabel.setText(HelpfullStrings.FLUGVONSTRING + buchungshistorie.getStartOrt() + HelpfullStrings.FLUGNACHSTRING + buchungshistorie.getZielOrt() + HelpfullStrings.UMSTRING + buchungshistorie.getStartZeit() + " - " + buchungshistorie.getAnkunftsZeit() + HelpfullStrings.UHRSTRING);
         preisFureHinflugLabel.setText(HelpfullStrings.PREISFUERFLUGSTRING + BuchungsprofileSpeicher.getInstance().getBuchungsprofil(buchungshistorie.getBuchungsID()).calculatePreis());
         anzahlDerPersonHinflugLabel.setText(HelpfullStrings.ANZAHLDERPERSONENSTRING + buchungshistorie.getPersonenAnzahl());
@@ -53,12 +52,19 @@ public class FlugEinsehenController extends AbstractController {
 
     @FXML
     private void handelGepackBearbeiten(){
-        main.openGepaeckDialog("Flug");
-        try {
-            BuchungsprofileSpeicher.getInstance().getBuchungsprofil(buchungshistorie.getBuchungsID()).setGepaeckGewicht(gepaeckGewicht);
-            gepaeckstueckeHinflugLabel.setText(HelpfullStrings.GEPAECKSTUECKSTRING + gepaeckGewicht);
-        } catch (FlugNichtBuchbarException e) {
-            main.openMessageDialog(e.getMessage());
+        if (FluegeSpeicher.getInstance().getFlug(BuchungsprofileSpeicher.getInstance().getBuchungsprofil(buchungshistorie.getBuchungsID()).getFlugNummer()).isBuchbar()) {
+            main.openGepaeckDialog("Flug");
+            try {
+                if (gepaeckGewicht != null) {
+                    BuchungsprofileSpeicher.getInstance().getBuchungsprofil(buchungshistorie.getBuchungsID()).setGepaeckGewicht(gepaeckGewicht);
+                    gepaeckstueckeHinflugLabel.setText(HelpfullStrings.GEPAECKSTUECKSTRING + gepaeckGewicht);
+                    preisFureHinflugLabel.setText(HelpfullStrings.PREISFUERFLUGSTRING + BuchungsprofileSpeicher.getInstance().getBuchungsprofil(buchungshistorie.getBuchungsID()).calculatePreis());
+                }
+            } catch (FlugNichtBuchbarException e) {
+                main.openMessageDialog(e.getMessage());
+            }
+        }else{
+            main.openMessageDialog("Flug ist bereits abgeflogen");
         }
     }
 }

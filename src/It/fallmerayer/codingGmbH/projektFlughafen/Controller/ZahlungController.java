@@ -1,9 +1,9 @@
 package It.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.Angestellter;
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.Anwender;
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.FlugNichtBuchbarException;
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.Mitflieger;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.Angestellter;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.Anwender;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.FlugNichtBuchbarException;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.Mitflieger;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.CheckValidations;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.Exceptions.NichtsEingegebenException;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.FlugInformationClass;
@@ -51,7 +51,7 @@ public class ZahlungController extends AbstractController {
                     if (rueckflugInformationClass != null){
                         ((Anwender) main.benutzerprofil).bucheFlug(rueckflugInformationClass.getFlugId(), rueckflugInformationClass.getGepaeck(), mitfliegerList);
                     }
-                } catch (FlugNichtBuchbarException e) {
+                } catch (FlugNichtBuchbarException | IOException e) {
                     main.openMessageDialog(e.getMessage());
                 }
                 main.selectView(ViewNavigation.ZWISCHENSCENE);
@@ -61,9 +61,10 @@ public class ZahlungController extends AbstractController {
                     if (rueckflugInformationClass != null){
                         ((Angestellter) main.benutzerprofil).bucheFlugFuerKunde(rueckflugInformationClass.getFlugId(), rueckflugInformationClass.getGepaeck(), mitfliegerList);
                     }
-                } catch (FlugNichtBuchbarException e) {
+                } catch (FlugNichtBuchbarException | IOException e) {
                     main.openMessageDialog(e.getMessage());
                 }
+                main.selectView(ViewNavigation.ZWISCHENSCENE);
             }
         }
     }

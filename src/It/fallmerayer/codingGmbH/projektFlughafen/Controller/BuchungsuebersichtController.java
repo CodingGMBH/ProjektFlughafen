@@ -1,6 +1,6 @@
 package It.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.*;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.*;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.FlugInformationClass;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.HelpfullStrings;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
@@ -34,7 +34,7 @@ public class BuchungsuebersichtController extends AbstractController {
 
     private static FlugInformationClass hinflug;
     private static FlugInformationClass rueckflug;
-    private static double gepaeckGewicht;
+    private static Double gepaeckGewicht;
 
     public static void setHinflug(FlugInformationClass hinflug) {
         BuchungsuebersichtController.hinflug = hinflug;
@@ -73,7 +73,7 @@ public class BuchungsuebersichtController extends AbstractController {
             flugzeugtypRueckflugLabel.setVisible(false);
         }
 
-        if (main.benutzerprofil instanceof Administrator || main.benutzerprofil instanceof Angestellter || main.benutzerprofil == null){
+        if (main.benutzerprofil instanceof Administrator || main.benutzerprofil instanceof Angestellter || main.benutzerprofil == null || main.lastController.equals(ViewNavigation.WUNSCHLISTESCENE)){
             inWunschButt.setVisible(false);
             inWunschButt.setDisable(true);
         }
@@ -81,6 +81,9 @@ public class BuchungsuebersichtController extends AbstractController {
 
     @FXML
     private void handelBack(){
+        if (main.lastController.equals(ViewNavigation.WUNSCHLISTESCENE)){
+            ((Anwender) main.benutzerprofil).legeFlugInWunschliste(hinflug.getFlugId(), hinflug.getPersonenAnzahl(), hinflug.getGepaeck());
+        }
         main.selectView(main.lastController);
     }
     @FXML
@@ -94,18 +97,23 @@ public class BuchungsuebersichtController extends AbstractController {
     @FXML
     private void handelGepackBearbeiten(){
         main.openGepaeckDialog("Flug");
-        if (rueckflug != null ){
-            if (FluegeSpeicher.getInstance().getFlug(hinflug.getFlugId()).getFreiesGepaeckGewicht() + hinflug.getGepaeck() > gepaeckGewicht && FluegeSpeicher.getInstance().getFlug(rueckflug.getFlugId()).getFreiesGepaeckGewicht() + rueckflug.getGepaeck() > gepaeckGewicht){
-                hinflug.setGepaeck(gepaeckGewicht);
-                gepaeckstueckeHinflugLabel.setText(HelpfullStrings.GEPAECKSTUECKSTRING + gepaeckGewicht);
+        if (gepaeckGewicht != null) {
+            if (rueckflug != null) {
+                if (FluegeSpeicher.getInstance().getFlug(hinflug.getFlugId()).getFreiesGepaeckGewicht() + hinflug.getGepaeck() > gepaeckGewicht && FluegeSpeicher.getInstance().getFlug(rueckflug.getFlugId()).getFreiesGepaeckGewicht() + rueckflug.getGepaeck() > gepaeckGewicht) {
+                    hinflug.setGepaeck(gepaeckGewicht);
+                    gepaeckstueckeHinflugLabel.setText(HelpfullStrings.GEPAECKSTUECKSTRING + gepaeckGewicht);
+                    preisFureHinflugLabel.setText(HelpfullStrings.PREISFUERFLUGSTRING + hinflug.calulatePreis());
 
-                rueckflug.setGepaeck(gepaeckGewicht);
-                gepackstuckRueckflugLabel.setText(HelpfullStrings.GEPAECKSTUECKSTRING + gepaeckGewicht);
-            }
-        }else{
-            if (FluegeSpeicher.getInstance().getFlug(hinflug.getFlugId()).getFreiesGepaeckGewicht() + hinflug.getGepaeck() > gepaeckGewicht){
-                hinflug.setGepaeck(gepaeckGewicht);
-                gepaeckstueckeHinflugLabel.setText(HelpfullStrings.GEPAECKSTUECKSTRING + gepaeckGewicht);
+                    rueckflug.setGepaeck(gepaeckGewicht);
+                    gepackstuckRueckflugLabel.setText(HelpfullStrings.GEPAECKSTUECKSTRING + gepaeckGewicht);
+                    preisFuerRueckflugLabel.setText(HelpfullStrings.PREISFUERFLUGSTRING + rueckflug.calulatePreis());
+                }
+            } else {
+                if (FluegeSpeicher.getInstance().getFlug(hinflug.getFlugId()).getFreiesGepaeckGewicht() + hinflug.getGepaeck() > gepaeckGewicht) {
+                    hinflug.setGepaeck(gepaeckGewicht);
+                    gepaeckstueckeHinflugLabel.setText(HelpfullStrings.GEPAECKSTUECKSTRING + gepaeckGewicht);
+                    preisFureHinflugLabel.setText(HelpfullStrings.PREISFUERFLUGSTRING + hinflug.calulatePreis());
+                }
             }
         }
     }

@@ -1,4 +1,4 @@
-package It.fallmerayer.codingGmbH.projektFlughafen.Modell;
+package It.fallmerayer.codingGmbH.projektFlughafen.Model;
 
 
 
@@ -65,7 +65,7 @@ public class BuchungsprofileSpeicher {
         buchungsprofilListe.add(buchungsprofil);
         BenutzerprofilSpeicher bps = BenutzerprofilSpeicher.getInstance();
         FluegeSpeicher fs = FluegeSpeicher.getInstance();
-        Benutzerprofil benutzerprofil=null;
+        Benutzerprofil benutzerprofil = null;
         StringBuilder command = new StringBuilder();
         command.append("cmd /c start PowerShell.exe -ExecutionPolicy Unrestricted -File .\\files\\email_versenden_buchung.ps1");
 
@@ -104,9 +104,17 @@ public class BuchungsprofileSpeicher {
         }
 
         if (buchungsprofil instanceof BuchungsprofilAngestellter){
-            for (Benutzerprofil i : bps.getAngestelltenListe()){
-                if (i.getPID() == ((BuchungsprofilAngestellter) buchungsprofil).getAngestellterPID()){
-                    benutzerprofil = i;
+            if (((BuchungsprofilAngestellter) buchungsprofil).getAngestellterPID() < 101){
+                for (Benutzerprofil i : bps.getAdministratorenListe()){
+                    if (i.getPID() == ((BuchungsprofilAngestellter) buchungsprofil).getAngestellterPID()){
+                        benutzerprofil = i;
+                    }
+                }
+            } else {
+                for (Benutzerprofil i : bps.getAngestelltenListe()){
+                    if (i.getPID() == ((BuchungsprofilAngestellter) buchungsprofil).getAngestellterPID()){
+                        benutzerprofil = i;
+                    }
                 }
             }
             if (benutzerprofil == null){

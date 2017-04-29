@@ -1,11 +1,10 @@
 package It.fallmerayer.codingGmbH.projektFlughafen.Controller;
 
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.Anwender;
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.WunschlistenEintrag;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.Angestellter;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.Anwender;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.FlugInformationClass;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.HelpfullStrings;
 import It.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -70,6 +69,7 @@ public class WunschlisteController extends AbstractController {
             main.openMessageDialog("Flug ist nicht mehr buchbar");
         }else {
             BuchungsuebersichtController.setHinflug(buchungTabelView.getSelectionModel().getSelectedItem());
+            ((Anwender) main.benutzerprofil).entferneFlugVonWunschliste(buchungTabelView.getSelectionModel().getSelectedItem().getFlugId());
             main.selectView(ViewNavigation.BUCHUNGSUEBERSICHTSCENE);
         }
     }

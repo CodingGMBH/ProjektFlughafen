@@ -1,4 +1,4 @@
-package It.fallmerayer.codingGmbH.projektFlughafen.Modell;
+package It.fallmerayer.codingGmbH.projektFlughafen.Model;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -53,13 +53,12 @@ public class Anwender extends Benutzerprofil {
     }
 
     //Ein "BuchungsprofilAnwender" wird erstellt. "PID" wird übergeben und die Buchung erhält automatisch eine "buchungsID". Dann wird die Buchung dem BuchungsprofilSpeicher übergeben. Es wird eine Exception geworfen, falls der Flug nicht buchbar ist.
-    public BuchungsprofilAnwender bucheFlug(String flugNummer, double gepaeckGewicht, List<Mitflieger> mitfliegerListe) throws FlugNichtBuchbarException{
+    public BuchungsprofilAnwender bucheFlug(String flugNummer, double gepaeckGewicht, List<Mitflieger> mitfliegerListe) throws FlugNichtBuchbarException, IOException {
         BuchungsprofilAnwender aktuellesBuchungsprofil = new BuchungsprofilAnwender(flugNummer, gepaeckGewicht, this.getPID(), mitfliegerListe);
-        try {
-            BuchungsprofileSpeicher.getInstance().addBuchungsprofil(aktuellesBuchungsprofil);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        BuchungsprofileSpeicher.getInstance().addBuchungsprofil(aktuellesBuchungsprofil);
+
+
         return aktuellesBuchungsprofil;
     }
 

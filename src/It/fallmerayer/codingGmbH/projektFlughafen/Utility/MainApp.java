@@ -1,9 +1,9 @@
 package It.fallmerayer.codingGmbH.projektFlughafen.Utility;
 
 import It.fallmerayer.codingGmbH.projektFlughafen.AppController;
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.BenutzerprofilSpeicher;
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.BuchungsprofileSpeicher;
-import It.fallmerayer.codingGmbH.projektFlughafen.Modell.FluegeSpeicher;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.BenutzerprofilSpeicher;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.BuchungsprofileSpeicher;
+import It.fallmerayer.codingGmbH.projektFlughafen.Model.FluegeSpeicher;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
