@@ -15,7 +15,7 @@ Param(
     [string] $buchungsID             # Hier wird die Buchungs-ID uebergeben.
 )
 
-$kennwort = ConvertTo-SecureString "Larcherairline2017" -AsPlainText -Force     # -AsPlainText: Specifies a plain text string to convert to a secure string. The secure string cmdlets help protect confidential text. The text is encrypted for privacy and is deleted from computer memory after it is used. If you use this parameter to provide plain text as input, the system cannot protect that input in this manner. To use this parameter, you must also specify the Force parameter; -Force: Confirms that you understand the implications of using the AsPlainText parameter and still want to use it.
+$kennwort = ConvertTo-SecureString "Larcherairline2017" -AsPlainText -Force     # -AsPlainText: Specifies a plain text string to convert to a secure string. The secure string cmdlets help protect confidential text. The text is encrypted for privacy and is deleted from computer memory after It is used. If you use this parameter to provide plain text as input, the system cannot protect that input in this manner. To use this parameter, you must also specify the Force parameter; -Force: Confirms that you understand the implications of using the AsPlainText parameter and still want to use It.
 
 $credential = New-Object System.Management.Automation.PSCredential ("larcher.airline@gmail.com", $kennwort)
 
