@@ -10,6 +10,7 @@ import It.fallmerayer.codingGmbH.projektFlughafen.Utility.ViewNavigation;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 /**
@@ -19,13 +20,14 @@ import javafx.scene.control.TextField;
 //Finished
 public class AnmeldenRegistrierenController extends AbstractController {
     @FXML TextField vornameTxtField;
-    @FXML TextField passwordTxtField;
-    @FXML TextField passwordRegTxtField;
     @FXML TextField nummerDerIdentitaetskarteTxtField;
     @FXML TextField nachnameTxtField;
     @FXML TextField emailTxtField;
     @FXML TextField benutzernameTxtField;
     @FXML TextField benutzernameRegTxtField;
+
+    @FXML PasswordField passwordPswField;
+    @FXML PasswordField passwordRegPswField;
 
     @FXML DatePicker geburtsdatumDatePicker;
 
@@ -36,12 +38,13 @@ public class AnmeldenRegistrierenController extends AbstractController {
     private void handleAnmelden(){
         if (everythingCorrectInputAnm()){
             try {
-                main.benutzerprofil = BenutzerprofilSpeicher.getInstance().anmelden(benutzernameTxtField.getText(), passwordTxtField.getText());
+                main.benutzerprofil = BenutzerprofilSpeicher.getInstance().anmelden(benutzernameTxtField.getText(), passwordPswField.getText());
                 if (main.lastController == ViewNavigation.STARTSCENE) {
                     main.selectView(ViewNavigation.ZWISCHENSCENE);
                 } else {
                     main.selectView(ViewNavigation.ZAHLUNGSCENE);
                 }
+
             } catch (NichtImSystemRegistriertException e) {
                 main.openMessageDialog("Der Benutzer ist nicht im System");
             }
@@ -55,8 +58,8 @@ public class AnmeldenRegistrierenController extends AbstractController {
                 if (BenutzerprofilSpeicher.getInstance().containsBenutzername(benutzernameRegTxtField.getText())){
                     main.openMessageDialog("Der Benutzer ist schon vorhanden");
                 } else {
-                    BenutzerprofilSpeicher.getInstance().addBenutzerprofil(new Anwender(vornameTxtField.getText(), nachnameTxtField.getText(), emailTxtField.getText(), geburtsdatumDatePicker.getValue().atStartOfDay(), benutzernameRegTxtField.getText(), passwordRegTxtField.getText(), Integer.parseInt(nummerDerIdentitaetskarteTxtField.getText())));
-                    main.benutzerprofil = BenutzerprofilSpeicher.getInstance().anmelden(benutzernameRegTxtField.getText(), passwordRegTxtField.getText());
+                    BenutzerprofilSpeicher.getInstance().addBenutzerprofil(new Anwender(vornameTxtField.getText(), nachnameTxtField.getText(), emailTxtField.getText(), geburtsdatumDatePicker.getValue().atStartOfDay(), benutzernameRegTxtField.getText(), passwordRegPswField.getText(), Integer.parseInt(nummerDerIdentitaetskarteTxtField.getText())));
+                    main.benutzerprofil = BenutzerprofilSpeicher.getInstance().anmelden(benutzernameRegTxtField.getText(), passwordRegPswField.getText());
                     if (main.lastController == ViewNavigation.STARTSCENE) {
                         main.selectView(ViewNavigation.ZWISCHENSCENE);
                     } else {
@@ -74,14 +77,14 @@ public class AnmeldenRegistrierenController extends AbstractController {
             CheckValidations.isValidString(vornameTxtField.getText());
             CheckValidations.isValidString(nachnameTxtField.getText());
             CheckValidations.isValidString(benutzernameRegTxtField.getText());
-            CheckValidations.isValidString(passwordRegTxtField.getText());
+            CheckValidations.isValidString(passwordRegPswField.getText());
             CheckValidations.isValidString(nummerDerIdentitaetskarteTxtField.getText());
             CheckValidations.isValidString(emailTxtField.getText());
 
             CheckValidations.isNameString(vornameTxtField.getText());
             CheckValidations.isNameString(nachnameTxtField.getText());
             CheckValidations.isEmail(emailTxtField.getText());
-            CheckValidations.isValidPassword(passwordRegTxtField.getText());
+            CheckValidations.isValidPassword(passwordRegPswField.getText());
 
             CheckValidations.isDate(geburtsdatumDatePicker.getValue());
             CheckValidations.isNumber(nummerDerIdentitaetskarteTxtField.getText());
@@ -96,7 +99,7 @@ public class AnmeldenRegistrierenController extends AbstractController {
     private boolean everythingCorrectInputAnm(){
         try {
             CheckValidations.isValidString(benutzernameTxtField.getText());
-            CheckValidations.isValidString(passwordTxtField.getText());
+            CheckValidations.isValidString(passwordPswField.getText());
 
         }catch (NichtsEingegebenException e){
             main.openMessageDialog(e.getMessage());

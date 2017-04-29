@@ -257,7 +257,7 @@ public class BuchungsprofileSpeicher {
     //Aus Datei lesen
     //Exceptions werden weitergebenen, da die Behandlung hier nicht sinnvoll ist
     public void ausDateiLesen() throws IOException, NumberFormatException{
-        File input = new File(System.getenv("PWD") + "/src/files/Buchungsprofile.csv");
+        File input = new File(System.getenv("PWD")  + File.separator + "src" + File.separator + "files" + File.separator + "Buchungsprofile.csv");
         //File input = new File(".\\files\\Buchungsprofile.csv");
         //Zaehler der die groesste BuchungsID zaehlt
         int maxBP = 0;
@@ -325,7 +325,7 @@ public class BuchungsprofileSpeicher {
     //In Datei schreiben
     public void inDateiSchreiebn()throws IOException{
         //File output = new File(".\\files\\Buchungsprofile.csv");
-        File output = new File(System.getenv("PWD") + "/src/files/Buchungsprofile.csv");
+        File output = new File(System.getenv("PWD")  + File.separator + "src" + File.separator + "files" + File.separator + "Buchungsprofile.csv");
 
         try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(output),"UTF-8"))){
             //mit Stringbuilder wird eine Zeile der *.csv-Datei Schritt fuer Schritt aufgebaut und hinausgeschrieben

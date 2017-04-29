@@ -11,13 +11,15 @@ import javafx.scene.control.*;
 
 /**
  * Created by gabriel on 17.04.17.
+ * Copyright © 2017 gabriel. All rights reserved.
  */
+
 //Finished
 public class NeuerMittarbeiterController extends AbstractController {
     @FXML TextField vornameTxtField;
     @FXML TextField nachnameTxtField;
     @FXML TextField benutzernameTxtField;
-    @FXML TextField passwordTxtField;
+    @FXML PasswordField passwordPswField;
     @FXML TextField emailTxtField;
 
     @FXML Label angemeldetAlsLabel;
@@ -45,13 +47,13 @@ public class NeuerMittarbeiterController extends AbstractController {
         if (everythingCorrectInput()){
             if (adminRadioButton.isSelected()){
                 try {
-                    ((Administrator)main.benutzerprofil).erstelleAdministratorKonto(vornameTxtField.getText(), nachnameTxtField.getText(), emailTxtField.getText(), geburtsdatumDatePicker.getValue().atStartOfDay(), benutzernameTxtField.getText(), passwordTxtField.getText());
+                    ((Administrator)main.benutzerprofil).erstelleAdministratorKonto(vornameTxtField.getText(), nachnameTxtField.getText(), emailTxtField.getText(), geburtsdatumDatePicker.getValue().atStartOfDay(), benutzernameTxtField.getText(), passwordPswField.getText());
                 } catch (TooMuchAngestellteException e) {
                     main.openMessageDialog(e.getMessage());
                 }
             }else{
                 try {
-                    ((Administrator)main.benutzerprofil).erstelleAngestelltenKonto(vornameTxtField.getText(), nachnameTxtField.getText(), emailTxtField.getText(), geburtsdatumDatePicker.getValue().atStartOfDay(), benutzernameTxtField.getText(), passwordTxtField.getText());
+                    ((Administrator)main.benutzerprofil).erstelleAngestelltenKonto(vornameTxtField.getText(), nachnameTxtField.getText(), emailTxtField.getText(), geburtsdatumDatePicker.getValue().atStartOfDay(), benutzernameTxtField.getText(), passwordPswField.getText());
                 } catch (TooMuchAngestellteException e) {
                     main.openMessageDialog(e.getMessage());
                 }
@@ -67,13 +69,13 @@ public class NeuerMittarbeiterController extends AbstractController {
             CheckValidations.isValidString(vornameTxtField.getText());
             CheckValidations.isValidString(nachnameTxtField.getText());
             CheckValidations.isValidString(benutzernameTxtField.getText());
-            CheckValidations.isValidString(passwordTxtField.getText());
+            CheckValidations.isValidString(passwordPswField.getText());
             CheckValidations.isValidString(emailTxtField.getText());
 
             CheckValidations.isNameString(vornameTxtField.getText());
             CheckValidations.isNameString(nachnameTxtField.getText());
             CheckValidations.isEmail(emailTxtField.getText());
-            CheckValidations.isValidPassword(passwordTxtField.getText());
+            CheckValidations.isValidPassword(passwordPswField.getText());
             CheckValidations.isDate(geburtsdatumDatePicker.getValue());
 
         }catch (NichtsEingegebenException | KeinPasswordException | KeinNameException | KeineEmailException | KeinDatumException e){

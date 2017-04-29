@@ -99,7 +99,7 @@ public class FluegeSpeicher {
 
     //Methode um aus Datei zu lesen
     public void ausDateiLesen() throws IOException, NumberFormatException{
-        File input = new File(System.getenv("PWD") + "/src/files/Fluege.csv");
+        File input = new File(System.getenv("PWD") + File.separator + "src" + File.separator + "files" + File.separator + "Fluege.csv");
 
 
         try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(input), "UTF-8"))){
@@ -188,7 +188,7 @@ public class FluegeSpeicher {
 
     //In Datei schreiben
     public void inDateiSchreiben()throws IOException{
-        File output = new File(System.getenv("PWD") + "/src/files/Fluege.csv");
+        File output = new File(System.getenv("PWD") + File.separator + "src" + File.separator + "files" + File.separator + "Fluege.csv");
 
         try ( FileOutputStream fw = new FileOutputStream(output,false)){
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fw,"UTF-8"));
@@ -243,7 +243,7 @@ public class FluegeSpeicher {
         boolean containsID = false;
         List<Flug> eingliedern = new LinkedList<>();
 
-        File newFluege = new File(System.getenv("PWD") + "/../Flugliste/Update_Flugliste.csv");
+        File newFluege = new File(System.getenv("PWD")  + File.separator + ".." + File.separator + "Flugliste" + File.separator + "Update_Flugliste.csv");
         //File newFluege = new File(".\\..\\Flugliste\\Update_Flugliste.csv");
 
         InputStreamReader input = new InputStreamReader(new FileInputStream(newFluege), "UTF-8");

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -97,7 +98,7 @@
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <children>
-                        <DatePicker fx:id="geburtsdatumDatePicker" layoutX="1.0" layoutY="5.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="9.0" />
+                        <DatePicker fx:id="geburtsdatumDatePicker" layoutX="1.0" layoutY="5.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="12.0" />
                      </children>
                      <padding>
                         <Insets bottom="3.0" top="3.0" />
@@ -131,12 +132,12 @@
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                     <children>
-                        <TextField fx:id="passwordTxtField" layoutX="-18.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="12.0" />
-                     </children>
                      <padding>
                         <Insets bottom="3.0" top="3.0" />
                      </padding>
+                     <children>
+                        <PasswordField fx:id="passwordPswField" layoutX="57.0" layoutY="10.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="12.0" />
+                     </children>
                   </AnchorPane>
                </children>
             </GridPane>

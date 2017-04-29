@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.File;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -51,12 +52,12 @@ public class AngemeldetController extends AbstractController {
     @Override
     public void startController() {
         if (main.benutzerprofil instanceof Administrator){
-            Image image = new Image("files/Mitarbeiterhinzufugen.png");
+            Image image = new Image("files" + File.separator + "Mitarbeiterhinzufugen.png");
             imageView.setImage(image);
         }else if (main.benutzerprofil instanceof Angestellter){
 
         }else if (main.benutzerprofil instanceof Anwender){
-            Image image = new Image("files/Warenkorb.png");
+            Image image = new Image("files" + File.separator + "Warenkorb.png");
             imageView.setImage(image);
         }
         angemeldetAlsLabel.setText(HelpfullStrings.ANGEMELDETALSSTRING + main.benutzerprofil.getBenutzerName());

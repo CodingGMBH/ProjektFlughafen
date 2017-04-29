@@ -1,10 +1,12 @@
 package It.fallmerayer.codingGmbH.projektFlughafen.Utility;
 
+import java.io.File;
+
 /**
  * Created by gabriel on 17.04.17.
  */
 public class ViewNavigation {
-    public static final String VIEWSPATH = "../Views/";
+    public static final String VIEWSPATH = ".." + File.separator + "Views" + File.separator;
     public static final String ANGEMELDETSCENE = VIEWSPATH + "Angemeldet.fxml";
     public static final String ANMELDENREGISTRIRENSCENE = VIEWSPATH + "AnmeldenRegistrieren.fxml";
     public static final String BUCHUNGSHISTORIEADMINSCENE = VIEWSPATH + "BuchungshistorieAdmin.fxml";
