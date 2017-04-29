@@ -170,7 +170,7 @@ public class BenutzerprofilSpeicher {
     * */
     public void ausDateiLesen() throws IOException, NumberFormatException {
         //File input = new File(".\\files\\Benutzerprofile.csv");
-        File input = new File(System.getenv("PWD") + "/src/files/Benutzerprofile.csv");
+        File input = new File(System.getProperty("user.dir") + File.separator + "files" + File.separator + "Benutzerprofile.csv");
         int maxAnwender = 1000;
         int maxAngestellter = 100;
         int maxAdmin = 0;
@@ -243,7 +243,7 @@ public class BenutzerprofilSpeicher {
     * */
     public void inDateiSchreiben() throws IOException{
         //File output = new File(".\\files\\Benutzerprofile.csv");
-        File output = new File(System.getenv("PWD")  + File.separator + "src" + File.separator + "files" + File.separator + "Benutzerprofile.csv");
+        File output = new File(System.getProperty("user.dir") + File.separator + "files" + File.separator + "Benutzerprofile.csv");
 
         int maxBP = 0;
 

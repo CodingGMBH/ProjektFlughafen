@@ -19,7 +19,7 @@
             </Label>
             <ImageView fitHeight="151.0" fitWidth="702.0" layoutX="42.0" layoutY="370.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="29.0">
                <image>
-                  <Image url="@../../../../../files/FlugAbgeflogenImg.png" />
+                  <Image url="@../../../../../../files/FlugAbgeflogenImg.png" />
                </image>
             </ImageView>
             <TextField fx:id="zahlungsadetenTxtField" layoutX="288.0" layoutY="254.0" AnchorPane.bottomAnchor="267.0" AnchorPane.leftAnchor="296.0" AnchorPane.rightAnchor="296.0" AnchorPane.topAnchor="266.0" />

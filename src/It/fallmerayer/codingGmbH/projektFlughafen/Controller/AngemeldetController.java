@@ -52,12 +52,12 @@ public class AngemeldetController extends AbstractController {
     @Override
     public void startController() {
         if (main.benutzerprofil instanceof Administrator){
-            Image image = new Image("files" + File.separator + "Mitarbeiterhinzufugen.png");
+            Image image = new Image(".." + File.separator + "files" + File.separator + "Mitarbeiterhinzufugen.png");
             imageView.setImage(image);
         }else if (main.benutzerprofil instanceof Angestellter){
 
         }else if (main.benutzerprofil instanceof Anwender){
-            Image image = new Image("files" + File.separator + "Warenkorb.png");
+            Image image = new Image(".." + File.separator + "files" + File.separator + "Warenkorb.png");
             imageView.setImage(image);
         }
         angemeldetAlsLabel.setText(HelpfullStrings.ANGEMELDETALSSTRING + main.benutzerprofil.getBenutzerName());
